@@ -78,7 +78,7 @@ header .login button {
 
 }
 
-.banner1,.banner2,.banner3 {
+.banner1,.banner2,.banner3,.banner4 {
     height: 85vh;
     width: 100%;
     position: absolute;
@@ -87,7 +87,7 @@ header .login button {
 
 }
 .img {
-    width: 100%;
+    width: 90%;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -113,7 +113,7 @@ header .login button {
 }
 .text-box {
     width: 600px;
-    height: 365px;
+    height: 422px;
     position: absolute;
     top: 83px;
     left: 100px;
@@ -149,60 +149,82 @@ header .login button {
 .banner3 {
     animation: slide3 12s linear infinite;
 }
+.banner4 {
+    animation: slide4 12s linear infinite;
+}
+
 @keyframes slide1 {
-    0%{
+    0% {
         visibility: visible;
     }
-    25%{
-        visibility: hidden;
-    }
-    50%{
-        visibility: hidden;
-    }
-    75%{
-        visibility: hidden;
-    }
-    100%{
+    25% {
         visibility: visible;
     }
-
+    26% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: hidden;
+    }
 }
+
 @keyframes slide2 {
-    0%{
+    0% {
         visibility: hidden;
     }
-    25%{
+    25% {
         visibility: hidden;
     }
-    50%{
+    26% {
         visibility: visible;
     }
-    75%{
+    50% {
+        visibility: visible;
+    }
+    51% {
         visibility: hidden;
     }
-    100%{
+    100% {
         visibility: hidden;
     }
-
 }
+
 @keyframes slide3 {
-    0%{
+    0% {
         visibility: hidden;
     }
-    25%{
+    50% {
         visibility: hidden;
     }
-    50%{
-        visibility: hidden;
-    }
-    75%{
+    51% {
         visibility: visible;
     }
-    100%{
+    75% {
+        visibility: visible;
+    }
+    76% {
         visibility: hidden;
     }
-
+    100% {
+        visibility: hidden;
+    }
 }
+
+@keyframes slide4 {
+    0% {
+        visibility: hidden;
+    }
+    75% {
+        visibility: hidden;
+    }
+    76% {
+        visibility: visible;
+    }
+    100% {
+        visibility: visible;
+    }
+}
+
 
 /* card start */
 .box {
