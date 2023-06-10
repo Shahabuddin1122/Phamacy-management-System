@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@1,200&family=Fira+Sans:wght@300&family=Merriweather&family=Open+Sans:wght@300&family=Unbounded:wght@300;400;500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+
+
+}
+
+body {
+    font-family: 'Unbounded', cursive;
+    background-image: linear-gradient(rgba(0, 115, 255, 0.379),rgba(166, 34, 196, 0.53));
+    background-attachment: fixed;
+}
+img {
+    width: 100%;
+    height: 100%;
+}
+header {
+    margin: 5px;
+    padding: 5px 10px;
+    width: 100%;
+    height: 100px;
+    border: 2px solid rgb(31, 206, 127);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(31, 206, 127);
+    color: rgb(66, 19, 218);
+ 
+
+}
+
+header .logo {
+    color: white;
+    font-size: 2.1em;
+}
+header .menu ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header .menu ul li a{
+    text-decoration: none;
+    padding: 5px 10px;
+    color: white;
+
+}
+header .menu ul li a:hover, 
+.active,.btn:hover {
+    margin: 0px 5px;
+    background: green;
+    color: aliceblue;
+    border-radius: 20%;
+}
+header .login button {
+    margin: 0px 10px;
+    padding: 5px;
+    width: 75px;
+    height: 30px;
+    color: black;
+    background: none;
+    border: 2px solid black;
+
+}
+
+/* nav end */
+
+
+.slide {
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    position: relative;
+
+}
+
+.banner1,.banner2,.banner3 {
+    height: 85vh;
+    width: 100%;
+    position: absolute;
+    left: 5px;
+    top: 130px;
+
+}
+.img {
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-68%);
+    transition: zoomout 3s linear infinite;
+}
+.slide button {
+    padding: 5px;
+    margin-left: 5px;
+    width: 100px;
+    height: 38px;
+    background-color: aquamarine;
+    color: black;
+}
+.slide button:hover {
+    background-color: greenyellow;
+    color: black;
+}
+@keyframes zoomout {
+    100%{
+        width:100%;
+    }
+}
+.text-box {
+    width: 600px;
+    height: 365px;
+    position: absolute;
+    top: 83px;
+    left: 100px;
+    color: #fff;
+    background: rgb(0, 0, 0,0.4)
+}
+.text-box h1 {
+    margin-bottom: 40px;
+}
+.text-box p {
+    font-size: 1.5em;
+    line-height: 28px;
+    margin-top: 62px;
+}
+.btn {
+    padding: 10px;
+    margin: 10px 110px;
+
+}
+.text-box span {
+    background: red;
+    height: 1px;
+    width: 100px;
+    position: absolute;
+    left: 0;
+}
+.banner1 {
+    animation: slide1 12s linear infinite;
+}
+.banner2 {
+    animation: slide2 12s linear infinite;
+}
+.banner3 {
+    animation: slide3 12s linear infinite;
+}
+@keyframes slide1 {
+    0%{
+        visibility: visible;
+    }
+    25%{
+        visibility: hidden;
+    }
+    50%{
+        visibility: hidden;
+    }
+    75%{
+        visibility: hidden;
+    }
+    100%{
+        visibility: visible;
+    }
+
+}
+@keyframes slide2 {
+    0%{
+        visibility: hidden;
+    }
+    25%{
+        visibility: hidden;
+    }
+    50%{
+        visibility: visible;
+    }
+    75%{
+        visibility: hidden;
+    }
+    100%{
+        visibility: hidden;
+    }
+
+}
+@keyframes slide3 {
+    0%{
+        visibility: hidden;
+    }
+    25%{
+        visibility: hidden;
+    }
+    50%{
+        visibility: hidden;
+    }
+    75%{
+        visibility: visible;
+    }
+    100%{
+        visibility: hidden;
+    }
+
+}
+
+/* card start */
+
+.card {
+    width: 100%;
+    height: 50vh;
+    padding: 10px;
+    border: 2px 5px 10px black;
+}
+.card h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #fff;
+    font-weight: 700;
+
+}
+.card .box {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: space-between;
+
+}
+.card .box .inside-card {
+    width: 20%;
+    height: 40vh;
+    overflow: hidden;
+    
+}
+.card .inside-card:hover {
+    box-shadow: 2px 5px 10px 5px white;
+}
+.card .box .inside-card img {
+    width: 100%;
+    height: 50%;
+}
+.card .box .inside-card .text {
+    width: 100%;
+    height: 50%;
+    text-align: center;
+}
+/* intro */
+.intro {
+    width: 100%;
+    height: 50vh;
+
+    padding: 30px;
+    margin: 20px 0px;
+
+}
+.intro h2 {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: 700;
+    color: rgb(232, 157, 18)
+}
+.intro .intro-text {
+    margin: 10px;
+    width: 45%;
+    height: 40vh;
+    border-radius: 10%;
+    background: rgb(255, 230, 230,0.6);
+    padding: 45px;
+}
+.intro .right {
+    
+    margin: 10px;
+    width: 45%;
+    height: 40vh;
+    background: rgb(255, 230, 230,0.6);
+    border-radius: 10%;
+    padding: 45px;
+
+}
+.box1 {
+    display: flex;
+    justify-content: space-around;
+}
+/* footer */
+footer {
+    margin: 15px 0px;
+    background: black;
+    color: #fff;
+    width: 100%;
+    height: 20vh;
+}
+
+

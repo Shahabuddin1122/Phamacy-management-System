@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@1,200&family=Fira+Sans:wght@300&family=Merriweather&family=Open+Sans:ital,wght@1,500&family=Poppins&family=Unbounded:wght@300;400&display=swap');
+body {
+    width: 100%;
+    height: 500px;
+    background-color: aqua;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    list-style-type: none;
+
+    
+}
+.main {
+    width: 51%;
+    height: 532px;
+    background-color: antiquewhite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-20%);
+    display: flex;
+    text-align: center;
+    text-decoration: none;
+    
+}
+.main .left {
+    background-color: black;
+    width: 50%;
+    height: 100%;
+
+}
+.main .right {
+    background-color: blue;
+    width: 50%;
+    height: 100%;
+}
+.main .right form {
+    align-items: center;
+}
+h3 {
+    color: aliceblue;
+    font-size: 2.5em;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+}
+.main .right form .upper i{
+    size: 50px;
+    margin: 0px 5px;
+    color: white;
+}
+.textbox {
+    width: 60%;
+    height: 6px;
+    padding: 10px 9px;
+    margin: 10px 2px;
+}
+.btn {
+    padding: 5px 14px;
+    margin: 38px 7px 5px;
+    width: 26%;
+    height: 36px;
+    color: brown;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14.5px;
+
+}
+.main .right form .lower a {
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: bisque;
+    text-decoration: none;
+
+}
+.main .right form .lower a:hover {
+
+    color: hotpink;
+}
