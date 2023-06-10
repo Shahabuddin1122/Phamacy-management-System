@@ -19,7 +19,7 @@ img {
     height: 100%;
 }
 header {
-    margin: 5px;
+    margin: 0px 0px 5px 89px;
     padding: 5px 10px;
     width: 100%;
     height: 100px;
@@ -103,11 +103,18 @@ header .login button {
 /* search end */
 /* card start */
 .middle {
-    align-items: center;
-    padding: 10px;
-    margin: 5px;
-    display: flex;
-    justify-content: space-around;
+  width: 100%;
+  height: 60vh;  
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+
+}
+.middle .results {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
 }
 .card {
     width: 287px;
@@ -154,9 +161,42 @@ header .login button {
 /* card end */  
 /* footer */
 footer {
-    margin: 15px 0px;
-    background: black;
-    color: #fff;
-    width: 100%;
-    height: 20vh;
+  background-color: #000000;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  
 }
+
+.feedback form {
+  margin-top: 10px;
+}
+
+.feedback textarea {
+  width: 100%;
+  height: 100px;
+  resize: vertical;
+}
+
+.feedback input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-info {
+  margin-top: 20px;
+}
+
+.admin-info h3 {
+  margin-bottom: 10px;
+}
+
+.admin-info p {
+  margin: 0;
+}
+
+
+
