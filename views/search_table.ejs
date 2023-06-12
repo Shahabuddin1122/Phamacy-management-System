@@ -50,9 +50,10 @@
             <% for (let i = 0; i < data.length; i++) { %>
                 <div class="card">
                 <img src="images/3576424_65886.jpg" alt="ProductImage">
-                <h3><%= data[i].Pro_name %></h3>
-                <p>$<%= data[i].Pro_price %></p>
-                <button class="add-to-cart-btn">Add to Cart</button>
+                <h3>Name:<%= data[i].Pro_name %></h3>
+                <p style="text-align: center;">city: <%= data[i].pro_city %></p>
+                <p style="text-align: center;">Rating: <%= data[i].pro_rating %></p>
+                
                 </div>
             <% } %>
             

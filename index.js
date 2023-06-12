@@ -131,21 +131,41 @@ app.get('/search', async (req, res) => {
                 password: '12345',
                 connectString: 'localhost/xepdb1'
             });
-
             const result = await connection.execute(`SELECT * FROM product WHERE product_name LIKE INITCAP('%${query}%')`);
             console.log(result.rows);
-            
+            const result1 = await connection.execute(`SELECT p.Pharmacy_name,p.Pharmacy_address.city,p.Pharmacy_address.District,p.OVERALL_RATING FROM Pharmacy p WHERE p.Pharmacy_name LIKE INITCAP('%${query}%')`);
+            console.log(result1.rows);
             const jsonData = result.rows.map(row => {
                 return {
-                  Pro_name: row[1],
-                  Pro_price: row[3]
+                    Pro_name: row[1],
+                    Pro_price: row[3]
+
+                };
+            });
+            const jsonData1 = result1.rows.map(row => {
+                //const pharma_add = row[3].split(',');///for pharmacy
+                return {
+                    Pro_name: row[0],
+                    pro_city: row[1],
+                    pro_District: row[2],
+                    pro_rating: row[3]
+
 
                 };
             });
             console.log(jsonData);
+            console.log(jsonData1);
+            if(jsonData.length > 0){
+                res.render('search', { query,data:jsonData }); 
+                return result.rows;
+            }
+            else 
+            {
+                res.render('search_table', { query,data:jsonData1 }); 
+                return result.rows;
+            }
+
             
-            res.render('search', { query,data:jsonData }); 
-            return result.rows;
         } catch (error) {
             res.status(500).json({ error: 'An error occurred' });
             console.log(error);
@@ -163,7 +183,7 @@ app.get('/search', async (req, res) => {
     }
 
     await fetchDataCustomer(query);
-  });
+});
   
 
 
@@ -356,3 +376,7 @@ app.get('/fetch', async (req, res) => {
   });
 
 app.listen(4444);
+
+
+
+

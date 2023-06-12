@@ -30,8 +30,8 @@
             </ul>
         </div>
         <div class="login">
-            <button type="submit">Log in</button>
-            <button type="submit">Sign in</button>
+            <button type="submit">Cart</button>
+            <button type="submit">Log out</button>
         </div>
 
 
@@ -80,9 +80,9 @@
     <div id="box">
         <h2>Our Top salling Product</h2>
         
-        <div class="inside-card" style="display: flex; justify-content: space-around;">
+        <div class="inside-card" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
             <% for (let i = 0; i < data.length; i++) { %>
-                <div class="card" style="width: 17%; height: 50vh; border: 2px solid blue;">
+                <div class="card" style="width: 17%; height: 50vh;">
                 <img src="images/3576424_65886.jpg" alt="Product Image">
                 <h3>Name:    <%= data[i].Pro_name %></h3>
                 <p>Price:    $<%= data[i].Pro_price %></p>
@@ -90,7 +90,8 @@
                 </div>
             <% };
              %>
-            </div>
+            
+        </div>
     </div>
     <div class="intro">
         <h2>Our Moto</h2>

@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@1,200&family=Fira+Sans:wght@300&family=Merriweather&family=Open+Sans:wght@300&family=Unbounded:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@1,200&family=Fira+Sans:wght@300&family=Inter&family=Merriweather&family=Open+Sans:ital,wght@1,500&display=swap');
 *{
-    margin: 0;
+    margin-bottom: 18px;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style-type: none;
-
+    align-items: center;
 
 }
 
 body {
-    font-family: 'Unbounded', cursive;
-    background-image: linear-gradient(rgba(0, 115, 255, 0.379),rgba(166, 34, 196, 0.53));
+    font-family: 'Inter', sans-serif;
+    background-color: #e8effc;
     background-attachment: fixed;
 }
 img {
@@ -21,20 +21,20 @@ img {
 header {
     margin: 0px 0px 5px 89px;
     padding: 5px 10px;
-    width: 100%;
+    width: 90%;
     height: 100px;
     border: 2px solid rgb(31, 206, 127);
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: rgb(31, 206, 127);
-    color: rgb(66, 19, 218);
+    color: #060410;
  
 
 }
 
 header .logo {
-    color: white;
+    color: #060410;
     font-size: 2.1em;
 }
 header .menu ul{
@@ -51,8 +51,8 @@ header .menu ul li a{
 header .menu ul li a:hover, 
 .active,.btn:hover {
     margin: 0px 5px;
-    background: green;
-    color: aliceblue;
+    background: #41e197;
+    color: #060410;
     border-radius: 20%;
 }
 header .login button {
@@ -60,9 +60,9 @@ header .login button {
     padding: 5px;
     width: 75px;
     height: 30px;
-    color: black;
+    color: #060410;
     background: none;
-    border: 2px solid black;
+    border: 2px solid #060410;
 
 }
 
@@ -97,17 +97,17 @@ header .login button {
   }
   
   .search-bar button[type="submit"] i {
-    color: #555;
+    color: #41e197;
   }
   
 /* search end */
 /* card start */
 .middle {
-  width: 100%;
+  width: 90%;
+  margin: 0px 0px 5px 89px;
   height: 60vh;  
   align-items: center;
   padding: 10px;
-  margin: 5px;
 
 }
 .middle .results {
@@ -119,33 +119,35 @@ header .login button {
 .card {
     width: 287px;
     height: 303px;
-    background-color: #fff;
+    background-color: #e8effc;
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-  }
-  
-  .card img {
+}
+.card:hover {
+  box-shadow: 2px 5px rgb(138, 134, 134,0.3);
+}
+.card img {
     width: 100%;
     height: 150px;
     object-fit: cover;
     border-radius: 5px;
     margin-bottom: 10px;
-  }
+}
   
   .card h3 {
     font-size: 16px;
     margin-bottom: 5px;
-  }
+}
   
   .card p {
     font-size: 14px;
     margin-bottom: 10px;
-  }
+}
   
   .add-to-cart-btn {
-    background-color: #007bff;
+    background-color: #41e197;
     color: #fff;
     border: none;
     outline: none;
@@ -153,18 +155,21 @@ header .login button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
+}
   
   .add-to-cart-btn:hover {
-    background-color: #0056b3;
-  }
+    background-color: #a2e2b8;
+}
 /* card end */  
 /* footer */
 footer {
   background-color: #000000;
   padding: 20px;
+  margin: 0px 0px 5px 89px;
   text-align: center;
-  color: #fff;
+  color: #ffffff;
+  width: 90%;
+  align-items: center;
   
 }
 
@@ -179,8 +184,8 @@ footer {
 }
 
 .feedback input[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #41e197;
+  color: #060410;
   padding: 8px 20px;
   border: none;
   cursor: pointer;
