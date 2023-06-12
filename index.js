@@ -346,8 +346,51 @@ app.get('/search', async (req, res) => {
     } finally {
       if (connection) {
         try {
+<<<<<<< HEAD
           console.log("NO error");
           await connection.close(); // Close the connection when you're done
+=======
+            connection = await oracledb.getConnection({
+                user: 'pharmacy_admin',
+                password: '12345',
+                connectString: 'localhost/xepdb1'
+            });
+            const result = await connection.execute(`SELECT * FROM product WHERE product_name LIKE INITCAP('%${query}%')`);
+            console.log(result.rows);
+            const result1 = await connection.execute(`SELECT p.Pharmacy_name,p.Pharmacy_address.city,p.Pharmacy_address.District,p.OVERALL_RATING FROM Pharmacy p WHERE p.Pharmacy_name LIKE INITCAP('%${query}%')`);
+            console.log(result1.rows);
+            const jsonData = result.rows.map(row => {
+                return {
+                    Pro_name: row[1],
+                    Pro_price: row[3]
+
+                };
+            });
+            const jsonData1 = result1.rows.map(row => {
+                //const pharma_add = row[3].split(',');///for pharmacy
+                return {
+                    Pro_name: row[0],
+                    pro_city: row[1],
+                    pro_District: row[2],
+                    pro_rating: row[3]
+
+
+                };
+            });
+            console.log(jsonData);
+            console.log(jsonData1);
+            if(jsonData.length > 0){
+                res.render('search', { query,data:jsonData }); 
+                return result.rows;
+            }
+            else 
+            {
+                res.render('search_table', { query,data:jsonData1 }); 
+                return result.rows;
+            }
+
+            
+>>>>>>> 45721e3 (search completed)
         } catch (error) {
           console.error(error);
         }
@@ -355,8 +398,14 @@ app.get('/search', async (req, res) => {
     }
   }
 
+<<<<<<< HEAD
   await fetchDataCustomer(query);
 });
+=======
+    await fetchDataCustomer(query);
+});
+  
+>>>>>>> 45721e3 (search completed)
 
 
 app.post("/Patient-signup", enc, (req, res) => {
@@ -807,6 +856,7 @@ app.post("/checkout", async (req, res) => {
     groupedProducts[pharmacyId].subtotal += product.PRODUCT_PRICE * product.order_quantity;
   });
 
+<<<<<<< HEAD
   // Calculate additional values for each grouped object
   Object.values(groupedProducts).forEach(group => {
     // Calculate vat, discount, and allTotal
@@ -1142,6 +1192,9 @@ app.get('/fetch', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`listening to http://localhost:${PORT}`);
 });
+=======
+app.listen(4444);
+>>>>>>> 45721e3 (search completed)
 
 
 
