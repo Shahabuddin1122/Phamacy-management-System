@@ -109,7 +109,71 @@ app.get("/Main2", async (req, res) => {
 
 
 
-
+app.get('/appointment', async (req, res) => {
+    const query = req.query.search_doctor;
+  
+    let connection;
+  
+    async function fetchDataCustomer(query) {
+      try {
+        connection = await oracledb.getConnection({
+          user: 'pharmacy_admin',
+          password: '12345',
+          connectString: 'localhost/xepdb1'
+        });
+  
+        const result = await connection.execute(
+          `BEGIN
+             FETCH_APPOINTMENT_DATA(:query, :result);
+           END;`,
+          {
+            query: `%${query}%`,
+            result: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+          }
+        );
+  
+        const resultSet = result.outBinds.result;
+        const rows = await resultSet.getRows(100);
+  
+        console.log(rows);
+  
+        const jsonData = rows.map(row => {
+          return {
+            Doc_id: row[0],
+            Doc_name: row[1],
+            Doc_Email: row[2],
+            Doc_Que: row[3],
+            Doc_Hos: row[4],
+            Doc_day: row[5],
+            Doc_start: row[6],
+            Doc_shift: row[7]
+          };
+        });
+  
+        console.log(jsonData);
+  
+        res.render('appointment', { query, data: jsonData });
+        return rows;
+      } catch (error) {
+        res.status(500).json({ error: 'An error occurred' });
+        console.error(error);
+        return error;
+      } finally {
+        if (connection) {
+          try {
+            console.log("NO error");
+            await connection.close(); // Close the connection when you're done
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }
+    }
+  
+    await fetchDataCustomer(query);
+  });
+  
+  
 
 
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/search.css">
+    <link rel="stylesheet" href="assets/appointment.css">
     <script src="https://kit.fontawesome.com/2437fb8d10.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -22,8 +22,8 @@
             <ul>
                 <li><a href="./Main2" >Home</a></li>
                 <li><a href="./profile" >Profile</a></li>
-                <li><a href="./appointment" >Appointment</a></li>
-                <li><a href="./search" class="active">Search</a></li>
+                <li><a href="./appointment" class="active">Appointment</a></li>
+                <li><a href="./search" >Search</a></li>
                 <li><a href="#" >Bill</a></li>
                 
                 
@@ -36,24 +36,26 @@
 
 
     </header> 
-    <form action="/search" method="GET">
+    <form action="/appointment" method="GET">
         <div class="search-bar">
-            <input type="text" name="query" placeholder="Search...">
+            <input type="text" name="search_doctor" placeholder="Search...">
             <button type="submit"><i class="fa fa-search"></i></button>
         </div>
     </form>
     <div class="middle">
-        <h2 style="text-align: center;">Search Results for: <%= query %></h2>
+        <h2 style="text-align: center;">Search Results : <%= query %></h2>
 
         <!-- Iterate over the search results and display them in cards -->
         <div id="results" style="display: flex;justify-content: space-around;">
             <% for (let i = 0; i < data.length; i++) { %>
                 <div class="card">
-                <img src="images/3576424_65886.jpg" alt="ProductImage">
-                <h3>Name:<%= data[i].Pro_name %></h3>
-                <p style="text-align: center;">city: <%= data[i].pro_city %></p>
-                <p style="text-align: center;">Rating: <%= data[i].pro_rating %></p>
-                
+                <img src="images/blank-profile-picture-g194d58982_1280.png" alt="ProductImage">
+                <h3><%= data[i].Doc_name %></h3>
+                <h5>Email: <%= data[i].Doc_Email %></h5>
+                <p><%= data[i].Doc_Que %></p>
+                <p><%= data[i].Doc_Hos %></p>
+                <p>visit:  <%= data[i].Doc_day %> <%= data[i].Doc_shift %> <%= data[i].Doc_Start %></p>
+                <button class="add-to-cart-btn" >Take Appointment</button>
                 </div>
             <% } %>
             
