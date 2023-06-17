@@ -5,7 +5,7 @@ IS
   v_id VARCHAR2(50);
 BEGIN
   -- Generate the id with a substring of the type column and the sequence value
-  v_id := SUBSTR(p_type,1,3) || '_' || TO_CHAR(login_id_seq.NEXTVAL, 'FM0000');
+  v_id := SUBSTR(p_type,1,3) || '_' || TO_CHAR(LPAD(login_id_seq.NEXTVAL, 5, '0'));
   
   RETURN v_id;
 END;
