@@ -187,7 +187,44 @@ app.get('/appointment', async (req, res) => {
     await fetchDataCustomer(query);
   });
   
-  
+app.post('/addConsult', async (req, res) => {
+    const { Doc_id, Doc_Hos,Patient_id } = req.body;
+
+    let connection;
+
+    try {
+    connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+    });
+
+    const insertQuery = `INSERT INTO Consults(Patient_id,Doctor_id)
+                        VALUES (:Patient_id,:Doc_id)`;
+
+    const bindParams = {
+        Patient_id,
+        Doc_id
+    };
+
+    const result = await connection.execute(insertQuery, bindParams);
+
+    
+    
+    } catch (error) {
+    // Handle error
+    res.status(500).json({ error: 'An error occurred while adding the pharmacy to the database.' });
+    console.error(error);
+    } finally {
+    if (connection) {
+        try {
+        await connection.close();
+        } catch (error) {
+        console.error(error);
+        }
+    }
+    }
+});
 
 
 app.get('/appointment', async (req, res) => {
