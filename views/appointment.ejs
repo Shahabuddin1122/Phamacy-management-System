@@ -38,7 +38,7 @@
     </header> 
     <form action="/appointment" method="GET">
         <div class="search-bar">
-            <input type="text" name="search_doctor" placeholder="Search...">
+            <input type="text" name="search_doctor" placeholder="Search a doctor......">
             <button type="submit"><i class="fa fa-search"></i></button>
         </div>
     </form>
@@ -48,26 +48,22 @@
         <!-- Iterate over the search results and display them in cards -->
         <div id="results" style="display: flex;justify-content: space-around;">
             <% for (let i = 0; i < data.length; i++) { %>
-                <div class="card">
+                <div class="card" id="<%= data[i].Doc_id %> ">
                 <img src="images/blank-profile-picture-g194d58982_1280.png" alt="ProductImage">
                 <h3><%= data[i].Doc_name %></h3>
                 <h5>Email: <%= data[i].Doc_Email %></h5>
                 <p><%= data[i].Doc_Que %></p>
                 <p><%= data[i].Doc_Hos %></p>
                 <p>visiting time:  <%= data[i].Doc_day %> <%= data[i].Doc_shift %> <%= data[i].Doc_Start %></p>
-                <button class="add-to-cart-btn" >Take Appointment</button>
+                <button class="add-to-cart-btn" id="btnId" onclick="makeAppointment('<%= data[i].Doc_id %>' , '<%= username %>')">Take Appointment</button>
+
                 </div>
             <% } %>
             
-
-
-
         </div>
-
         
     </div>
-      
-      
+           
 
     <footer>
         <div class="feedback">
@@ -94,6 +90,39 @@
     <script src="./jason.js"></script>
     <script src="./index.js"></script>
     <script src="./index2.js"></script>
+    <script>
+        //k=username;
+        //console.log(username);
+        
+        function makeAppointment(doc,pa) {
+            console.log("Make: ", doc);
+            const requestData = {
+                doctorId: doc,
+                patientId: pa
+            };
+            //console.log("MAKE :", requestData.doctorId);
+            document.getElementById(btnId).disabled = 'true';
+            fetch('/addConsult', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({a: requestData})
+            })
+                .then(response => response.json())
+                .then(data => {
+                console.log(data.message);
+                alert("your Serial Number is: ",data.serialNumber);
+                // Handle the response data or perform any other actions
+                })
+                .catch(error => {
+                console.error('Error:', error);
+                // Handle the error or display an error message
+                });
+        }
+
+
+    </script>
     
 </body>
 </html>

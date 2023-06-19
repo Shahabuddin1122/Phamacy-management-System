@@ -226,10 +226,13 @@ header .login button {
 
 
 /* card start */
-.box {
+.inside-card {
     width: 90%;
+    margin: auto;
     align-items: center;
-
+    display: flex; 
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 .card {
     width: 287px;
