@@ -7,6 +7,8 @@ const app=express();
 app.use("/assets",express.static("assets"));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+let GLOBAL_ID='';
+let a='Pat_00001';
 app.get("/",(req,res)=>{
     res.sendFile(__dirname+'/login.html');
 })
@@ -53,7 +55,7 @@ app.post("/",enc,(req,res)=>{
         console.log(dbRes);
         if(dbRes.length>0){
             
-            res.redirect("/Main2");
+            res.redirect(`/Main2?username=${username}`);
         }
         else{
             res.redirect("/");
@@ -66,6 +68,8 @@ app.post("/",enc,(req,res)=>{
 })
 app.get("/Main2", async (req, res) => {
     let connection;
+    let username=req.query.username;
+    console.log("M ",username);
     async function fetchDataCustomer() {
         try {
             connection = await oracledb.getConnection({
@@ -86,7 +90,7 @@ app.get("/Main2", async (req, res) => {
             });
             console.log(jsonData);
             
-            res.render('Main2', { data: jsonData }); // Corrected: data should be result.rows
+            res.render('Main2', { data: jsonData,username:username }); // Corrected: data should be result.rows
             return result.rows;
         } catch (error) {
             res.status(500).json({ error: 'An error occurred' });
@@ -106,6 +110,9 @@ app.get("/Main2", async (req, res) => {
 
     await fetchDataCustomer(); // Corrected: await the fetchDataCustomer function
 });
+
+
+
 
 
 
@@ -291,7 +298,7 @@ app.get('/search', async (req, res) => {
 
 
 
-let GLOBAL_ID='';
+
 
 app.post("/regi", enc, async (req, res) => {
     async function fetchDataCustomer(un, email, house, road, city, district, pass) {
@@ -361,7 +368,7 @@ app.post("/regi", enc, async (req, res) => {
   });
   
 app.get("/regi",(req,res)=>{
-    console.log('AT regi GET:', GLOBAL_ID);
+    //console.log('AT regi GET:', GLOBAL_ID);
     res.sendFile(__dirname+"/regi.html");
     
     //res.render('regi',{data:GLOBAL_ID});
@@ -394,8 +401,8 @@ app.post("/newlog",enc,(req,res)=>{
     then(dbRes=>{
         console.log(dbRes);
         if(dbRes.length>0){
-            
-            res.redirect("/Main2");
+            GLOBAL_ID=username;
+            res.redirect(`/Main2?username=${username}`);
         }
         else{
             res.redirect("/");
@@ -463,45 +470,73 @@ app.post("/forgot_pass",enc,(req,res)=>{
 app.get("/forgot_pass",(req,res)=>{
     res.sendFile(__dirname+"/forgot_pass.html");
 })
-app.post("/profile",enc,(req,res)=>{
-    async function fetchDataCustomer(id){
+
+
+
+
+
+
+app.get("/profile", async (req, res) => {
+    let connection;
+    const username = req.query.username;
+    async function fetchDataCustomer() {
         try {
-            const connection=await oracledb.getConnection({
-                user:'pharmacy_admin',
-                password:'12345',
-                connectionString: 'localhost/xepdb1'
+            connection = await oracledb.getConnection({
+                user: 'pharmacy_admin',
+                password: '12345',
+                connectString: 'localhost/xepdb1'
             });
 
-            const query=`DELETE FROM Doctor WHERE doctor_id =:1`;
-            const param={
-                1:id
-            }
-    
-            const result=await connection.execute(query,param);
-            await connection.commit();
-            await connection.close();
-            return result;
+            const result = await connection.execute(`select DOCTOR_id,DOCTOR_name,DOCTOR_email,
+            p.DOCTOR_address.Road_no as Road_no,
+            p.DOCTOR_address.City as City,
+            p.DOCTOR_address.house_no as House_no,
+            p.DOCTOR_address.District as District,
+            phone.phone_no,password
+            from DOCTOR p,phone,login
+            where p.doctor_id=phone.user_id 
+            and login.login_id=p.doctor_id
+            and P.DOCTOR_id='${username}'`);
+
+            
+            const jsonData = result.rows.map(row => {
+                return {
+                  Patient_id: row[0],
+                  Patient_Name: row[1],
+                  patient_Email: row[2],
+                  Road: row[3],
+                  City: row[4],
+                  House: row[5],
+                  District: row[6],
+                  Patient_phone: row[7],
+                  Pass: row[8]
+
+                };
+            });
+            console.log(jsonData);
+            
+            res.render('profile', { data: jsonData, username: username }); // Corrected: data should be result.rows
+            return result.rows;
         } catch (error) {
+            res.status(500).json({ error: 'An error occurred' });
+            console.log(error);
             return error;
+        } finally {
+            if (connection) {
+                try {
+                    console.log("NO error");
+                    await connection.close(); // Close the connection when you're done
+                } catch (error) {
+                    console.error(error);
+                }
+            }
         }
     }
-    var id=req.body.id;
-    fetchDataCustomer(id).
-    then(dbRes=>{
-        console.log(dbRes);
-        
-        res.redirect("/");
-        
-    })
-    .catch(err=>{
-        //console.log(err);
-        res.redirect("/regi");
-        //console.log(err);
-    })
-})
-app.get("/profile",(req,res)=>{
-    res.sendFile(__dirname+"/profile.html");
-})
+
+    await fetchDataCustomer(); // Corrected: await the fetchDataCustomer function
+});
+
+
 app.get('/fetch', async (req, res) => {
     try {
       const connection = await oracledb.getConnection({
