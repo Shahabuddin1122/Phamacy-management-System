@@ -603,6 +603,136 @@ app.get("/profile", async (req, res) => {
 });
 
 
+
+app.use(bodyParser.json());
+  
+  let arrayItem=[];
+  app.post('/cart-items', async(req, res) => {
+    let items = req.body.items;
+    let connection;
+    try {
+            connection=await oracledb.getConnection({
+            user: "pharmacy_admin",
+            password: "12345",
+            connectionString: "localhost/xepdb1"
+        })
+        let uniqueItems=items.reduce((map,item)=>{
+            map[item]=(map[item]||0)+1;
+            return map;
+        },{});
+        // console.log(uniqueItems);
+        
+        for(let key in uniqueItems){
+            let value=uniqueItems[key];
+            const query=`select product.product_name,product.product_type,product.product_price,pharmacy_name from pharmacy join stores on pharmacy.pharmacy_id=stores.pharmacy_id
+            join product on stores.product_id=product.product_id
+            where lower(product_name)=lower(:1)`;
+            // const query=`select * from pharmacy join stores on pharmacy.pharmacy_id=stores.pharmacy_id
+            // join product on stores.product_id=product.product_id
+            // where lower(product_name)=lower(:1)`
+            const binds={
+                1:key
+            }
+            const option={
+                outFormat: oracledb.OUT_FORMAT_OBJECT,
+                autoCommit: true
+            }
+            const r=await connection.execute(query,binds,option);
+            // console.log(r.rows,value);
+            let obj=r.rows;
+            obj=obj.at(0);
+            // console.log("obj:");
+            // console.log(obj);
+            obj['order_quantity']=value;
+            arrayItem.push(obj);
+        }
+        // arrayItem.forEach(i=>{
+        //     console.log(i);
+        // })
+        // console.log(arrayItem.length);
+    } catch (error) {
+        console.log(error);
+    } finally {
+        if (connection) {
+          try {
+            await connection.close();
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      }
+    // console.log("items:::"+items);
+
+    // Send a response back to the client
+    // res.json({ message: 'Items received successfully' });
+});
+
+app.get("/cart-items",async(req,res)=>{
+    // res.sendFile(__dirname+"/dummy.html");
+    res.render("cart",{arrayItem})
+})
+let requiredPrice;
+let patientInfo;
+app.use(bodyParser.json());
+app.post("/checkout",async(req,res)=>{
+    requiredPrice=req.body.requiredPrice;
+    
+
+    // console.log(requiredPrice);
+
+})
+
+app.get("/checkout",async(req,res)=>{
+    // console.log(requiredPrice);
+    let connection;
+    try {
+            connection=await oracledb.getConnection({
+            user: "pharmacy_admin",
+            password: "12345",
+            connectionString: "localhost/xepdb1"
+        })
+       
+        let id='Pat_00001'
+        query=`select patient_name,trunc(months_between(sysdate,patient_dob)/12) as "Age",patient_email,
+        p.patient_address.house_no as "house",
+        p.patient_address.road_no as "road",
+        p.patient_address.city as "city",
+        p.patient_address.district as "district",
+        phone_no
+        from patient p join phone on
+        p.patient_id=phone.user_id 
+        where p.patient_id=:1`;
+
+        let binds={
+            1:id
+        }
+        let option={
+            outFormat:oracledb.OUT_FORMAT_OBJECT,
+            autoCommit: true
+        }
+        const r=await connection.execute(query,binds,option);
+        console.log(r.rows);
+        
+
+        patientInfo=r.rows[0];
+        
+        res.render("order-confirmation",{arrayItem,patientInfo,requiredPrice});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        if (connection) {
+          try {
+            await connection.close();
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      }
+})
+
+
+
+
 app.get('/fetch', async (req, res) => {
     try {
       const connection = await oracledb.getConnection({

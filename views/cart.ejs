@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+  <link rel="stylesheet" href="../assets/global.css" />
+  <link rel="stylesheet" href="../assets/cart.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas Neue:wght@400&display=swap" />
+
+
+
+</head>
+
+<body>
+
+  <div class="cart">
+    <div class="navbar">
+      <div class="logo">
+        <img class="logo-icon" alt="" src="../public/public@2x.png">
+
+      </div>
+      <div class="links">
+        <a class="home">
+          <div class="items">Home</div>
+        </a>
+        <a class="home">
+          <div class="items">Profile</div>
+        </a>
+        <a class="home">
+          <div class="items">Appointment</div>
+        </a>
+        <a class="search">
+          <div class="product">Search</div>
+        </a>
+        <a class="home">
+          <div class="items">Bill</div>
+        </a>
+      </div>
+      <div class="cart-icon-parent">
+        <a class="cart-icon">
+          <div class="logo">
+            <img class="shopping-bag-line-2-icon" alt="" src="../public/shoppingbagline-2.svg">
+
+          </div>
+          <div class="logo">
+            <div class="items">3 items</div>
+          </div>
+        </a>
+        <button class="logout">
+          <button class="button">
+            <div class="button1">Logout</div>
+          </button>
+        </button>
+      </div>
+    </div>
+    <div class="main-section">
+      <div class="section">
+        <div class="prdouct-tag-parent">
+          <p class="prdouct-tag">
+          <div class="product">Product</div>
+          </p>
+          <p class="prdouct-tag">
+          <div class="product">Quantity</div>
+          </p>
+          <p class="prdouct-tag">
+          <div class="product">Price</div>
+          </p>
+        </div>
+        <div class="checkbox-parent">
+          <input class="checkbox" type="checkbox">
+
+          <p class="prdouct-tag">
+          <div class="product">Select all</div>
+          </p>
+        </div>
+        <!-- !!!!!! -->
+        <% let totalPrice=0 %>
+        <% arrayItem.forEach(element=> { %>
+          <div class="product-list">
+            <input class="checkbox" type="checkbox">
+
+            <div class="product-information">
+              <h5 class="name">
+                <b class="product">
+                  <%= element.PRODUCT_NAME %>
+                </b>
+              </h5>
+              <div class="logo">
+                <div class="product">
+                  <%= element.PRODUCT_TYPE %>
+                </div>
+              </div>
+              <div class="logo">
+                <div class="product">
+                  <%= element.PHARMACY_NAME %>
+                </div>
+              </div>
+              <div class="logo">
+                <div class="product">
+                  <%= element.PRODUCT_PRICE %>
+                    <span class="span"> </span>
+                    <span>Taka</span>
+                </div>
+              </div>
+            </div>
+            <div class="quantity-increase-button">
+              <button class="button2">-</button>
+              <div class="quantity1">
+                <div class="product">
+                  <%= element.order_quantity %>
+                </div>
+              </div>
+              <button class="button2">+</button>
+            </div>
+            <div class="total-price">
+              <div class="product">
+                <%var productTotal= element.order_quantity * element.PRODUCT_PRICE %>
+                <% totalPrice+=productTotal %>
+                <span>
+                  <%= productTotal %>
+                </span>
+                <span class="span"> </span>
+                <span>Taka</span>
+              </div>
+            </div>
+          </div>
+
+          <% }) %>
+          <input type="hidden" id="total-price" value="<%= totalPrice %>">
+      </div>
+      <div class="checkout">
+        <div class="subtotal">
+          <div class="logo">
+            <b class="product">Subtotal</b>
+          </div>
+          <div class="amount">
+            <div class="logo">
+              <div id="total-price-div" class="product">0 </div>
+            </div>
+            <div class="logo">
+              <div class="product">Taka</div>
+            </div>
+          </div>
+        </div>
+        <div class="subtotal">
+          <div class="logo">
+            <div class="product">Shipping</div>
+          </div>
+          <div class="amount1">
+            <div class="logo">
+              <div class="product">
+                <span>20</span>
+                <span class="span4"> </span>
+              </div>
+            </div>
+            <div class="logo">
+              <div class="product">Taka</div>
+            </div>
+          </div>
+        </div>
+        <div class="vat">
+          <div class="logo">
+            <div class="product">VAT</div>
+          </div>
+          <div class="amount1">
+            <div class="logo">
+              <div class="product">
+                <span id="vat">0</span>
+                <span class="span4"> </span>
+              </div>
+            </div>
+            <div class="logo">
+              <div class="product">Taka</div>
+            </div>
+          </div>
+        </div>
+        <div class="checkout-child">
+        </div>
+        <div class="subtotal">
+          <div class="logo">
+            <b class="product">Total</b>
+          </div>
+          <div class="amount1">
+            <div class="logo">
+              <div class="product">
+                <span id="all-total">1000</span>
+                <span class="span4"> </span>
+              </div>
+            </div>
+            <div class="logo">
+              <div class="product">Taka</div>
+            </div>
+          </div>
+        </div>
+        <button class="button10" id="button9">
+          <b class="button1">Checkout</b>
+        </button>
+      </div>
+    </div>
+    <footer class="footer">
+    </footer>
+  </div>
+
+
+
+
+  <script>
+    let totalPrice=parseFloat(document.getElementById('total-price').value);
+    document.getElementById('total-price-div').textContent=totalPrice;
+    let vat=totalPrice*0.15;
+    document.getElementById('vat').textContent=vat;
+    let allTotal=totalPrice+20+vat;
+    document.getElementById('all-total').textContent=allTotal;
+    let requiredPrice={
+      'totalPrice':totalPrice,
+      'vat':vat,
+      'allTotal':allTotal
+    }
+    var button9 = document.getElementById("button9");
+    if (button9) {
+      button9.addEventListener("click", function (e) {
+        fetch('/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({requiredPrice})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Log the response from the server
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        window.location.href = "/checkout";
+      });
+    }
+
+  </script>
+</body>
+
+</html>
