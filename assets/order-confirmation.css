@@ -4,6 +4,7 @@
   height: 5.38rem;
   object-fit: cover;
 }
+<<<<<<< HEAD
 
 .home {
   align-items: center;
@@ -53,15 +54,23 @@
   
   
 
+=======
+>>>>>>> fe8833a (Updated)
 .home3,
 .logo-icon1 {
   position: relative;
 }
+<<<<<<< HEAD
 
 .home3:hover {
   color: var(--buttons-primary);
 }
 
+=======
+.home3:hover {
+  color: var(--buttons-primary);
+}
+>>>>>>> fe8833a (Updated)
 .home2,
 .profile2 {
   text-decoration: none;
@@ -69,7 +78,10 @@
   justify-content: flex-start;
   color: inherit;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .home2,
 .links1,
 .profile2,
@@ -77,20 +89,29 @@
   display: flex;
   flex-direction: row;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .search2 {
   text-decoration: none;
   align-items: flex-start;
   justify-content: flex-start;
   color: var(--buttons-primary);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .links1 {
   align-items: center;
   justify-content: center;
   gap: var(--gap-46xl);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .shopping-bag-line-2-icon1 {
   position: relative;
   width: 1.5rem;
@@ -98,7 +119,10 @@
   overflow: hidden;
   flex-shrink: 0;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .cart-icon2 {
   text-decoration: none;
   display: flex;
@@ -108,7 +132,10 @@
   gap: var(--gap-5xs);
   color: inherit;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .button13 {
   position: relative;
   font-size: var(--font-size-lg);
@@ -116,7 +143,10 @@
   color: var(--color-black);
   text-align: left;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .button12 {
   border-radius: var(--br-8xs);
   background-color: var(--buttons-primary);
@@ -128,12 +158,18 @@
   align-items: center;
   justify-content: center;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .button12:hover,
 .button14:hover {
   background-color: var(--color-aquamarine);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .logout1 {
   cursor: pointer;
   border: 0;
@@ -144,7 +180,10 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .cart-icon-group,
 .navbar1 {
   display: flex;
@@ -154,7 +193,10 @@
   gap: var(--gap-16xl);
   font-size: var(--font-size-base);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .navbar1 {
   position: absolute;
   top: 0;
@@ -166,12 +208,18 @@
   gap: var(--gap-131xl);
   font-size: var(--font-size-xl);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .billing-summary {
   position: relative;
   line-height: 1.25rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .billing-summary-wrapper {
   margin: 0;
   display: flex;
@@ -181,7 +229,10 @@
   font-size: inherit;
   font-family: inherit;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .frame-container,
 .frame-group,
 .frame-parent,
@@ -193,33 +244,51 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+<<<<<<< HEAD
 
 .frame-group {
   gap: var(--gap-3xs);
 }
 
+=======
+.frame-group {
+  gap: var(--gap-3xs);
+}
+>>>>>>> fe8833a (Updated)
 .frame-container,
 .frame-parent,
 .frame-parent2,
 .frame-parent4 {
   gap: 10.31rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .frame-container,
 .frame-parent2,
 .frame-parent4 {
   gap: 10.13rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .frame-parent2,
 .frame-parent4 {
   gap: 10.19rem;
 }
+<<<<<<< HEAD
 
 .frame-parent4 {
   gap: 12.44rem;
 }
 
+=======
+.frame-parent4 {
+  gap: 12.44rem;
+}
+>>>>>>> fe8833a (Updated)
 .billing-summery-child {
   position: relative;
   border-top: 1px solid var(--color-black);
@@ -227,19 +296,28 @@
   width: 19.63rem;
   height: 0.06rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .checkbox5,
 .frame-parent6 {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .frame-parent6 {
   flex-direction: row;
   gap: 8.38rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .checkbox5 {
   cursor: pointer;
   border-radius: var(--br-9xs);
@@ -252,11 +330,17 @@
   flex-direction: column;
   padding: var(--padding-7xs) var(--padding-9xs);
 }
+<<<<<<< HEAD
 
 .privacy-terms {
   color: var(--buttons-primary);
 }
 
+=======
+.privacy-terms {
+  color: var(--buttons-primary);
+}
+>>>>>>> fe8833a (Updated)
 .please-check-to-container {
   position: relative;
   line-height: 1.25rem;
@@ -265,20 +349,29 @@
   height: 2.5rem;
   flex-shrink: 0;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .button14,
 .checkbox-group {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .checkbox-group {
   justify-content: flex-start;
   gap: 0.88rem;
   color: #909193;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .button14 {
   cursor: pointer;
   border: 0;
@@ -291,13 +384,19 @@
   box-sizing: border-box;
   justify-content: center;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .billing-summery,
 .footer1 {
   position: absolute;
   overflow: hidden;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .billing-summery {
   top: 37.69rem;
   left: 61.44rem;
@@ -311,7 +410,10 @@
   align-items: flex-start;
   justify-content: space-between;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .footer1 {
   bottom: 0;
   left: 0;
@@ -319,11 +421,17 @@
   width: 90rem;
   height: 7.25rem;
 }
+<<<<<<< HEAD
 
 .syed-nafees-kaiser {
   position: relative;
 }
 
+=======
+.syed-nafees-kaiser {
+  position: relative;
+}
+>>>>>>> fe8833a (Updated)
 .age-parent,
 .name-parent {
   width: 18.56rem;
@@ -332,11 +440,17 @@
   align-items: flex-start;
   justify-content: space-between;
 }
+<<<<<<< HEAD
 
 .age-parent {
   width: 18.63rem;
 }
 
+=======
+.age-parent {
+  width: 18.63rem;
+}
+>>>>>>> fe8833a (Updated)
 .contact-information,
 .personal-information {
   overflow: hidden;
@@ -347,50 +461,74 @@
   justify-content: flex-start;
   gap: 2.25rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .contact-information {
   height: 12.44rem;
   padding: var(--padding-15xl) 1.63rem;
   box-sizing: border-box;
   gap: 2.06rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .house,
 .house-parent {
   display: flex;
   flex-direction: row;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .house {
   width: 18.38rem;
   align-items: flex-start;
   justify-content: space-between;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .house-parent {
   align-items: center;
   justify-content: flex-start;
   gap: var(--gap-41xl);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .city-parent,
 .shipping-details {
   align-items: flex-start;
   justify-content: flex-start;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .city-parent {
   display: flex;
   flex-direction: row;
   gap: var(--gap-41xl);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .shipping-details {
   width: 44.31rem;
   padding: var(--padding-12xl) var(--padding-14xl);
   gap: var(--gap-16xl);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .billing-details,
 .main-section1,
 .shipping-details {
@@ -399,7 +537,10 @@
   flex-direction: column;
   box-sizing: border-box;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .billing-details {
   width: 44.31rem;
   height: 17.31rem;
@@ -409,7 +550,10 @@
   justify-content: flex-start;
   gap: var(--gap-16xl);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .main-section1 {
   position: absolute;
   top: 8.88rem;
@@ -421,24 +565,36 @@
   justify-content: center;
   gap: 2.75rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .items-in-cart,
 .order-review1 {
   position: relative;
   line-height: 1.25rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .order-review1 {
   margin: 0;
   font-size: inherit;
   font-weight: 700;
   font-family: inherit;
 }
+<<<<<<< HEAD
 
 .items-in-cart {
   font-size: var(--regular-12-size);
 }
 
+=======
+.items-in-cart {
+  font-size: var(--regular-12-size);
+}
+>>>>>>> fe8833a (Updated)
 .order-review-heading {
   position: absolute;
   top: 1.5rem;
@@ -450,7 +606,10 @@
   gap: 0.44rem;
   font-size: var(--font-size-base);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .product-picture-icon {
   position: relative;
   width: 4.69rem;
@@ -458,13 +617,19 @@
   overflow: hidden;
   flex-shrink: 0;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .pharmacy-name4 {
   position: relative;
   font-size: var(--font-size-3xs);
   line-height: 1.25rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 /* .div17,
 .rectangle {
   position: relative;
@@ -481,7 +646,10 @@
   border: 1px solid var(--dark-dark-1);
   box-sizing: border-box;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .div17 {
   /* height: 51.72%;
   width: 100%; */
@@ -492,7 +660,10 @@
   align-items: center;
   /* justify-content: center; */
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .rectangle-copy-13 {
   position: absolute;
   height: 100%;
@@ -505,14 +676,20 @@
   border: 1px solid var(--dark-dark-1);
   box-sizing: border-box;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .path-7-copy-6,
 .quantity-child {
   position: absolute;
   max-width: 100%;
   overflow: hidden;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .quantity-child {
   height: 30.36%;
   width: 9.87%;
@@ -522,7 +699,10 @@
   left: 78.85%;
   max-height: 100%;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .path-7-copy-6 {
   width: 9.76%;
   top: 50%;
@@ -530,7 +710,10 @@
   left: 11.38%;
   height: 0;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .quantity5 {
   position: relative;
   box-shadow: var(--effect);
@@ -540,7 +723,10 @@
   color: var(--dark-dark-3);
   font-family: var(--regular-12);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .product-info {
   width: 9.44rem;
   height: 4.56rem;
@@ -549,7 +735,10 @@
   align-items: flex-start;
   justify-content: space-between;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .product-price4,
 .product-summery {
   display: flex;
@@ -557,12 +746,16 @@
   justify-content: flex-start;
   gap: var(--gap-8xs);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .product-price4 {
   align-items: center;
   text-align: center;
   font-family: var(--regular-12);
 }
+<<<<<<< HEAD
 
 .product-summery {
   position: relative;
@@ -573,6 +766,17 @@
   align-items: flex-end;
 }
 
+=======
+.product-summery {
+  position: absolute;
+  top: 26.38rem;
+  left: 1.5rem;
+  background-color: var(--color-gray-100);
+  overflow: hidden;
+  padding: var(--padding-2xl) var(--padding-smi);
+  align-items: flex-end;
+}
+>>>>>>> fe8833a (Updated)
 .rectangle-copy-131,
 .rectangle1 {
   cursor: pointer;
@@ -587,18 +791,27 @@
   border-radius: var(--br-10xs);
   box-sizing: border-box;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .rectangle1 {
   right: 67.48%;
   left: 0;
   box-shadow: var(--effect);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .rectangle-copy-131 {
   right: 0;
   left: 67.48%;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .path-7-copy-61 {
   position: absolute;
   height: 3.45%;
@@ -611,7 +824,10 @@
   overflow: hidden;
   max-height: 100%;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .product-summery1,
 .product-summery2,
 .product-summery3 {
@@ -627,16 +843,25 @@
   justify-content: flex-start;
   gap: var(--gap-8xs);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .product-summery2,
 .product-summery3 {
   top: 11.75rem;
 }
+<<<<<<< HEAD
 
 .product-summery3 {
   top: 19.06rem;
 }
 
+=======
+.product-summery3 {
+  top: 19.06rem;
+}
+>>>>>>> fe8833a (Updated)
 .order-review {
   position: absolute;
   top: 8.88rem;
@@ -647,7 +872,10 @@
   overflow-y: auto;
   font-size: var(--regular-12-size);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe8833a (Updated)
 .order-confirmation {
   position: relative;
   background-color: var(--color-aliceblue);
@@ -658,4 +886,8 @@
   font-size: var(--font-size-base);
   color: var(--color-black);
   font-family: var(--font-inter);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fe8833a (Updated)

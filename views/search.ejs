@@ -49,18 +49,11 @@
         <div id="results" style="display: flex;justify-content: space-around;">
             <% for (let i = 0; i < data.length; i++) { %>
                 <div class="card">
-<<<<<<< HEAD
                 <img src="../public/images/3576424_65886.jpg" alt="ProductImage">
                 <h3><%= data[i].Pro_name %></h3>
                 <h5> <%= data[i].pharmacy %></h5>
                 <p>$<%= data[i].Pro_price %></p>
                 <button class="add-to-cart-btn" data-index="<%= i %>" pro_id="<%= data[i].Pro_ID %>" ph_id="<%= data[i].Ph_ID %>" order_quantity="<%= 0 %>">Add to Cart</button>
-=======
-                <img src="images/3576424_65886.jpg" alt="ProductImage">
-                <h3><%= data[i].Pro_name %></h3>
-                <p>$<%= data[i].Pro_price %></p>
-                <button class="add-to-cart-btn">Add to Cart</button>
->>>>>>> 45721e3 (search completed)
                 </div>
             <% } %>
             
@@ -97,7 +90,6 @@
 
     
     <script src="./index.js"></script>
-
     <script>
         let selectedItem = [];
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
