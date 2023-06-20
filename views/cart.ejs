@@ -45,7 +45,7 @@
         <a class="cart-icon" href="#">
           <div class="logo">
             <img class="shopping-bag-line-2-icon" alt="" src="../public/shoppingbagline-2.svg">
-            <span class="items"><%= arrayItem.length %> items</span>
+            <span class="items active"><%= arrayItem.length %> items</span>
           </div>
           
         </a>
@@ -70,17 +70,17 @@
           </p>
         </div>
         <div class="checkbox-parent">
-          <input class="checkbox" type="checkbox">
+          <input class="checkbox" type="checkbox" checked>
 
           <p class="prdouct-tag">
           <div class="product">Select all</div>
           </p>
         </div>
         <!-- !!!!!! -->
-        <% let totalPrice=0 %>
-        <% arrayItem.forEach(element=> { %>
+        
+        <% arrayItem.forEach((element,index)=> { %>
           <div class="product-list">
-            <input class="checkbox" type="checkbox">
+            <input class="checkbox" type="checkbox" checked>
 
             <div class="product-information">
               <h5 class="name">
@@ -107,20 +107,18 @@
               </div>
             </div>
             <div class="quantity-increase-button">
-              <button class="button2">-</button>
+              <button class="button2 decrease" data-index="<%= index %>">-</button>
               <div class="quantity1">
-                <div class="product">
+                <div class="product quantity-det">
                   <%= element.order_quantity %>
                 </div>
               </div>
-              <button class="button2">+</button>
+              <button class="button2 increase" data-index="<%= index %>">+</button>
             </div>
             <div class="total-price">
               <div class="product">
-                <%var productTotal= element.order_quantity * element.PRODUCT_PRICE %>
-                <% totalPrice+=productTotal %>
-                <span>
-                  <%= productTotal %>
+                <span class="product-price" data-product-price="<%= element.PRODUCT_PRICE %>">
+                  <%= element.order_quantity * element.PRODUCT_PRICE %>
                 </span>
                 <span class="span"> </span>
                 <span>Taka</span>
@@ -129,7 +127,6 @@
           </div>
 
           <% }) %>
-          <input type="hidden" id="total-price" value="<%= totalPrice %>">
       </div>
       <div class="checkout">
         <div class="subtotal">
@@ -208,17 +205,62 @@
 
 
   <script>
-    let totalPrice=parseFloat(document.getElementById('total-price').value);
-    document.getElementById('total-price-div').textContent=totalPrice;
-    let vat=totalPrice*0.15;
-    document.getElementById('vat').textContent=vat;
-    let allTotal=totalPrice+20+vat;
-    document.getElementById('all-total').textContent=allTotal;
-    let requiredPrice={
-      'totalPrice':totalPrice,
-      'vat':vat,
-      'allTotal':allTotal
-    }
+    // let totalPrice=parseFloat(document.getElementById('total-price').value);
+    // document.getElementById('total-price-div').textContent=totalPrice;
+    // let vat=totalPrice*0.15;
+    // document.getElementById('vat').textContent=vat;
+    // let allTotal=totalPrice+20+vat;
+    // document.getElementById('all-total').textContent=allTotal;
+    // let requiredPrice={
+    //   'totalPrice':totalPrice,
+    //   'vat':vat,
+    //   'allTotal':allTotal
+    // }
+
+    var decreaseButton=document.querySelectorAll('.decrease');
+    decreaseButton.forEach(button=>{
+      button.addEventListener('click',event=>{
+        var index=button.getAttribute('data-index');
+        var quantity=document.querySelectorAll('.quantity-det')[index];
+        if(quantity.textContent>0) quantity.textContent--;
+
+        var productPrice=document.querySelectorAll('.product-price')[index].getAttribute('data-product-price');
+        var productPriceTotal=parseInt(quantity.textContent)*parseInt(productPrice);
+
+        document.querySelectorAll('.product-price')[index].textContent=productPriceTotal;
+      })
+    })
+    var increase=document.querySelectorAll('.increase');
+    increase.forEach(button=>{
+      button.addEventListener('click',event=>{
+        var index=button.getAttribute('data-index');
+        var quantity=document.querySelectorAll('.quantity-det')[index];
+        quantity.textContent++;
+
+        var productPrice=document.querySelectorAll('.product-price')[index].getAttribute('data-product-price');
+        var productPriceTotal=parseInt(quantity.textContent)*parseInt(productPrice);
+
+        document.querySelectorAll('.product-price')[index].textContent=productPriceTotal;
+      })
+    })
+
+    let productCheckbox=document.querySelectorAll('.product-list .checkbox');
+    let selectAllCheckbox=document.querySelector('.checkbox-parent .checkbox');
+    selectAllCheckbox.addEventListener('change',event=>{
+      if(selectAllCheckbox.checked){
+        productCheckbox.forEach(check=>{
+          check.checked=true;
+        })
+      }
+      else{
+        productCheckbox.forEach(check=>{
+          check.checked=false;
+        })
+      }
+
+    })
+    
+
     var button9 = document.getElementById("button9");
     if (button9) {
       button9.addEventListener("click", function (e) {

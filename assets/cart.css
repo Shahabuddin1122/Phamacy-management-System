@@ -49,6 +49,9 @@
 .items:hover {
   color: var(--buttons-primary);
 }
+.links .active{
+  color: var(--buttons-primary);
+}
 .cart-icon {
   text-decoration: none;
   display: flex;
