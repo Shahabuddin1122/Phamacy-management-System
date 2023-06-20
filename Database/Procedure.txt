@@ -1,0 +1,17 @@
+
+CREATE OR REPLACE PROCEDURE FETCH_APPOINTMENT_DATA (
+  p_query    IN  VARCHAR2,
+  p_result   OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+  OPEN p_result FOR
+    SELECT d.Doctor_id, d.Doctor_Name, d.Doctor_Email, d.doctor_qualification, d.doctor_hospital,
+           h.Consult_day, to_char(s.start_time, 'HH24:MI:SS'), to_char(s.end_time, 'HH24:MI:SS'), s.shift
+    FROM doctor d
+    JOIN has h ON d.doctor_id = h.doctor_id
+    JOIN schedule s ON h.schedule_id = s.schedule_id
+    WHERE d.doctor_name LIKE INITCAP(p_query);
+
+END;
+/

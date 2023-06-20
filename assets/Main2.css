@@ -1,17 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@1,200&family=Fira+Sans:wght@300&family=Merriweather&family=Open+Sans:wght@300&family=Unbounded:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@1,200&family=Fira+Sans:wght@300&family=Inter&family=Merriweather&family=Open+Sans:ital,wght@1,500&display=swap');
 *{
-    margin: 0;
+    margin-bottom: 18px;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style-type: none;
+    text-align: center;
 
 
 }
 
 body {
-    font-family: 'Unbounded', cursive;
-    background-image: linear-gradient(rgba(0, 115, 255, 0.379),rgba(166, 34, 196, 0.53));
+    font-family: 'Inter', sans-serif;
+    background-image: #e8effc;
     background-attachment: fixed;
 }
 img {
@@ -19,22 +20,21 @@ img {
     height: 100%;
 }
 header {
-    margin: 5px;
+    margin: 0px 0px 5px 89px;
     padding: 5px 10px;
-    width: 100%;
+    width: 90%;
     height: 100px;
     border: 2px solid rgb(31, 206, 127);
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: rgb(31, 206, 127);
-    color: rgb(66, 19, 218);
+    color: #060410;
  
-
 }
 
 header .logo {
-    color: white;
+    color: #060410;
     font-size: 2.1em;
 }
 header .menu ul{
@@ -45,14 +45,14 @@ header .menu ul{
 header .menu ul li a{
     text-decoration: none;
     padding: 5px 10px;
-    color: white;
+    color: #060410;
 
 }
 header .menu ul li a:hover, 
 .active,.btn:hover {
     margin: 0px 5px;
-    background: green;
-    color: aliceblue;
+    background: #41e197;
+    color: #060410;
     border-radius: 20%;
 }
 header .login button {
@@ -60,9 +60,9 @@ header .login button {
     padding: 5px;
     width: 75px;
     height: 30px;
-    color: black;
+    color: #060410;
     background: none;
-    border: 2px solid black;
+    border: 2px solid #060410;
 
 }
 
@@ -77,7 +77,7 @@ header .login button {
 
 }
 
-.banner1,.banner2,.banner3 {
+.banner1,.banner2,.banner3,.banner4 {
     height: 85vh;
     width: 100%;
     position: absolute;
@@ -86,7 +86,7 @@ header .login button {
 
 }
 .img {
-    width: 100%;
+    width: 90%;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -98,12 +98,12 @@ header .login button {
     margin-left: 5px;
     width: 100px;
     height: 38px;
-    background-color: aquamarine;
-    color: black;
+    background-color: #a2e2b8;
+    color: #060410;
 }
 .slide button:hover {
-    background-color: greenyellow;
-    color: black;
+    background-color: #41e197;
+    color: #060410;
 }
 @keyframes zoomout {
     100%{
@@ -112,12 +112,12 @@ header .login button {
 }
 .text-box {
     width: 600px;
-    height: 365px;
+    height: 422px;
     position: absolute;
     top: 83px;
     left: 100px;
-    color: #fff;
-    background: rgb(0, 0, 0,0.4)
+    color: #060410;
+    background: rgb(232, 239, 252,0.5);
 }
 .text-box h1 {
     margin-bottom: 40px;
@@ -148,104 +148,141 @@ header .login button {
 .banner3 {
     animation: slide3 12s linear infinite;
 }
+.banner4 {
+    animation: slide4 12s linear infinite;
+}
+
 @keyframes slide1 {
-    0%{
+    0% {
         visibility: visible;
     }
-    25%{
-        visibility: hidden;
-    }
-    50%{
-        visibility: hidden;
-    }
-    75%{
-        visibility: hidden;
-    }
-    100%{
+    25% {
         visibility: visible;
     }
-
+    26% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: hidden;
+    }
 }
+
 @keyframes slide2 {
-    0%{
+    0% {
         visibility: hidden;
     }
-    25%{
+    25% {
         visibility: hidden;
     }
-    50%{
+    26% {
         visibility: visible;
     }
-    75%{
+    50% {
+        visibility: visible;
+    }
+    51% {
         visibility: hidden;
     }
-    100%{
+    100% {
         visibility: hidden;
     }
-
 }
+
 @keyframes slide3 {
-    0%{
+    0% {
         visibility: hidden;
     }
-    25%{
+    50% {
         visibility: hidden;
     }
-    50%{
-        visibility: hidden;
-    }
-    75%{
+    51% {
         visibility: visible;
     }
-    100%{
+    75% {
+        visibility: visible;
+    }
+    76% {
         visibility: hidden;
     }
-
+    100% {
+        visibility: hidden;
+    }
 }
+
+@keyframes slide4 {
+    0% {
+        visibility: hidden;
+    }
+    75% {
+        visibility: hidden;
+    }
+    76% {
+        visibility: visible;
+    }
+    100% {
+        visibility: visible;
+    }
+}
+
 
 /* card start */
-
+.inside-card {
+    width: 90%;
+    margin: auto;
+    align-items: center;
+    display: flex; 
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
 .card {
-    width: 100%;
+    width: 287px;
     height: 50vh;
+    background-color: #e8effc;
+    border-radius: 5px;
     padding: 10px;
-}
-.card h2 {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    font-size: 2.5em;
-    color: #fff;
-    font-weight: 700;
-
 }
-.card .box {
+.card:hover {
+    box-shadow: 2px 5px rgb(130, 125, 125,0.5);
+}
+  
+.card img {
     width: 100%;
-    height: 40vh;
-    display: flex;
-    justify-content: space-between;
-
+    height: 240px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
-.card .box .inside-card {
-    width: 20%;
-    height: 40vh;
-    overflow: hidden;
-    
+  
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
 }
-.card .inside-card:hover {
-    box-shadow: 2px 5px 10px 5px white;
+  
+.card p {
+    font-size: 14px;
+    margin-bottom: 10px;
 }
-.card .box .inside-card img {
-    width: 100%;
-    height: 50%;
+  
+.add-to-cart-btn {
+    background-color: #a2e2b8;
+    color: #060410;
+    border: none;
+    outline: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-.card .box .inside-card .text {
-    width: 100%;
-    height: 50%;
-    text-align: center;
+  
+.add-to-cart-btn:hover {
+    background-color: #41e197;
 }
 /* intro */
 .intro {
     width: 100%;
-    height: 50vh;
+    height: 70vh;
 
     padding: 30px;
     margin: 20px 0px;
@@ -255,22 +292,22 @@ header .login button {
     text-align: center;
     font-size: 2.5em;
     font-weight: 700;
-    color: rgb(232, 157, 18)
+    color: #060410
 }
 .intro .intro-text {
     margin: 10px;
     width: 45%;
-    height: 40vh;
+    height: 53vh;
     border-radius: 10%;
-    background: rgb(255, 230, 230,0.6);
+    background: #e8effc;
     padding: 45px;
 }
 .intro .right {
     
     margin: 10px;
     width: 45%;
-    height: 40vh;
-    background: rgb(255, 230, 230,0.6);
+    height: 53vh;
+    background: #e8effc;
     border-radius: 10%;
     padding: 45px;
 
@@ -281,11 +318,42 @@ header .login button {
 }
 /* footer */
 footer {
-    margin: 15px 0px;
-    background: black;
-    color: #fff;
-    width: 100%;
-    height: 20vh;
+    background-color: #060410;
+    padding: 20px;
+    text-align: center;
+    color: #e8effc;;
+    
 }
+
+.feedback form {
+    margin-top: 10px;
+}
+
+.feedback textarea {
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+}
+  
+.feedback input[type="submit"] {
+    background-color: #41e197;
+    color: #060410;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-info {
+    margin-top: 20px;
+}
+
+.admin-info h3 {
+    margin-bottom: 10px;
+}
+  
+.admin-info p {
+    margin: 0;
+}
+  
 
 

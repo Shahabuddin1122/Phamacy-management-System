@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+  <link rel="stylesheet" href="../assets/global.css" />
+  <link rel="stylesheet" href="../assets/order-confirmation.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas Neue:wght@400&display=swap" />
+</head>
+
+<body>
+  <div class="order-confirmation">
+    <div class="navbar1">
+      <div class="subtotal-wrapper">
+        <img class="logo-icon1" alt="" src="../public/public@2x.png" />
+      </div>
+      <div class="links1">
+        <a class="home2">
+          <div class="home3">Home</div>
+        </a>
+        <a class="profile2">
+          <div class="home3">Profile</div>
+        </a>
+        <a class="profile2">
+          <div class="home3">Appointment</div>
+        </a>
+        <a class="search2">
+          <div class="syed-nafees-kaiser">Search</div>
+        </a>
+        <a class="profile2">
+          <div class="home3">Bill</div>
+        </a>
+      </div>
+      <div class="cart-icon-group">
+        <a class="cart-icon2">
+          <div class="subtotal-wrapper">
+            <img class="shopping-bag-line-2-icon1" alt="" src="../public/shoppingbagline-2.svg" />
+          </div>
+          <div class="subtotal-wrapper">
+            <div class="home3">3 items</div>
+          </div>
+        </a>
+        <button class="logout1">
+          <div class="button12">
+            <div class="button13">Logout</div>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="billing-summery">
+      <h5 class="billing-summary-wrapper">
+        <b class="billing-summary">Billing Summary</b>
+      </h5>
+      <div class="frame-parent">
+        <div class="subtotal-wrapper">
+          <div class="billing-summary">Subtotal</div>
+        </div>
+        <div class="frame-group">
+          <div class="subtotal-wrapper">
+            <div class="billing-summary">
+              <%= requiredPrice.totalPrice %>
+            </div>
+          </div>
+          <div class="subtotal-wrapper">
+            <div class="billing-summary">Taka</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-container">
+        <div class="subtotal-wrapper">
+          <div class="billing-summary">Discount</div>
+        </div>
+        <div class="frame-group">
+          <div class="subtotal-wrapper">
+            <div class="billing-summary">
+              <%= requiredPrice.totalPrice*0.05 %>
+            </div>
+          </div>
+          <div class="subtotal-wrapper">
+            <div class="billing-summary">Taka</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-parent2">
+        <div class="subtotal-wrapper">
+          <div class="billing-summary">Shipping</div>
+        </div>
+        <div class="frame-group">
+          <div class="subtotal-wrapper">
+            <div class="billing-summary">20</div>
+          </div>
+          <div class="subtotal-wrapper">
+            <div class="billing-summary">Taka</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-parent4">
+        <div class="subtotal-wrapper">
+          <div class="billing-summary">VAT</div>
+        </div>
+        <div class="frame-group">
+          <div class="subtotal-wrapper">
+            <div class="billing-summary">
+              <%= requiredPrice.vat %>
+            </div>
+          </div>
+          <div class="subtotal-wrapper">
+            <div class="billing-summary">Taka</div>
+          </div>
+        </div>
+      </div>
+      <div class="billing-summery-child"></div>
+      <div class="frame-parent6">
+        <div class="subtotal-wrapper">
+          <b class="billing-summary">Grand Total</b>
+        </div>
+        <div class="frame-group">
+          <div class="subtotal-wrapper">
+            <b class="billing-summary">
+              <%= requiredPrice.allTotal+requiredPrice.totalPrice*0.05 %>
+            </b>
+          </div>
+          <div class="subtotal-wrapper">
+            <b class="billing-summary">Taka</b>
+          </div>
+        </div>
+      </div>
+      <div class="checkbox-group">
+        <input class="checkbox5" type="checkbox" />
+
+        <div class="please-check-to-container">
+          <span>Please check to acknowledge our </span>
+          <span class="privacy-terms">Privacy & Terms Policy</span>
+        </div>
+      </div>
+      <button class="button14">
+        <div class="button13">Confirm Order</div>
+      </button>
+    </div>
+    <div class="footer1"></div>
+    <div class="main-section1">
+      <div class="subtotal-wrapper">
+        <div class="personal-information">
+          <b class="syed-nafees-kaiser">Personal Information</b>
+          <div class="name-parent">
+            <div class="syed-nafees-kaiser">Name:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.PATIENT_NAME %>
+            </div>
+          </div>
+          <div class="age-parent">
+            <div class="syed-nafees-kaiser">Age:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.Age %> Years
+            </div>
+          </div>
+        </div>
+        <div class="contact-information">
+          <b class="syed-nafees-kaiser">Contact Information</b>
+          <div class="age-parent">
+            <div class="syed-nafees-kaiser">Phone no:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.PHONE_NO %>
+            </div>
+          </div>
+          <div class="name-parent">
+            <div class="syed-nafees-kaiser">Email:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.PATIENT_EMAIL %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shipping-details">
+        <b class="syed-nafees-kaiser">Shipping Details</b>
+        <div class="house-parent">
+          <div class="house">
+            <div class="syed-nafees-kaiser">House no:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.house %>
+            </div>
+          </div>
+          <div class="age-parent">
+            <div class="syed-nafees-kaiser">Road no:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.road %>
+            </div>
+          </div>
+        </div>
+        <div class="city-parent">
+          <div class="house">
+            <div class="syed-nafees-kaiser">City:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.city %>
+            </div>
+          </div>
+          <div class="name-parent">
+            <div class="syed-nafees-kaiser">District:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.district %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="billing-details">
+        <b class="syed-nafees-kaiser">Billing Details</b>
+        <div class="house-parent">
+          <div class="house">
+            <div class="syed-nafees-kaiser">House no:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.house %>
+            </div>
+          </div>
+          <div class="age-parent">
+            <div class="syed-nafees-kaiser">Road no:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.road %>
+            </div>
+          </div>
+        </div>
+        <div class="city-parent">
+          <div class="house">
+            <div class="syed-nafees-kaiser">City:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.city %>
+            </div>
+          </div>
+          <div class="name-parent">
+            <div class="syed-nafees-kaiser">District:</div>
+            <div class="syed-nafees-kaiser">
+              <%= patientInfo.district %>
+            </div>
+          </div>
+        </div>
+        <div class="house">
+          <div class="syed-nafees-kaiser">Payment method:</div>
+          <div class="syed-nafees-kaiser">Cash On Delivery</div>
+        </div>
+      </div>
+    </div>
+    <div class="order-review">
+      <div class="order-review-heading">
+        <h5 class="order-review1">Order Review</h5>
+        <div class="items-in-cart">
+          <%= arrayItem.length %> items in cart
+        </div>
+      </div>
+      <!-- <div class="product-summery">
+        <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
+
+        <div class="product-info">
+          <b class="billing-summary">Product-1</b>
+          <div class="pharmacy-name4">Pharmacy name</div>
+          <div class="quantity5">
+            <div class="rectangle"></div>
+            <div class="div17">2</div>
+            <div class="rectangle-copy-13"></div>
+            <img class="quantity-child" alt="" src="../public/group-1470.svg" />
+
+            <img class="path-7-copy-6" alt="" src="../public/path-7-copy-6.svg" />
+          </div>
+        </div>
+        <div class="product-price4">
+          <div class="billing-summary">1000</div>
+          <div class="billing-summary">Taka</div>
+        </div>
+      </div> -->
+      <% arrayItem.forEach(element=> { %>
+        <div class="product-summery1">
+          <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
+
+          <div class="product-info">
+            <b class="billing-summary"><%= element.PRODUCT_NAME %></b>
+            <div class="pharmacy-name4"><%= element.PHARMACY_NAME %></div>
+            <div class="quantity5">
+              <!-- <button class="rectangle1"></button> -->
+              <div class="div17"><%= element.order_quantity %></div>
+              <!-- <button class="rectangle-copy-131"></button> -->
+              <!-- <img class="quantity-child" alt="" src="../public/group-1470.svg" /> -->
+
+              <!-- <img class="path-7-copy-61" alt="" src="../public/path-7-copy-6.svg" /> -->
+            </div>
+          </div>
+          <div class="product-price4">
+            <div class="billing-summary"><%= element.PRODUCT_PRICE %></div>
+            <div class="billing-summary">Taka</div>
+          </div>
+        </div>
+        <% }) %>
+          <!-- <div class="product-summery1">
+        <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
+
+        <div class="product-info">
+          <b class="billing-summary">Product-1</b>
+          <div class="pharmacy-name4">Pharmacy name</div>
+          <div class="quantity5">
+            <button class="rectangle1"></button>
+            <div class="div17">2</div>
+            <button class="rectangle-copy-131"></button>
+            <img class="quantity-child" alt="" src="../public/group-1470.svg" />
+
+            <img class="path-7-copy-61" alt="" src="../public/path-7-copy-6.svg" />
+          </div>
+        </div>
+        <div class="product-price4">
+          <div class="billing-summary">1000</div>
+          <div class="billing-summary">Taka</div>
+        </div>
+      </div> -->
+          <!-- <div class="product-summery2">
+            <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
+
+            <div class="product-info">
+              <b class="billing-summary">Product-1</b>
+              <div class="pharmacy-name4">Pharmacy name</div>
+              <div class="quantity5">
+                <button class="rectangle1"></button>
+                <div class="div17">2</div>
+                <button class="rectangle-copy-131"></button>
+                <img class="quantity-child" alt="" src="../public/group-14701.svg" />
+
+                <img class="path-7-copy-61" alt="" src="../public/path-7-copy-6.svg" />
+              </div>
+            </div>
+            <div class="product-price4">
+              <div class="billing-summary">1000</div>
+              <div class="billing-summary">Taka</div>
+            </div>
+          </div>
+          <div class="product-summery3">
+            <img class="product-picture-icon" alt="" src="../public/images.svg" />
+
+            <div class="product-info">
+              <b class="billing-summary">Product-1</b>
+              <div class="pharmacy-name4">Pharmacy name</div>
+              <div class="quantity5">
+                <button class="rectangle1"></button>
+                <div class="div17">2</div>
+                <button class="rectangle-copy-131"></button>
+                <img class="quantity-child" alt="" src="../public/group-14702.svg" />
+
+                <img class="path-7-copy-61" alt="" src="../public/path-7-copy-6.svg" />
+              </div>
+            </div>
+            <div class="product-price4">
+              <div class="billing-summary">1000</div>
+              <div class="billing-summary">Taka</div>
+            </div>
+          </div> -->
+    </div>
+  </div>
+</body>
+
+</html>

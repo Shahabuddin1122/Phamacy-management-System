@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@1,200&family=Fira+Sans:wght@300&family=Merriweather&family=Open+Sans:wght@300&family=Unbounded:wght@300;400;500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+}
+body {
+    font-family: 'Unbounded', cursive;
+    background: linear-gradient(rgba(0, 115, 255, 0.379),rgba(166, 34, 196, 0.53));
+    background-attachment: fixed;
+}
+#navbar{
+    display: flex;
+    border: 2px solid red;
+    align-items: center;
+}
+
+

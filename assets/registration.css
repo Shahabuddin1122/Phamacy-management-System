@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@1,200&family=Fira+Sans:wght@300&family=Inter&family=Merriweather&family=Open+Sans:ital,wght@1,500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+
+
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-image: #e8effc;
+    background-attachment: fixed;
+}
+img {
+    width: 100%;
+    height: 100%;
+}
+header {
+    margin: 0px 0px 5px 89px;
+    padding: 5px 10px;
+    width: 90%;
+    height: 100px;
+    border: 2px solid rgb(31, 206, 127);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(31, 206, 127);
+    color: #060410;
+ 
+}
+
+header .logo {
+    color: #060410;
+    font-size: 2.1em;
+}
+header .menu ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header .menu ul li a{
+    text-decoration: none;
+    padding: 5px 10px;
+    color: #060410;
+
+}
+header .menu ul li a:hover, 
+.active,.btn:hover {
+    margin: 0px 5px;
+    background: #41e197;
+    color: #060410;
+    border-radius: 20%;
+}
+header .login button {
+    margin: 0px 10px;
+    padding: 5px;
+    width: 75px;
+    height: 30px;
+    color: #060410;
+    background: none;
+    border: 2px solid #060410;
+
+}
+/* searchbar */
+.search-bar {
+    align-items: center;
+    margin-left: 40%;
+
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    padding: 5px;
+  }
+  
+  .search-bar input[type="text"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 20px;
+  }
+  
+  .search-bar button[type="submit"] {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .search-bar button[type="submit"] i {
+    color: #555;
+  }
+  
+/* search end */
+
+
+.card {
+    width: 90%;
+    height: 50vh;
+    padding: 10px;
+    align-items: center;
+    margin: 3px 0px 0px 89px;
+}
+.card h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #fff;
+    font-weight: 700;
+
+}
+.card .box {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: space-around;
+
+}
+.card .box .inside-card {
+    width: 20%;
+    height: 40vh;
+    overflow: hidden;
+    
+}
+.card .inside-card:hover {
+    box-shadow: 2px 5px 10px 5px white;
+}
+.card .box .inside-card img {
+    width: 100%;
+    height: 50%;
+}
+.card .box .inside-card .text {
+    width: 100%;
+    height: 50%;
+    text-align: center;
+}
