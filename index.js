@@ -165,7 +165,8 @@ app.get('/appointment', async (req, res) => {
             Doc_Hos: row[4],
             Doc_day: row[5],
             Doc_start: row[6],
-            Doc_shift: row[7]
+            Doc_shift: row[8],
+            Doc_speci: row[9]
           };
         });
   
