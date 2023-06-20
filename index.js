@@ -3,6 +3,7 @@ const express=require('express');
 const fs = require('fs');
 const bodyParser=require('body-parser');
 const enc=bodyParser.urlencoded({extended:true});
+const PORT=4444;
 
 const app=express();
 app.use("/assets",express.static("assets"));
@@ -631,7 +632,7 @@ app.use(bodyParser.json());
                 autoCommit: true
             }
             const r=await connection.execute(query,binds,option);
-            // console.log(r.rows,value);
+            console.log(r.rows,value);
             let obj=r.rows;
             obj=obj.at(0);
             // console.log("obj:");
@@ -757,7 +758,9 @@ app.get('/fetch', async (req, res) => {
     }
   });
 
-app.listen(4444);
+app.listen(PORT,()=>{
+  console.log(`listening to http://localhost:${PORT}`);
+});
 
 
 

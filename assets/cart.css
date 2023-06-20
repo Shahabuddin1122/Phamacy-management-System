@@ -7,8 +7,9 @@
 }
 .home,
 .logo {
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
 }
 .logo {
   display: flex;
@@ -57,6 +58,7 @@
   gap: var(--gap-5xs);
   color: inherit;
 }
+
 .button1 {
   position: relative;
   font-size: var(--font-size-lg);
