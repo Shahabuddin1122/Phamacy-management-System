@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/search.css">
     <script src="https://kit.fontawesome.com/2437fb8d10.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    
 
     <title>Online Pharmacy</title>
 </head>
@@ -24,7 +24,7 @@
                 <li><a href="./profile" >Profile</a></li>
                 <li><a href="./appointment" >Appointment</a></li>
                 <li><a href="./search" class="active">Search</a></li>
-                <li><a href="#" >Bill</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
                 
                 
             </ul>
@@ -49,8 +49,9 @@
         <div id="results" style="display: flex;justify-content: space-around;">
             <% for (let i = 0; i < data.length; i++) { %>
                 <div class="card">
-                <img src="images/3576424_65886.jpg" alt="ProductImage">
+                <img src="public/images/3576424_65886.jpg" alt="ProductImage">
                 <h3><%= data[i].Pro_name %></h3>
+                <h5> <%= data[i].pharmacy %></h5>
                 <p>$<%= data[i].Pro_price %></p>
                 <button class="add-to-cart-btn">Add to Cart</button>
                 </div>
@@ -87,10 +88,9 @@
     
     
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="./jason.js"></script>
+    
     <script src="./index.js"></script>
-    <script src="./index2.js"></script>
+
     <script>
         let selectedItem = [];
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');

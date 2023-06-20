@@ -24,7 +24,7 @@
                 <li><a href="./profile" >Profile</a></li>
                 <li><a href="./appointment" class="active">Appointment</a></li>
                 <li><a href="./search" >Search</a></li>
-                <li><a href="#" >Bill</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
                 
                 
             </ul>
@@ -49,13 +49,13 @@
         <div id="results" style="display: flex;justify-content: space-around;">
             <% for (let i = 0; i < data.length; i++) { %>
                 <div class="card" id="<%= data[i].Doc_id %> ">
-                <img src="images/blank-profile-picture-g194d58982_1280.png" alt="ProductImage">
+                <img src="public/images/blank-profile-picture-g194d58982_1280.png" alt="ProductImage">
                 <h3><%= data[i].Doc_name %></h3>
                 <h5>Email: <%= data[i].Doc_Email %></h5>
                 <p><%= data[i].Doc_Que %></p>
                 <p><%= data[i].Doc_Hos %></p>
                 <p>visiting time:  <%= data[i].Doc_day %> <%= data[i].Doc_shift %> <%= data[i].Doc_Start %></p>
-                <button class="add-to-cart-btn" id="btnId" onclick="makeAppointment('<%= data[i].Doc_id %>' , '<%= username %>')">Take Appointment</button>
+                <button class="add-to-cart-btn" id="btnId" onclick="makeAppointment('<%= data[i].Doc_id %>')">Take Appointment</button>
 
                 </div>
             <% } %>
@@ -91,17 +91,17 @@
     <script src="./index.js"></script>
     <script src="./index2.js"></script>
     <script>
-        //k=username;
-        //console.log(username);
         
-        function makeAppointment(doc,pa) {
-            console.log("Make: ", doc);
+        
+        
+        function makeAppointment(doc,k) {
+            console.log("Make: ", k);
             const requestData = {
                 doctorId: doc,
-                patientId: pa
+                patientId: k
             };
             //console.log("MAKE :", requestData.doctorId);
-            document.getElementById(btnId).disabled = 'true';
+            //document.getElementById(btnId).disabled = 'true';
             fetch('/addConsult', {
                 method: 'POST',
                 headers: {
@@ -111,8 +111,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                console.log(data.message);
-                alert("your Serial Number is: ",data.serialNumber);
+                console.log('A ',data.message);
+                    alert( data.message );
                 // Handle the response data or perform any other actions
                 })
                 .catch(error => {

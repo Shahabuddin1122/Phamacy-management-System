@@ -7,7 +7,8 @@ const enc=bodyParser.urlencoded({extended:true});
 const app=express();
 app.use("/assets",express.static("assets"));
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use("/public",express.static('public'));
+app.use("/public/images",express.static("images"));
 let GLOBAL_ID;
 let a='Pat_00001';
 app.get("/",(req,res)=>{
@@ -86,13 +87,15 @@ app.get("/Main2", async (req, res) => {
                 connectString: 'localhost/xepdb1'
             });
 
-            const result = await connection.execute(`SELECT * FROM product`);
+            const result = await connection.execute(`select pro.product_name,p.pharmacy_name,pro.product_price
+            from pharmacy p join stores s using(pharmacy_id) join product pro using(product_id)`);
             console.log(result.rows);
             
             const jsonData = result.rows.map(row => {
                 return {
-                  Pro_name: row[1],
-                  Pro_price: row[3]
+                  Pro_name: row[0],
+                  pharma: row[1],
+                  Pro_price: row[2]
 
                 };
             });
@@ -187,7 +190,7 @@ app.get('/appointment', async (req, res) => {
     }
   
     await fetchDataCustomer(query);
-  });
+});
   
 
 
@@ -206,81 +209,80 @@ app.get('/appointment', async (req, res) => {
 
   app.use(bodyParser.json());
   app.post('/addConsult', async (req, res) => {
-    //const username = req.query.username;
+    //const patientId = req.query.username;
     let k = req.body.a;
     let doctorId=k.doctorId;
-    let patientId;
+    //let patientId;
 
-    fs.readFile('logindata.txt', 'utf8', (err, data) => {
-    if (err) {
-        console.error('Error reading file:', err);
-    } else {
-        patientId = data;
-        // Perform operations or logic using the patientId here
-        async function insertData(doctorId, patientId) {
-            let connection;
-            try {
-              connection = await oracledb.getConnection({
-                user: 'pharmacy_admin',
-                password: '12345',
-                connectString: 'localhost/xepdb1'
-              });
-        
-              const result = await connection.execute(
-                `
-                BEGIN
-                  INSERT INTO consults (Doctor_id, Patient_id)
-                  VALUES (:doctorId, :patientId);
-                  :message := 'Data inserted successfully';
-                EXCEPTION
-                  WHEN OTHERS THEN
-                    :message := SQLERRM;
-                END;
-                `,
-                {
-                  doctorId: doctorId,
-                  patientId: patientId,
-                  message: { dir: oracledb.BIND_OUT, type: oracledb.STRING }
-                }
-              );
-        
-              console.log(result.outBinds.message);
-              return { message: result.outBinds.message };
-            } catch (error) {
-              console.error(error);
-              return { message: 'Error occurred while inserting data' };
-            } finally {
-              if (connection) {
-                try {
-                  await connection.commit();
-                  await connection.close();
-                } catch (error) {
-                  console.error(error);
-                }
+    const patientId = fs.readFileSync('logindata.txt', 'utf8');
+      console.log(patientId);
+      // Perform operations or logic using the patientId here
+      async function insertData(doctorId, patientId) {
+          let connection;
+          try {
+            connection = await oracledb.getConnection({
+              user: 'pharmacy_admin',
+              password: '12345',
+              connectString: 'localhost/xepdb1'
+            });
+      
+            const result = await connection.execute(
+              `
+              DECLARE
+                v_serial NUMBER;
+              BEGIN
+                INSERT INTO consults (Doctor_id, Patient_id)
+                VALUES (:doctorId, :patientId)
+                RETURNING serial INTO v_serial;
+                
+                :message := 'Data inserted successfully. Serial: ' || v_serial;
+              EXCEPTION
+                WHEN OTHERS THEN
+                  :message := SQLERRM;
+              END;
+
+              `,
+              {
+                doctorId: doctorId,
+                patientId: patientId,
+                message: { dir: oracledb.BIND_OUT, type: oracledb.STRING }
+              }
+            );
+      
+            console.log(result.outBinds.message);
+            return {message: result.outBinds.message} ;
+          } catch (error) {
+            console.error(error);
+            return { message: 'Error occurred while inserting data' };
+          } finally {
+            if (connection) {
+              try {
+                await connection.commit();
+                await connection.close();
+
+              } catch (error) {
+                console.error(error);
               }
             }
           }
-        
-          insertData(doctorId, patientId)
-            .then(data => {
-              res.json(data);
-            })
-            .catch(error => {
-              console.error(error);
-              res.json({ message: 'Error occurred while inserting data' });
-            });
-    }
-    });
-
+        }
       
-    //const patientId = localStorage.getItem('loginId');
-    //console.log("From ADDCONSULT: ",k);
-    //console.log("From ADDCONSULT: ",doctorId);
-    console.log("From ADDCONSULT: ",patientId);
-    //let doctorId='Doc_00003';
-    //let patientId='Pat_00001';
+        insertData(doctorId, patientId)
+          .then(data => {
+            res.json(data);
+          })
+          .catch(error => {
+            console.error(error);
+            res.json({ message: 'Error occurred while inserting data' });
+          });
+    
    
   });
+        
+      
+
+   
+
   
 
 
@@ -303,14 +305,16 @@ app.get('/search', async (req, res) => {
                 password: '12345',
                 connectString: 'localhost/xepdb1'
             });
-            const result = await connection.execute(`SELECT * FROM product WHERE product_name LIKE INITCAP('%${query}%')`);
+            const result = await connection.execute(`select pro.product_name,p.pharmacy_name,pro.product_price
+            from pharmacy p join stores s using(pharmacy_id) join product pro using(product_id) WHERE lower(product_name) LIKE lower('%${query}%')`);
             console.log(result.rows);
-            const result1 = await connection.execute(`SELECT p.Pharmacy_name,p.Pharmacy_address.city,p.Pharmacy_address.District,p.OVERALL_RATING FROM Pharmacy p WHERE p.Pharmacy_name LIKE INITCAP('%${query}%')`);
+            const result1 = await connection.execute(`SELECT p.Pharmacy_name,p.Pharmacy_address.city,p.Pharmacy_address.District,p.OVERALL_RATING FROM Pharmacy p WHERE lower(p.Pharmacy_name) LIKE lower('%${query}%')`);
             console.log(result1.rows);
             const jsonData = result.rows.map(row => {
                 return {
-                    Pro_name: row[1],
-                    Pro_price: row[3]
+                    Pro_name: row[0],
+                    pharmacy:row[1],
+                    Pro_price: row[2]
 
                 };
             });
