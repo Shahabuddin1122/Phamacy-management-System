@@ -236,11 +236,7 @@ header .login button {
 }
 .card {
     width: 287px;
-<<<<<<< HEAD
     height: 313px;;
-=======
-    height: 55vh;
->>>>>>> ad2b2f1 (Updated appointment)
     background-color: #e8effc;
     border-radius: 5px;
     padding: 10px;
