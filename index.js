@@ -188,7 +188,7 @@ app.get('/appointment', async (req, res) => {
     }
   
     await fetchDataCustomer(query);
-  });
+});
   
 
 
@@ -207,81 +207,80 @@ app.get('/appointment', async (req, res) => {
 
   app.use(bodyParser.json());
   app.post('/addConsult', async (req, res) => {
-    //const username = req.query.username;
+    //const patientId = req.query.username;
     let k = req.body.a;
     let doctorId=k.doctorId;
-    let patientId;
+    //let patientId;
 
-    fs.readFile('logindata.txt', 'utf8', (err, data) => {
-    if (err) {
-        console.error('Error reading file:', err);
-    } else {
-        patientId = data;
-        // Perform operations or logic using the patientId here
-        async function insertData(doctorId, patientId) {
-            let connection;
-            try {
-              connection = await oracledb.getConnection({
-                user: 'pharmacy_admin',
-                password: '12345',
-                connectString: 'localhost/xepdb1'
-              });
-        
-              const result = await connection.execute(
-                `
-                BEGIN
-                  INSERT INTO consults (Doctor_id, Patient_id)
-                  VALUES (:doctorId, :patientId);
-                  :message := 'Data inserted successfully';
-                EXCEPTION
-                  WHEN OTHERS THEN
-                    :message := SQLERRM;
-                END;
-                `,
-                {
-                  doctorId: doctorId,
-                  patientId: patientId,
-                  message: { dir: oracledb.BIND_OUT, type: oracledb.STRING }
-                }
-              );
-        
-              console.log(result.outBinds.message);
-              return { message: result.outBinds.message };
-            } catch (error) {
-              console.error(error);
-              return { message: 'Error occurred while inserting data' };
-            } finally {
-              if (connection) {
-                try {
-                  await connection.commit();
-                  await connection.close();
-                } catch (error) {
-                  console.error(error);
-                }
+    const patientId = fs.readFileSync('logindata.txt', 'utf8');
+      console.log(patientId);
+      // Perform operations or logic using the patientId here
+      async function insertData(doctorId, patientId) {
+          let connection;
+          try {
+            connection = await oracledb.getConnection({
+              user: 'pharmacy_admin',
+              password: '12345',
+              connectString: 'localhost/xepdb1'
+            });
+      
+            const result = await connection.execute(
+              `
+              DECLARE
+                v_serial NUMBER;
+              BEGIN
+                INSERT INTO consults (Doctor_id, Patient_id)
+                VALUES (:doctorId, :patientId)
+                RETURNING serial INTO v_serial;
+                
+                :message := 'Data inserted successfully. Serial: ' || v_serial;
+              EXCEPTION
+                WHEN OTHERS THEN
+                  :message := SQLERRM;
+              END;
+
+              `,
+              {
+                doctorId: doctorId,
+                patientId: patientId,
+                message: { dir: oracledb.BIND_OUT, type: oracledb.STRING }
+              }
+            );
+      
+            console.log(result.outBinds.message);
+            return {message: result.outBinds.message} ;
+          } catch (error) {
+            console.error(error);
+            return { message: 'Error occurred while inserting data' };
+          } finally {
+            if (connection) {
+              try {
+                await connection.commit();
+                await connection.close();
+
+              } catch (error) {
+                console.error(error);
               }
             }
           }
-        
-          insertData(doctorId, patientId)
-            .then(data => {
-              res.json(data);
-            })
-            .catch(error => {
-              console.error(error);
-              res.json({ message: 'Error occurred while inserting data' });
-            });
-    }
-    });
-
+        }
       
-    //const patientId = localStorage.getItem('loginId');
-    //console.log("From ADDCONSULT: ",k);
-    //console.log("From ADDCONSULT: ",doctorId);
-    console.log("From ADDCONSULT: ",patientId);
-    //let doctorId='Doc_00003';
-    //let patientId='Pat_00001';
+        insertData(doctorId, patientId)
+          .then(data => {
+            res.json(data);
+          })
+          .catch(error => {
+            console.error(error);
+            res.json({ message: 'Error occurred while inserting data' });
+          });
+    
    
   });
+        
+      
+
+   
+
   
 
 
