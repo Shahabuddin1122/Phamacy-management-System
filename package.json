@@ -4,16 +4,21 @@
     "bootstrap": "^5.3.0-alpha3",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "oracledb": "^6.0.0"
+    "oracledb": "^6.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "pharmacy": "nodemon index.js"
   },
   "name": "login",
   "description": "This is a repository for DBMS group project\r https://github.com/Shahabuddin1122/Phamacy-management-System.git",
   "version": "1.0.0",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": [],
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
