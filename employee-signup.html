@@ -3,12 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
-<<<<<<< HEAD
-    <link rel="stylesheet" href="assets/global(1).css" />
-=======
     <link rel="stylesheet" href="assets/global.css" />
->>>>>>> 30e796a (Added appointment, modified patient)
-    <link rel="stylesheet" href="assets/patient-signup.css" />
+    <link rel="stylesheet" href="assets/employee-signup.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,300&display=swap"
@@ -31,15 +27,16 @@
     />
   </head>
   <body>
-    <div class="patient-signup" data-animate-on-scroll>
+    <div class="employee-signup" data-animate-on-scroll>
       <img
-        class="black-health-logo-2-1"
+        class="black-health-logo-2-11"
         alt=""
-        src="public/images/black-health-logo-2-11@2x.png"
+        src="images/black-health-logo-2-11@2x.png"
       />
-      <form action="/Patient-signup" method="POST">
-        <input
-        class="email"
+
+      <form action="/employee-signup" method="POST">
+      <input
+        class="email2"
         type="email"
         placeholder="Enter Your Email"
         required
@@ -48,7 +45,18 @@
       />
 
       <input
-        class="road"
+        class="name2"
+        type="text"
+        placeholder="Enter Your Name"
+        required
+        id="name"
+        name="name"
+      />
+
+      <div class="email3">Email</div>
+      <div class="name3">Name</div>
+      <input
+        class="road1"
         type="text"
         placeholder="Enter Your Road no."
         required
@@ -57,7 +65,7 @@
       />
 
       <input
-        class="city"
+        class="city2"
         type="text"
         placeholder="Enter Your City"
         required
@@ -66,16 +74,16 @@
       />
 
       <input
-        class="district"
+        class="district2"
         type="text"
         placeholder="Enter Your District"
         required
-        id="District"
+        id="district"
         name="district"
       />
 
       <input
-        class="contact"
+        class="contact1"
         type="tel"
         placeholder="Enter Your Contact no."
         required
@@ -83,24 +91,25 @@
         name="phone"
       />
 
+      <div class="contact-no1">Contact no.</div>
       <input
-        class="confirm"
+        class="confirm1"
         type="password"
         placeholder="Confirm Your Password"
         required
         id="password2"
       />
 
-      <button class="create" id="create" type="submit">
-        <i class="create-account">Create Account</i>
+      <div class="confirm-password1">Confirm Password</div>
+      <button class="create1" id="create">
+        <i class="create-account1" id="createAccountText">Create Account</i>
       </button>
-      <button class="employee-signup" id="employeeSignup">
-        <div class="employee-signup-child"></div>
-        <i class="not-a-patient">Not a Patient?</i>
+      <button class="doc-signup" id="docSignup">
+        <div class="doc-signup-child"></div>
+        <i class="not-an-employee">Not an Employee?</i>
       </button>
-    </div>
       <input
-        class="password"
+        class="password2"
         type="password"
         placeholder="Enter Your Password"
         required
@@ -108,16 +117,10 @@
         name="password1"
       />
 
-      <div class="text-blocksectionlargetitle">
-        <div class="body">
-          Create an account with us to stay up-to-date with new health providers
-          that are near you, current news and resources!
-        </div>
-        <div class="title">SIGN UP</div>
-      </div>
-      <div class="name">Name</div>
+      <div class="sign-up">SIGN UP</div>
+      <div class="sign-up-as">Sign up as an Employee</div>
       <input
-        class="dob"
+        class="dob1"
         type="date"
         placeholder="Enter Your Date of Birth"
         required
@@ -125,51 +128,45 @@
         name="dob"
       />
 
-      <div class="email1">Email</div>
-      <div class="date-of-birth">Date of Birth</div>
-      <div class="contact-no">Contact no.</div>
-      <div class="password1">Password</div>
-      <div class="house-no">House no.</div>
-      <div class="road-no">Road no.</div>
-      <div class="city1">City</div>
-      <div class="district1">District</div>
-      <div class="confirm-password">Confirm Password</div>
+      <div class="date-of-birth1">Date of Birth</div>
+      <div class="password3">Password</div>
+      <div class="road-no1">Road no.</div>
+      <div class="city3">City</div>
+      <div class="district3">District</div>
       <input
-        class="name1"
-        type="text"
-        placeholder="Enter Your Name"
-        required
-        id="name"
-        name="name"
-      />
-
-      <input
-        class="house"
+        class="house1"
         type="text"
         placeholder="Enter Your House no."
         required
         id="house"
         name="house"
       />
-      </form>
-      
+
+      <div class="house-no1">House no.</div>
     </div>
-    
+  </form>
+
     <script>
+      var createAccountText = document.getElementById("createAccountText");
+      if (createAccountText) {
+        createAccountText.addEventListener("click", function (e) {
+          window.location.href = "/Main2";
+        });
+      }
+      
       var create = document.getElementById("create");
       if (create) {
         create.addEventListener("click", function (e) {
-          window.location.href = "/newlog";
+          window.location.href = "/regi";
         });
       }
 
-      var employeeSignup = document.getElementById("employeeSignup");
-      if (employeeSignup) {
-        employeeSignup.addEventListener("click", function (e) {
-          window.location.href = "/employee-signup";
+      var docSignup = document.getElementById("docSignup");
+      if (docSignup) {
+        docSignup.addEventListener("click", function (e) {
+          window.location.href = "/";
         });
       }
-
       var scrollAnimElements = document.querySelectorAll("[data-animate-on-scroll]");
       var observer = new IntersectionObserver(
         (entries) => {
