@@ -280,7 +280,108 @@ app.get('/appointment', async (req, res) => {
    
   });
         
-      
+  //let GLOBAL_ID='';
+
+
+
+
+
+
+
+
+
+app.post("/Patient-signup",enc,(req,res)=>{
+    async function fetchDataCustomer(name,email,phone,password1,house,road,city,district,dob){
+        try {
+            const connection=await oracledb.getConnection({
+            user: 'pharmacy_admin',
+         	  password: '12345',
+          	connectString: 'localhost/xepdb1'
+            });
+
+            const result = await connection.execute(
+                `BEGIN
+                   :new_login_id := '';
+        
+                   INSERT INTO patient (patient_name, patient_email,patient_address,patient_dob)
+                   VALUES (:name, :email,addr(:road,:city,:house,:district),to_date(:dob,'dd-mm-yyyy'))
+                   RETURNING patient_id INTO :new_login_id;
+
+                   INSERT INTO login (login_id,password,USER_TYPE)
+                   VALUES (:new_login_id, :password1,'PATIENT');
+
+                   INSERT INTO phone (user_id, phone_no)
+                   VALUES (:new_login_id, :phone);
+        
+                   :message := 'Records inserted successfully';
+                END;`,
+                {
+                  new_login_id: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+                  password1: password1,
+                  phone: phone,
+                  name: name,
+                  email: email,
+                  road: road,
+                  city: city,
+                  house: house,
+                  district: district,
+                  dob: dob,
+                  message: { type: oracledb.STRING, dir: oracledb.BIND_OUT }
+                }
+              );
+            
+            await connection.commit();
+            await connection.close();
+            GLOBAL_ID=result.outBinds.new_login_id;
+            console.log('Generated Login ID:', result.outBinds.new_login_id);
+        
+            console.log(result.outBinds.message);
+            return result;
+        }   catch (error) {
+            return error;
+        }
+    }
+           
+    
+    let password1=req.body.password1;
+    let name=req.body.name;
+    let email=req.body.email;
+    let phone=req.body.phone;
+    //let dob=new Date(req.body.dob);
+    let dob = req.body.dob;
+    const dateObj = new Date(dob);
+    const day = dateObj.getDate();
+    const month = dateObj.getMonth() + 1; // Months are zero-based
+    const year = dateObj.getFullYear();
+
+    // Format day and month with leading zeroes if necessary
+    const formattedDay = day < 10 ? '0' + day : day;
+    const formattedMonth = month < 10 ? '0' + month : month;
+
+    dob = formattedDay + '-' + formattedMonth + '-' + year;
+    let house=req.body.house;
+    let road=req.body.road;
+    let city=req.body.city;
+    let district=req.body.district;
+    
+    fetchDataCustomer(name,email,phone,password1,house,road,city,district,dob)
+        .then(dbRes=>{
+            console.log(dbRes);
+            console.log('AT POST:', GLOBAL_ID);
+            //res.redirect("/newlog");
+            res.redirect("/newlog");
+        })
+        .catch(err=>{
+            // res.redirect("/regi");
+            console.log(err);
+            res.redirect("/regi");
+        });
+
+})
+app.get("/Patient-signup",(req,res)=>{
+    console.log('AT Patient-signup GET:', GLOBAL_ID);
+    res.sendFile(__dirname+"/Patient-signup.html");
+})   
 
    
 
@@ -557,18 +658,18 @@ app.get("/profile", async (req, res) => {
                 connectString: 'localhost/xepdb1'
             });
 
-            const result = await connection.execute(`select DOCTOR_id,DOCTOR_name,DOCTOR_email,
-            p.DOCTOR_address.Road_no as Road_no,
-            p.DOCTOR_address.City as City,
-            p.DOCTOR_address.house_no as House_no,
-            p.DOCTOR_address.District as District,
+            const result = await connection.execute(`select p.patient_id,p.patient_name,p.patient_email,
+            p.Road_no,
+            p.City,
+            p.House_no,
+            p.District,
             phone.phone_no,password
-            from DOCTOR p,phone,login
-            where p.doctor_id=phone.user_id 
-            and login.login_id=p.doctor_id
-            and P.DOCTOR_id='${username}'`);
+            from patient_view p,phone,login
+            where p.patient_id=phone.user_id 
+            and login.login_id=p.patient_id
+            and p.patient_id='${username}'`);
 
-            
+            console.log('A:',result);
             const jsonData = result.rows.map(row => {
                 return {
                   Patient_id: row[0],
@@ -583,7 +684,7 @@ app.get("/profile", async (req, res) => {
 
                 };
             });
-            console.log(jsonData);
+            console.log('CHeck: ',jsonData[0].Patient_Name);
             
             res.render('profile', { data: jsonData, username: username }); // Corrected: data should be result.rows
             return result.rows;

@@ -49,11 +49,11 @@
         <div id="results" style="display: flex;justify-content: space-around;">
             <% for (let i = 0; i < data.length; i++) { %>
                 <div class="card">
-                <img src="images/3576424_65886.jpg" alt="ProductImage">
+                <img src="public/images/3576424_65886.jpg" alt="ProductImage">
                 <h3>Name:<%= data[i].Pro_name %></h3>
                 <p style="text-align: center;">city: <%= data[i].pro_city %></p>
                 <p style="text-align: center;">Rating: <%= data[i].pro_rating %></p>
-                
+                <button class="add-to-cart-btn">Details</button>
                 </div>
             <% } %>
             
