@@ -45,9 +45,11 @@
         <a class="cart-icon" href="#">
           <div class="logo">
             <img class="shopping-bag-line-2-icon" alt="" src="../public/shoppingbagline-2.svg">
-            <span class="items active"><%= arrayItem.length %> items</span>
+            <span class="items active">
+              <%= arrayItem.length %> items
+            </span>
           </div>
-          
+
         </a>
         <button class="logout">
           <button class="button">
@@ -70,17 +72,17 @@
           </p>
         </div>
         <div class="checkbox-parent">
-          <input class="checkbox" type="checkbox" checked>
+          <input class="checkbox" type="checkbox">
 
           <p class="prdouct-tag">
           <div class="product">Select all</div>
           </p>
         </div>
         <!-- !!!!!! -->
-        
+
         <% arrayItem.forEach((element,index)=> { %>
           <div class="product-list">
-            <input class="checkbox" type="checkbox" checked>
+            <input class="checkbox" type="checkbox" data-index="<%= index %>">
 
             <div class="product-information">
               <h5 class="name">
@@ -135,7 +137,7 @@
           </div>
           <div class="amount">
             <div class="logo">
-              <div id="total-price-div" class="product">0 </div>
+              <div id="total-price-div" class="product" data="<%= JSON.stringify(arrayItem) %>">0</div>
             </div>
             <div class="logo">
               <div class="product">Taka</div>
@@ -149,7 +151,7 @@
           <div class="amount1">
             <div class="logo">
               <div class="product">
-                <span>20</span>
+                <span id="shipping">0</span>
                 <span class="span4"> </span>
               </div>
             </div>
@@ -183,7 +185,7 @@
           <div class="amount1">
             <div class="logo">
               <div class="product">
-                <span id="all-total">1000</span>
+                <span id="all-total">0</span>
                 <span class="span4"> </span>
               </div>
             </div>
@@ -197,6 +199,7 @@
         </button>
       </div>
     </div>
+    <!-- <input type="hidden" name="data" id="data" value="<%= JSON.stringify(arrayItem) %>"> -->
     <footer class="footer">
     </footer>
   </div>
@@ -205,79 +208,172 @@
 
 
   <script>
-    // let totalPrice=parseFloat(document.getElementById('total-price').value);
-    // document.getElementById('total-price-div').textContent=totalPrice;
+
+    // document.getElementById('total-price-div').textContent=total;
     // let vat=totalPrice*0.15;
     // document.getElementById('vat').textContent=vat;
+
     // let allTotal=totalPrice+20+vat;
     // document.getElementById('all-total').textContent=allTotal;
+
+    let productCheckbox = document.querySelectorAll('.product-list .checkbox');
+    let selectAllCheckbox = document.querySelector('.checkbox-parent .checkbox');
+    selectAllCheckbox.addEventListener('change', event => {
+      if (selectAllCheckbox.checked) {
+        productCheckbox.forEach(check => {
+          check.checked = true;
+        })
+      }
+      else {
+        productCheckbox.forEach(check => {
+          check.checked = false;
+        })
+      }
+
+      updateProductTotal();
+    });
+
+    productCheckbox.forEach((check) => {
+      check.addEventListener('change', event => {
+        if (check.checked) {
+          // var index = check.getAttribute('data-index');
+          // var initialProductPrices = document.querySelectorAll('.product-price')[index];
+          // // initialProductPrices.forEach((price, index) => {
+          // var productPrice = initialProductPrices.getAttribute('data-product-price');
+          // var quantity = document.querySelectorAll('.quantity-det')[index].textContent;
+          // productTotal += parseInt(quantity) * parseInt(productPrice);
+
+          // document.getElementById('total-price-div').textContent = productTotal;
+          // let vat = productTotal * 0.15;
+          // document.getElementById('vat').textContent = vat;
+
+          // let allTotal = productTotal + 20 + vat;
+          // document.getElementById('all-total').textContent = allTotal;
+          // // });
+          updateProductTotal();
+
+        }
+      })
+    })
+
+    let total = 0;
+    let productTotal = 0;
+    var decreaseButton = document.querySelectorAll('.decrease');
+    decreaseButton.forEach(button => {
+      button.addEventListener('click', event => {
+        var index = button.getAttribute('data-index');
+        var quantity = document.querySelectorAll('.quantity-det')[index];
+        if (quantity.textContent > 1) quantity.textContent--;
+
+        var productPrice = document.querySelectorAll('.product-price')[index].getAttribute('data-product-price');
+        var productPriceTotal = parseInt(quantity.textContent) * parseInt(productPrice);
+
+        document.querySelectorAll('.product-price')[index].textContent = productPriceTotal;
+        // productTotal = productPriceTotal;
+        // if (total > 0) productTotal -= productPriceTotal;
+        updateProductTotal();
+      });
+    });
+    var increase = document.querySelectorAll('.increase');
+    increase.forEach(button => {
+      button.addEventListener('click', event => {
+        var index = button.getAttribute('data-index');
+        var quantity = document.querySelectorAll('.quantity-det')[index];
+        if (quantity.textContent < 10) quantity.textContent++;
+
+        var productPrice = document.querySelectorAll('.product-price')[index].getAttribute('data-product-price');
+        var productPriceTotal = parseInt(quantity.textContent) * parseInt(productPrice);
+
+        document.querySelectorAll('.product-price')[index].textContent = productPriceTotal;
+        // productTotal += productPriceTotal;
+        updateProductTotal();
+      });
+    });
+
+    function updateProductTotal() {
+      productTotal = 0;
+      productCheckbox.forEach((check) => {
+        if (check.checked) {
+          index = check.getAttribute('data-index');
+          var productPrices = document.querySelectorAll('.product-price')[index];
+          productTotal += parseFloat(productPrices.textContent);
+        }
+      });
+      // productTotal = 0;
+      // var productPrices = document.querySelectorAll('.product-price');
+      // productPrices.forEach(price => {
+      //   productTotal += parseInt(price.textContent);
+      // });
+      document.getElementById('total-price-div').textContent = productTotal;
+      let vat = productTotal * 0.15;
+      document.getElementById('vat').textContent = vat;
+      let shipping = 20;
+      document.getElementById('shipping').textContent = shipping;
+      let allTotal = productTotal + shipping + vat;
+      document.getElementById('all-total').textContent = allTotal;
+    }
+
+    // var initialProductPrices = document.querySelectorAll('.product-price');
+    // initialProductPrices.forEach((price, index) => {
+    //   var productPrice = price.getAttribute('data-product-price');
+    //   var quantity = document.querySelectorAll('.quantity-det')[index].textContent;
+    //   productTotal += parseInt(quantity) * parseInt(productPrice);
+    // });
+
+    // document.getElementById('total-price-div').textContent = productTotal;
+
+
+    // let totalPrice=parseFloat(document.getElementById('total-price').value);
+
     // let requiredPrice={
     //   'totalPrice':totalPrice,
     //   'vat':vat,
     //   'allTotal':allTotal
     // }
 
-    var decreaseButton=document.querySelectorAll('.decrease');
-    decreaseButton.forEach(button=>{
-      button.addEventListener('click',event=>{
-        var index=button.getAttribute('data-index');
-        var quantity=document.querySelectorAll('.quantity-det')[index];
-        if(quantity.textContent>0) quantity.textContent--;
 
-        var productPrice=document.querySelectorAll('.product-price')[index].getAttribute('data-product-price');
-        var productPriceTotal=parseInt(quantity.textContent)*parseInt(productPrice);
 
-        document.querySelectorAll('.product-price')[index].textContent=productPriceTotal;
-      })
-    })
-    var increase=document.querySelectorAll('.increase');
-    increase.forEach(button=>{
-      button.addEventListener('click',event=>{
-        var index=button.getAttribute('data-index');
-        var quantity=document.querySelectorAll('.quantity-det')[index];
-        quantity.textContent++;
+    // productCheckbox.forEach((check,index)=>{
+    //   check[index].addEventListener(event=>{
 
-        var productPrice=document.querySelectorAll('.product-price')[index].getAttribute('data-product-price');
-        var productPriceTotal=parseInt(quantity.textContent)*parseInt(productPrice);
-
-        document.querySelectorAll('.product-price')[index].textContent=productPriceTotal;
-      })
-    })
-
-    let productCheckbox=document.querySelectorAll('.product-list .checkbox');
-    let selectAllCheckbox=document.querySelector('.checkbox-parent .checkbox');
-    selectAllCheckbox.addEventListener('change',event=>{
-      if(selectAllCheckbox.checked){
-        productCheckbox.forEach(check=>{
-          check.checked=true;
-        })
-      }
-      else{
-        productCheckbox.forEach(check=>{
-          check.checked=false;
-        })
-      }
-
-    })
-    
+    //   })
+    // })
 
     var button9 = document.getElementById("button9");
     if (button9) {
       button9.addEventListener("click", function (e) {
+
+        let productInfo = document.getElementById('total-price-div').getAttribute('data');
+        productInfo=JSON.parse(productInfo);
+        let productTotal = document.getElementById('total-price-div').textContent;
+
+        let vat = document.getElementById('vat').textContent;
+
+        let shipping = document.getElementById('shipping').textContent;
+        let allTotal = document.getElementById('all-total').textContent;
+
+        let requiredPrice={
+          'productInfo': productInfo,
+          'productTotal': productTotal,
+          'vat': vat,
+          'shipping': shipping,
+          'allTotal': allTotal
+        }
+        console.log(requiredPrice);
         fetch('/checkout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({requiredPrice})
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data); // Log the response from the server
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ requiredPrice })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data); // Log the response from the server
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
 
         window.location.href = "/checkout";
       });

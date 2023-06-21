@@ -38,7 +38,7 @@
     </header> 
     <form action="/appointment" method="GET">
         <div class="search-bar">
-            <input type="text" name="search_doctor" placeholder="Search a doctor......">
+            <input type="text" name="search_doctor" placeholder="Search a doctor in your area......">
             <button type="submit"><i class="fa fa-search"></i></button>
         </div>
     </form>
@@ -49,10 +49,10 @@
         <div id="results" style="display: flex;justify-content: space-around;">
             <% for (let i = 0; i < data.length; i++) { %>
                 <div class="card" id="<%= data[i].Doc_id %> ">
-                <img src="../public/images/blank-profile-picture-g194d58982_1280.png" alt="ProductImage">
+                <img src="public/images/blank-profile-picture-g194d58982_1280.png" alt="ProductImage">
                 <h3><%= data[i].Doc_name %></h3>
                 <h5>Email: <%= data[i].Doc_Email %></h5>
-                <p><%= data[i].Doc_Que %></p>
+                <p><%= data[i].Doc_Que %> at <%= data[i].Doc_speci %></p>
                 <p><%= data[i].Doc_Hos %></p>
                 <p>visiting time:  <%= data[i].Doc_day %> <%= data[i].Doc_shift %> <%= data[i].Doc_Start %></p>
                 <button class="add-to-cart-btn" id="btnId" onclick="makeAppointment('<%= data[i].Doc_id %>')">Take Appointment</button>
@@ -111,8 +111,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                console.log(data.message);
-                alert("your Serial Number is: ",data.serialNumber);
+                console.log('A ',data.message);
+                    alert( data.message );
                 // Handle the response data or perform any other actions
                 })
                 .catch(error => {
