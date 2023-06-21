@@ -299,7 +299,7 @@ app.get('/search', async (req, res) => {
             });
             const result = await connection.execute(`SELECT * FROM product WHERE lower(product_name) LIKE lower('%${query}%')`);
             console.log(result.rows);
-            const result1 = await connection.execute(`SELECT p.Pharmacy_name,p.Pharmacy_address.city,p.Pharmacy_address.District,p.OVERALL_RATING FROM Pharmacy p WHERE p.Pharmacy_name LIKE INITCAP('%${query}%')`);
+            const result1 = await connection.execute(`SELECT p.Pharmacy_name,p.Pharmacy_address.city,p.Pharmacy_address.District,p.OVERALL_RATING FROM Pharmacy p WHERE lower(p.Pharmacy_name) LIKE lower('%${query}%')`);
             console.log(result1.rows);
             const jsonData = result.rows.map(row => {
                 return {
