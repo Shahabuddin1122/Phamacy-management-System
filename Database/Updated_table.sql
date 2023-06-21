@@ -106,7 +106,8 @@ create or replace view patient_view as
     p.Patient_address.City as City,
     p.patient_address.house_no as House_no,
     p.Patient_address.District as District,
-    patient_dob,floor(months_between(sysdate, patient_dob)/12) as patient_age 
+    patient_dob,
+    floor(months_between(sysdate, patient_dob)/12) as patient_age 
     from patient p;
 
 
