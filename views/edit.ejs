@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="assets/globa1l.css" />
+    <link rel="stylesheet" href="assets/edit.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Public Sans:wght@400;500;600;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto Slab:wght@400;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Font Awesome 5 Free:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+      <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./Main2" >Home</a></li>
+                <li><a href="./profile" class="active">Profile</a></li>
+                <li><a href="./appointment" >Appointment</a></li>
+                <li><a href="./search" >Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+                
+                
+            </ul>
+        </div>
+        <div class="login">
+            <button type="submit">Log in</button>
+            <button type="submit">Sign in</button>
+        </div>
+
+
+    </header> 
+    <div class="divcard-parent">
+      <div class="divcard">
+        <div class="heading-5">Profile Details</div>
+        <div class="divd-flex">
+          <img class="png-icon" alt="" src="./public/images/1png@2x.png" />
+        </div>
+        <div class="separator"></div>
+        <div class="form">
+        <form action="/edit" method="POST">
+          <div class="divrow">
+            <div class="divmb-3">
+              <div class="label-first">NAME</div>
+              <input class="input" type="text" name="name" maxlength minlength id="name" value="<%= data[0].Patient_Name %>"/>
+            </div>
+            <div class="divmb-31">
+              <div class="label-first">CONTACT NO.</div>
+              <input class="input1" type="tel" name="phone" maxlength minlength id="phone" value="<%= data[0].Patient_phone %>"/>
+            </div>
+            <div class="divmb-32">
+              <div class="label-first">E-mail</div>
+              <input
+                class="options"
+                type="email"
+                maxlength
+                minlength
+                id="email"
+                name="email"
+                value="<%= data[0].Patient_Email %>"
+              />
+            </div>
+            <div class="divmb-33">
+              <div class="label-first">District</div>
+              <input
+                class="input3"
+                type="text"
+                maxlength
+                minlength
+                id="district"
+                name="district"
+                value="<%= data[0].District %>"
+              />
+            </div>
+            <div class="divmb-34"></div>
+            <div class="label-phone">dATE OF BIRTH</div>
+            <div class="divmb-35">
+              <div class="label-first">City</div>
+              <input
+                class="options"
+                type="text"
+                maxlength
+                minlength
+                id="city"
+                name="city"
+                value="<%= data[0].City %>"
+              />
+            </div>
+            <div class="divmb-36">
+              <div class="label-first">House no.</div>
+              <input
+                class="options"
+                type="text"
+                maxlength
+                minlength
+                id="house"
+                name="house"
+                value="<%= data[0].House %>"
+              />
+            </div>
+            <div class="divmb-37">
+              <div class="label-first">road no</div>
+              <input
+                class="options"
+                type="text"
+                maxlength
+                minlength
+                id="road"
+                name="road"
+                value="<%= data[0].Road %>"
+              />
+            </div>
+            <div class="divmb-38">
+              <div class="label-first">password</div>
+              <input
+                class="options"
+                type="text"
+                maxlength
+                minlength
+                id="pass"
+                name="password1"
+                value="<%= data[0].Pass %>"
+              />
+            </div>
+            <input
+              class="divrow-child"
+              type="date"
+              maxlength
+              minlength
+              id="dateInput"  
+              name="dob"
+            />
+          </div>
+          <div class="divmt-2">
+            <div class="button" id="create" style="text-align: center;
+            justify-content: center;
+            width: 150px;
+            background: #36a4364d;">
+              <button class="save-changes" id="create" style="text-align: center;
+              justify-content: center;
+              width: 150px;
+              height: 50px;
+              background: #36a4364d;">Save</button>
+            </div>
+            <div class="button1" id="create" style="text-align: center;
+            justify-content: center;
+            width: 150px;
+            background: #36a4364d;">
+              <button class="save-changes"style="text-align: center;
+              justify-content: center;
+              width: 150px;
+              height: 50px;
+              background: #36a4364d;">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    // Access the date input element
+    var dateInput = document.getElementById('dateInput');
+    
+    // Set the value of the date input
+    dateInput.value = '2023-06-21';
+
+    var create = document.getElementById("create");
+      if (create) {
+        create.addEventListener("click", function (e) {
+          window.location.href = "/profile";
+        });
+      }
+  </script>
+</html>
