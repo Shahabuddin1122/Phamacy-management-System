@@ -713,31 +713,31 @@ app.post('/cart-items', async (req, res) => {
       password: "12345",
       connectionString: "localhost/xepdb1"
     })
-    const query=`select product.product_id, product.product_name,product.product_type,product.product_price,pharmacy.pharmacy_id,pharmacy_name from pharmacy join stores on pharmacy.pharmacy_id=stores.pharmacy_id
+    const query = `select product.product_id, product.product_name,product.product_type,product.product_price,pharmacy.pharmacy_id,pharmacy_name from pharmacy join stores on pharmacy.pharmacy_id=stores.pharmacy_id
              join product on stores.product_id=product.product_id
              where product.product_id=:1 and pharmacy.pharmacy_id=:2`;
-    const binds={
-      1:items['pro_id'],
-      2:items['ph_id']
+    const binds = {
+      1: items['pro_id'],
+      2: items['ph_id']
     }
-    const option={
+    const option = {
       autoCommit: true,
       outFormat: oracledb.OUT_FORMAT_OBJECT
     }
     const r = await connection.execute(query, binds, option);
     console.log(r.rows);
-    let uniqueItem=r.rows[0];
-    uniqueItem['order_quantity']=1;
-    let flag=0;
-    arrayItem.forEach(i=>{
-      if(i.PRODUCT_ID==uniqueItem.PRODUCT_ID && i.PHARMACY_ID==uniqueItem.PHARMACY_ID){
+    let uniqueItem = r.rows[0];
+    uniqueItem['order_quantity'] = 1;
+    let flag = 0;
+    arrayItem.forEach(i => {
+      if (i.PRODUCT_ID == uniqueItem.PRODUCT_ID && i.PHARMACY_ID == uniqueItem.PHARMACY_ID) {
         console.log('dhukse');
         i.order_quantity++;
-        flag=1;
+        flag = 1;
       }
-      
+
     })
-    if(!flag) arrayItem.push(uniqueItem);
+    if (!flag) arrayItem.push(uniqueItem);
   } catch (error) {
     console.log(error);
   } finally {
@@ -750,22 +750,30 @@ app.post('/cart-items', async (req, res) => {
     }
   }
   // console.log("items:::"+items);
-//   console.log("arrayitem:");
-// console.log(arrayItem);
+  //   console.log("arrayitem:");
+  // console.log(arrayItem);
 
-  // Send a response back to the client
-  // res.json({ message: 'Items received successfully' });
+
 });
 
 app.get("/cart-items", async (req, res) => {
-  // res.sendFile(__dirname+"/dummy.html");
   res.render("cart", { arrayItem })
 })
+
 let requiredPrice;
 let patientInfo;
+let productInfo;
 app.use(bodyParser.json());
 app.post("/checkout", async (req, res) => {
-  requiredPrice = req.body.requiredPrice;
+  let info = req.body.requiredPrice;
+  productInfo = info.productInfo;
+  requiredPrice = {
+    'productTotal': info.productTotal,
+    'vat': info.vat,
+    'shipping': info.shipping,
+    'allTotal': info.allTotal
+  }
+
 
 
   // console.log(requiredPrice);
@@ -782,7 +790,7 @@ app.get("/checkout", async (req, res) => {
       connectionString: "localhost/xepdb1"
     })
 
-    let id = 'Pat_00001'
+    let id = 'PAT_00001';
     query = `select patient_name,trunc(months_between(sysdate,patient_dob)/12) as "Age",patient_email,
         p.patient_address.house_no as "house",
         p.patient_address.road_no as "road",
@@ -805,8 +813,9 @@ app.get("/checkout", async (req, res) => {
 
 
     patientInfo = r.rows[0];
+    console.log(productInfo);
 
-    res.render("order-confirmation", { arrayItem, patientInfo, requiredPrice });
+    res.render("order-confirmation", { productInfo, patientInfo, requiredPrice });
   } catch (error) {
     console.log(error);
   } finally {

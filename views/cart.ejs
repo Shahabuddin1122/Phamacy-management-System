@@ -72,7 +72,7 @@
           </p>
         </div>
         <div class="checkbox-parent">
-          <input class="checkbox" type="checkbox">
+          <input class="checkbox" type="checkbox" data="<%= JSON.stringify(arrayItem) %>">
 
           <p class="prdouct-tag">
           <div class="product">Select all</div>
@@ -82,7 +82,7 @@
 
         <% arrayItem.forEach((element,index)=> { %>
           <div class="product-list">
-            <input class="checkbox" type="checkbox" data-index="<%= index %>">
+            <input class="checkbox" type="checkbox" data-index="<%= index %>" data="<%= JSON.stringify(element) %>">
 
             <div class="product-information">
               <h5 class="name">
@@ -199,7 +199,7 @@
         </button>
       </div>
     </div>
-    <!-- <input type="hidden" name="data" id="data" value="<%= JSON.stringify(arrayItem) %>"> -->
+    <input type="hidden" name="hiddenData" id="hiddenData" value="">
     <footer class="footer">
     </footer>
   </div>
@@ -223,15 +223,19 @@
         productCheckbox.forEach(check => {
           check.checked = true;
         })
+
       }
       else {
         productCheckbox.forEach(check => {
           check.checked = false;
         })
+
       }
 
       updateProductTotal();
+      insertProductInfo();
     });
+
 
     productCheckbox.forEach((check) => {
       check.addEventListener('change', event => {
@@ -250,11 +254,14 @@
           // let allTotal = productTotal + 20 + vat;
           // document.getElementById('all-total').textContent = allTotal;
           // // });
-          updateProductTotal();
 
+          updateProductTotal();
+          insertProductInfo();
         }
+
       })
     })
+
 
     let total = 0;
     let productTotal = 0;
@@ -289,16 +296,19 @@
         updateProductTotal();
       });
     });
-
     function updateProductTotal() {
+
       productTotal = 0;
       productCheckbox.forEach((check) => {
         if (check.checked) {
           index = check.getAttribute('data-index');
+
           var productPrices = document.querySelectorAll('.product-price')[index];
           productTotal += parseFloat(productPrices.textContent);
         }
       });
+
+
       // productTotal = 0;
       // var productPrices = document.querySelectorAll('.product-price');
       // productPrices.forEach(price => {
@@ -311,6 +321,20 @@
       document.getElementById('shipping').textContent = shipping;
       let allTotal = productTotal + shipping + vat;
       document.getElementById('all-total').textContent = allTotal;
+    }
+
+    function insertProductInfo() {
+      let proInfo = [];
+      productCheckbox.forEach((check) => {
+        if (check.checked) {
+          // var index = check.getAttribute('data-index');
+          var element = check.getAttribute('data');
+          // console.log(element);
+          proInfo.push(JSON.parse(element));
+        }
+      })
+      console.log(proInfo);
+      document.getElementById('hiddenData').value=JSON.stringify(proInfo);
     }
 
     // var initialProductPrices = document.querySelectorAll('.product-price');
@@ -343,8 +367,8 @@
     if (button9) {
       button9.addEventListener("click", function (e) {
 
-        let productInfo = document.getElementById('total-price-div').getAttribute('data');
-        productInfo=JSON.parse(productInfo);
+        let productInfo = document.getElementById('hiddenData').value;
+        productInfo = JSON.parse(productInfo);
         let productTotal = document.getElementById('total-price-div').textContent;
 
         let vat = document.getElementById('vat').textContent;
@@ -352,7 +376,7 @@
         let shipping = document.getElementById('shipping').textContent;
         let allTotal = document.getElementById('all-total').textContent;
 
-        let requiredPrice={
+        let requiredPrice = {
           'productInfo': productInfo,
           'productTotal': productTotal,
           'vat': vat,

@@ -41,7 +41,7 @@
           <div class="logo">
             <img class="shopping-bag-line-2-icon" alt="" src="../public/shoppingbagline-2.svg">
             <span class="items">
-              <%= arrayItem.length %> items
+              <%= productInfo.length %> items
             </span>
           </div>
 
@@ -64,7 +64,7 @@
         <div class="frame-group">
           <div class="subtotal-wrapper">
             <div class="billing-summary">
-              <%= requiredPrice.totalPrice %>
+              <%= requiredPrice.productTotal %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -79,7 +79,7 @@
         <div class="frame-group">
           <div class="subtotal-wrapper">
             <div class="billing-summary">
-              <%= requiredPrice.totalPrice*0.05 %>
+              <%= requiredPrice.productTotal*0.05 %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -93,7 +93,7 @@
         </div>
         <div class="frame-group">
           <div class="subtotal-wrapper">
-            <div class="billing-summary">20</div>
+            <div class="billing-summary"><%= requiredPrice.shipping %></div>
           </div>
           <div class="subtotal-wrapper">
             <div class="billing-summary">Taka</div>
@@ -123,7 +123,7 @@
         <div class="frame-group">
           <div class="subtotal-wrapper">
             <b class="billing-summary">
-              <%= requiredPrice.allTotal+requiredPrice.totalPrice*0.05 %>
+              <%= requiredPrice.allTotal-requiredPrice.productTotal*0.05 %>
             </b>
           </div>
           <div class="subtotal-wrapper">
@@ -248,10 +248,10 @@
       <div class="order-review-heading">
         <h5 class="order-review1">Order Review</h5>
         <div class="items-in-cart">
-          <%= arrayItem.length %> items in cart
+          <%= productInfo.length %> items in cart
         </div>
       </div>
-      <% arrayItem.forEach(element=> { %>
+      <% productInfo.forEach(element=> { %>
         <div class="product-summery">
           <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
 
