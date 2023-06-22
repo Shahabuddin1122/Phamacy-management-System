@@ -278,6 +278,21 @@
         document.querySelectorAll('.product-price')[index].textContent = productPriceTotal;
         // productTotal = productPriceTotal;
         // if (total > 0) productTotal -= productPriceTotal;
+
+        let element = JSON.parse(productCheckbox[index].getAttribute('data'));
+
+        // console.log('inside button...');
+
+
+        element.order_quantity = quantity.textContent;
+
+        // console.log(element);
+        // console.log('outside button....');
+
+        productCheckbox[index].setAttribute('data', JSON.stringify(element));
+
+        insertProductInfo();
+
         updateProductTotal();
       });
     });
@@ -293,6 +308,20 @@
 
         document.querySelectorAll('.product-price')[index].textContent = productPriceTotal;
         // productTotal += productPriceTotal;
+
+        let element = JSON.parse(productCheckbox[index].getAttribute('data'));
+
+        // console.log('inside button...');
+
+
+        element.order_quantity = quantity.textContent;
+
+        // console.log(element);
+        // console.log('outside button....');
+
+        productCheckbox[index].setAttribute('data', JSON.stringify(element));
+
+        insertProductInfo();
         updateProductTotal();
       });
     });
@@ -333,8 +362,9 @@
           proInfo.push(JSON.parse(element));
         }
       })
-      console.log(proInfo);
-      document.getElementById('hiddenData').value=JSON.stringify(proInfo);
+      // console.log('inside checkbox...');
+      // console.log(proInfo);
+      document.getElementById('hiddenData').value = JSON.stringify(proInfo);
     }
 
     // var initialProductPrices = document.querySelectorAll('.product-price');
@@ -369,6 +399,7 @@
 
         let productInfo = document.getElementById('hiddenData').value;
         productInfo = JSON.parse(productInfo);
+        console.log(productInfo);
         let productTotal = document.getElementById('total-price-div').textContent;
 
         let vat = document.getElementById('vat').textContent;
@@ -383,7 +414,9 @@
           'shipping': shipping,
           'allTotal': allTotal
         }
-        console.log(requiredPrice);
+
+        // console.log(requiredPrice);
+
         fetch('/checkout', {
           method: 'POST',
           headers: {

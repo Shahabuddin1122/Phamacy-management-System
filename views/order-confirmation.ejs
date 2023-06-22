@@ -41,7 +41,11 @@
           <div class="logo">
             <img class="shopping-bag-line-2-icon" alt="" src="../public/shoppingbagline-2.svg">
             <span class="items">
-              <%= productInfo.length %> items
+              <% if (!productInfo || productInfo.length === 0) { %>
+                0 items
+              <% } else { %>
+                <%= productInfo.length %> items
+              <% } %>
             </span>
           </div>
 
@@ -64,7 +68,11 @@
         <div class="frame-group">
           <div class="subtotal-wrapper">
             <div class="billing-summary">
-              <%= requiredPrice.productTotal %>
+              <% if (!requiredPrice) { %>
+                0 
+              <% } else { %>
+                <%= requiredPrice.productTotal %>
+              <% } %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -79,7 +87,11 @@
         <div class="frame-group">
           <div class="subtotal-wrapper">
             <div class="billing-summary">
-              <%= requiredPrice.productTotal*0.05 %>
+              <% if (!requiredPrice) { %>
+                0 
+              <% } else { %>
+                <%= requiredPrice.productTotal*0.05 %>
+              <% } %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -93,7 +105,13 @@
         </div>
         <div class="frame-group">
           <div class="subtotal-wrapper">
-            <div class="billing-summary"><%= requiredPrice.shipping %></div>
+            <div class="billing-summary">
+              <% if (!requiredPrice) { %>
+                0 
+              <% } else { %>
+                <%= requiredPrice.shipping %>
+              <% } %>
+            </div>
           </div>
           <div class="subtotal-wrapper">
             <div class="billing-summary">Taka</div>
@@ -107,7 +125,11 @@
         <div class="frame-group">
           <div class="subtotal-wrapper">
             <div class="billing-summary">
-              <%= requiredPrice.vat %>
+              <% if (!requiredPrice) { %>
+                0 
+              <% } else { %>
+                <%= requiredPrice.vat %>
+              <% } %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -123,7 +145,11 @@
         <div class="frame-group">
           <div class="subtotal-wrapper">
             <b class="billing-summary">
-              <%= requiredPrice.allTotal-requiredPrice.productTotal*0.05 %>
+              <% if (!requiredPrice) { %>
+                0 
+              <% } else { %>
+                <%= requiredPrice.allTotal-requiredPrice.productTotal*0.05 %>
+              <% } %>
             </b>
           </div>
           <div class="subtotal-wrapper">
@@ -151,13 +177,21 @@
           <div class="name-parent">
             <div class="syed-nafees-kaiser">Name:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.PATIENT_NAME %>
+              <% if (!patientInfo) { %>
+                 
+              <% } else { %>
+                <%= patientInfo.PATIENT_NAME %>
+              <% } %>
             </div>
           </div>
           <div class="age-parent">
             <div class="syed-nafees-kaiser">Age:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.Age %> Years
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.Age %> Years
+                <% } %>
             </div>
           </div>
         </div>
@@ -166,13 +200,21 @@
           <div class="age-parent">
             <div class="syed-nafees-kaiser">Phone no:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.PHONE_NO %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.PHONE_NO %>
+                <% } %>
             </div>
           </div>
           <div class="name-parent">
             <div class="syed-nafees-kaiser">Email:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.PATIENT_EMAIL %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.PATIENT_EMAIL %>
+                <% } %>
             </div>
           </div>
         </div>
@@ -183,13 +225,21 @@
           <div class="house">
             <div class="syed-nafees-kaiser">House no:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.house %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.house %>
+                <% } %>
             </div>
           </div>
           <div class="age-parent">
             <div class="syed-nafees-kaiser">Road no:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.road %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.road %>
+                <% } %>
             </div>
           </div>
         </div>
@@ -197,13 +247,21 @@
           <div class="house">
             <div class="syed-nafees-kaiser">City:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.city %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.city %>
+                <% } %>
             </div>
           </div>
           <div class="name-parent">
             <div class="syed-nafees-kaiser">District:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.district %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.district %>
+                <% } %>
             </div>
           </div>
         </div>
@@ -214,13 +272,21 @@
           <div class="house">
             <div class="syed-nafees-kaiser">House no:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.house %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.house %>
+                <% } %>
             </div>
           </div>
           <div class="age-parent">
             <div class="syed-nafees-kaiser">Road no:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.road %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.road %>
+                <% } %>
             </div>
           </div>
         </div>
@@ -228,13 +294,21 @@
           <div class="house">
             <div class="syed-nafees-kaiser">City:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.city %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.city %>
+                <% } %>
             </div>
           </div>
           <div class="name-parent">
             <div class="syed-nafees-kaiser">District:</div>
             <div class="syed-nafees-kaiser">
-              <%= patientInfo.district %>
+              <% if (!patientInfo) { %>
+                 
+                <% } else { %>
+                  <%= patientInfo.district %>
+                <% } %>
             </div>
           </div>
         </div>
@@ -248,33 +322,42 @@
       <div class="order-review-heading">
         <h5 class="order-review1">Order Review</h5>
         <div class="items-in-cart">
-          <%= productInfo.length %> items in cart
+          <% if (!productInfo) { %>
+                 0 items in cart
+            <% } else { %>
+              <%= productInfo.length %> items in cart
+            <% } %>
+          
         </div>
       </div>
-      <% productInfo.forEach(element=> { %>
-        <div class="product-summery">
-          <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
-
-          <div class="product-info">
-            <b class="billing-summary">
-              <%= element.PRODUCT_NAME %>
-            </b>
-            <div class="pharmacy-name4">
-              <%= element.PHARMACY_NAME %>
+      <% if (!productInfo) { %>
+                 
+        <% } else { %>
+          <% productInfo.forEach(element=> { %>
+            <div class="product-summery">
+              <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
+    
+              <div class="product-info">
+                <b class="billing-summary">
+                  <%= element.PRODUCT_NAME %>
+                </b>
+                <div class="pharmacy-name4">
+                  <%= element.PHARMACY_NAME %>
+                </div>
+                <div class="pharmacy-name4">
+                  Quantity: <%= element.order_quantity %>
+                </div>
+    
+              </div>
+              <div class="product-price4">
+                <div class="billing-summary">
+                  <%= element.PRODUCT_PRICE %>
+                </div>
+                <div class="billing-summary">Taka</div>
+              </div>
             </div>
-            <div class="pharmacy-name4">
-              Quantity: <%= element.order_quantity %>
-            </div>
-
-          </div>
-          <div class="product-price4">
-            <div class="billing-summary">
-              <%= element.PRODUCT_PRICE %>
-            </div>
-            <div class="billing-summary">Taka</div>
-          </div>
-        </div>
-        <% }) %>
+            <% }) %>
+        <% } %>
     </div>
   </div>
 </body>

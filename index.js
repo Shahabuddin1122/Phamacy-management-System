@@ -725,13 +725,13 @@ app.post('/cart-items', async (req, res) => {
       outFormat: oracledb.OUT_FORMAT_OBJECT
     }
     const r = await connection.execute(query, binds, option);
-    console.log(r.rows);
+    // console.log(r.rows);
     let uniqueItem = r.rows[0];
     uniqueItem['order_quantity'] = 1;
     let flag = 0;
     arrayItem.forEach(i => {
       if (i.PRODUCT_ID == uniqueItem.PRODUCT_ID && i.PHARMACY_ID == uniqueItem.PHARMACY_ID) {
-        console.log('dhukse');
+        // console.log('dhukse');
         i.order_quantity++;
         flag = 1;
       }
@@ -782,6 +782,7 @@ app.post("/checkout", async (req, res) => {
 
 app.get("/checkout", async (req, res) => {
   // console.log(requiredPrice);
+  console.log(productInfo);
   let connection;
   try {
     connection = await oracledb.getConnection({
@@ -790,7 +791,17 @@ app.get("/checkout", async (req, res) => {
       connectionString: "localhost/xepdb1"
     })
 
-    let id = 'PAT_00001';
+    let id;
+    try {
+      // Read the file synchronously
+      id = fs.readFileSync('logindata.txt', 'utf8');
+      
+      // Process the file data
+      console.log(data);
+    } catch (error) {
+      // Handle any errors that occur during file reading
+      console.error('Error reading the file:', error);
+    }
     query = `select patient_name,trunc(months_between(sysdate,patient_dob)/12) as "Age",patient_email,
         p.patient_address.house_no as "house",
         p.patient_address.road_no as "road",
