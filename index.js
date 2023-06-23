@@ -840,7 +840,20 @@ app.get("/checkout", async (req, res) => {
   }
 })
 
+app.use(bodyParser.json());
+app.post('/order-history',async(req,res)=>{
+  try {
+    const connection = await oracledb.getConnection({
+      user: 'pharmacy_admin',
+      password: '12345',
+      connectString: 'localhost/xepdb1'
+    });
 
+    
+  }catch(error){
+    console.log(error);
+  }
+});
 
 
 app.get('/fetch', async (req, res) => {

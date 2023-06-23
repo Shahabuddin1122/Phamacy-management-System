@@ -41,11 +41,11 @@
           <div class="logo">
             <img class="shopping-bag-line-2-icon" alt="" src="../public/shoppingbagline-2.svg">
             <span class="items">
-              <% if (!productInfo || productInfo.length === 0) { %>
+              <% if (!productInfo || productInfo.length===0) { %>
                 0 items
-              <% } else { %>
-                <%= productInfo.length %> items
-              <% } %>
+                <% } else { %>
+                  <%= productInfo.length %> items
+                    <% } %>
             </span>
           </div>
 
@@ -69,10 +69,10 @@
           <div class="subtotal-wrapper">
             <div class="billing-summary">
               <% if (!requiredPrice) { %>
-                0 
-              <% } else { %>
-                <%= requiredPrice.productTotal %>
-              <% } %>
+                0
+                <% } else { %>
+                  <%= requiredPrice.productTotal %>
+                    <% } %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -88,10 +88,10 @@
           <div class="subtotal-wrapper">
             <div class="billing-summary">
               <% if (!requiredPrice) { %>
-                0 
-              <% } else { %>
-                <%= requiredPrice.productTotal*0.05 %>
-              <% } %>
+                0
+                <% } else { %>
+                  <%= requiredPrice.productTotal*0.05 %>
+                    <% } %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -107,10 +107,10 @@
           <div class="subtotal-wrapper">
             <div class="billing-summary">
               <% if (!requiredPrice) { %>
-                0 
-              <% } else { %>
-                <%= requiredPrice.shipping %>
-              <% } %>
+                0
+                <% } else { %>
+                  <%= requiredPrice.shipping %>
+                    <% } %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -126,10 +126,10 @@
           <div class="subtotal-wrapper">
             <div class="billing-summary">
               <% if (!requiredPrice) { %>
-                0 
-              <% } else { %>
-                <%= requiredPrice.vat %>
-              <% } %>
+                0
+                <% } else { %>
+                  <%= requiredPrice.vat %>
+                    <% } %>
             </div>
           </div>
           <div class="subtotal-wrapper">
@@ -146,10 +146,10 @@
           <div class="subtotal-wrapper">
             <b class="billing-summary">
               <% if (!requiredPrice) { %>
-                0 
-              <% } else { %>
-                <%= requiredPrice.allTotal-requiredPrice.productTotal*0.05 %>
-              <% } %>
+                0
+                <% } else { %>
+                  <%= requiredPrice.allTotal-requiredPrice.productTotal*0.05 %>
+                    <% } %>
             </b>
           </div>
           <div class="subtotal-wrapper">
@@ -165,7 +165,7 @@
           <span class="privacy-terms">Privacy & Terms Policy</span>
         </div>
       </div>
-      <button class="button14">
+      <button class="button14" id="confirmOrder">
         <div class="button13">Confirm Order</div>
       </button>
     </div>
@@ -178,20 +178,20 @@
             <div class="syed-nafees-kaiser">Name:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
-              <% } else { %>
-                <%= patientInfo.PATIENT_NAME %>
-              <% } %>
+
+                <% } else { %>
+                  <%= patientInfo.PATIENT_NAME %>
+                    <% } %>
             </div>
           </div>
           <div class="age-parent">
             <div class="syed-nafees-kaiser">Age:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.Age %> Years
-                <% } %>
+                    <% } %>
             </div>
           </div>
         </div>
@@ -201,20 +201,20 @@
             <div class="syed-nafees-kaiser">Phone no:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.PHONE_NO %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
           <div class="name-parent">
             <div class="syed-nafees-kaiser">Email:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.PATIENT_EMAIL %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
         </div>
@@ -226,20 +226,20 @@
             <div class="syed-nafees-kaiser">House no:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.house %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
           <div class="age-parent">
             <div class="syed-nafees-kaiser">Road no:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.road %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
         </div>
@@ -248,20 +248,20 @@
             <div class="syed-nafees-kaiser">City:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.city %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
           <div class="name-parent">
             <div class="syed-nafees-kaiser">District:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.district %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
         </div>
@@ -273,20 +273,20 @@
             <div class="syed-nafees-kaiser">House no:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.house %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
           <div class="age-parent">
             <div class="syed-nafees-kaiser">Road no:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.road %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
         </div>
@@ -295,20 +295,20 @@
             <div class="syed-nafees-kaiser">City:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.city %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
           <div class="name-parent">
             <div class="syed-nafees-kaiser">District:</div>
             <div class="syed-nafees-kaiser">
               <% if (!patientInfo) { %>
-                 
+
                 <% } else { %>
                   <%= patientInfo.district %>
-                <% } %>
+                    <% } %>
             </div>
           </div>
         </div>
@@ -323,20 +323,20 @@
         <h5 class="order-review1">Order Review</h5>
         <div class="items-in-cart">
           <% if (!productInfo) { %>
-                 0 items in cart
+            0 items in cart
             <% } else { %>
               <%= productInfo.length %> items in cart
-            <% } %>
-          
+                <% } %>
+
         </div>
       </div>
       <% if (!productInfo) { %>
-                 
+
         <% } else { %>
           <% productInfo.forEach(element=> { %>
             <div class="product-summery">
               <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
-    
+
               <div class="product-info">
                 <b class="billing-summary">
                   <%= element.PRODUCT_NAME %>
@@ -347,7 +347,7 @@
                 <div class="pharmacy-name4">
                   Quantity: <%= element.order_quantity %>
                 </div>
-    
+
               </div>
               <div class="product-price4">
                 <div class="billing-summary">
@@ -357,9 +357,33 @@
               </div>
             </div>
             <% }) %>
-        <% } %>
+              <% } %>
     </div>
   </div>
+
+  <script>
+    let confirmOrder = document.getElementById('confirmOrder');
+    if (confirmOrder) {
+      confirmOrder.addEventListener('click', event => {
+        fetch('/order-history', {
+          method: 'POST'
+        })
+          .then(response => {
+            if (response.ok) {
+              console.log('POST request successful');
+            } else {
+              console.error('POST request failed');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+        // window.location.href = "/checkout";
+      })
+    }
+
+  </script>
 </body>
 
 </html>

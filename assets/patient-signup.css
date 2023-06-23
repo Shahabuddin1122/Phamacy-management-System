@@ -1,0 +1,296 @@
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.black-health-logo-2-1 {
+  position: absolute;
+  height: 55.46%;
+  width: 26.94%;
+  top: 19.71%;
+  right: 6.6%;
+  bottom: 24.83%;
+  left: 66.46%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.city,
+.confirm,
+.contact,
+.district,
+.email,
+.road {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  position: absolute;
+  height: 5.67%;
+  width: 23.28%;
+  top: 55.53%;
+  right: 71.03%;
+  bottom: 43.8%;
+  left: 5.69%;
+  border-radius: var(--br-3xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.city,
+.confirm,
+.contact,
+.district,
+.road {
+  right: 41.03%;
+  left: 35.69%;
+}
+.city,
+.confirm,
+.contact,
+.district {
+  top: 65.54%;
+  bottom: 32.79%;
+}
+.confirm,
+.contact,
+.district {
+  top: 77.41%;
+  bottom: 21.92%;
+}
+.confirm,
+.contact {
+  right: 71.03%;
+  left: 5.69%;
+}
+.confirm {
+  top: 90.02%;
+  right: 41.03%;
+  bottom: 11.31%;
+  left: 35.69%;
+}
+.create-account {
+  position: relative;
+  font-size: var(--font-size-21xl);
+  line-height: 31.43px;
+  display: inline-block;
+  font-weight: 300;
+  font-family: var(--font-roboto);
+  color: var(--color-darkslategray);
+  text-align: left;
+  width: 291px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.create,
+.password {
+  position: absolute;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.create {
+  cursor: pointer;
+  border: 0;
+  padding: 0 var(--padding-16xl);
+  background-color: var(--color-mediumspringgreen);
+  top: 583px;
+  left: 1030px;
+  width: 357px;
+  height: 61px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.password {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  height: 5.67%;
+  width: 23.28%;
+  top: 83.02%;
+  right: 71.03%;
+  bottom: 11.31%;
+  left: 5.69%;
+  border-radius: var(--br-3xs);
+}
+.body,
+.title {
+  position: absolute;
+  left: 0;
+  display: inline-block;
+}
+.body {
+  width: calc(100% + 244px);
+  top: 108.08px;
+  line-height: 52.86px;
+  font-weight: 500;
+  height: 205px;
+}
+.title {
+  width: 100%;
+  top: 0;
+  font-size: 88.1px;
+  letter-spacing: 1.76px;
+  line-height: 116.3px;
+  font-family: var(--font-abril-fatface);
+  color: #091133;
+}
+.text-blocksectionlargetitle {
+  position: absolute;
+  height: 28.7%;
+  width: 31.81%;
+  top: 4.23%;
+  right: 62.5%;
+  bottom: 67.06%;
+  left: 5.69%;
+  font-size: var(--h3-24-size);
+  color: #2a2a2d;
+}
+.dob,
+.name {
+  position: absolute;
+}
+.name {
+  top: 35.15%;
+  left: 5.63%;
+  line-height: 52.86px;
+  font-weight: 500;
+}
+.dob {
+  justify-content: center;
+  border-radius: var(--br-mini);
+  border: 1.2px solid var(--color-black);
+  background-color: white;
+  position: absolute;
+  height: 5.68%;
+  width: 23.3%;
+  top: 61.54%;
+  right: 71.01%;
+  bottom: 32.79%;
+  left: 5.69%;
+}
+.contact-no,
+.date-of-birth,
+.email1,
+.password1 {
+  position: absolute;
+  top: 45.89%;
+  left: 5.63%;
+  line-height: 52.86px;
+  font-weight: 500;
+}
+.contact-no,
+.date-of-birth,
+.password1 {
+  top: 56.23%;
+  left: 5.69%;
+}
+.contact-no,
+.password1 {
+  top: 67.11%;
+}
+.password1 {
+  top: 77.85%;
+}
+.city1,
+.confirm-password,
+.district1,
+.house-no,
+.road-no {
+  position: absolute;
+  top: 35.15%;
+  left: 35.69%;
+  line-height: 52.86px;
+  font-weight: 500;
+}
+.city1,
+.confirm-password,
+.district1,
+.road-no {
+  top: 45.89%;
+  left: 35.83%;
+}
+.city1,
+.confirm-password,
+.district1 {
+  top: 56.23%;
+  left: 35.69%;
+}
+.confirm-password,
+.district1 {
+  top: 67.11%;
+}
+.confirm-password {
+  top: 77.85%;
+  left: 35.83%;
+}
+.house,
+.name1 {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  position: absolute;
+  height: 5.67%;
+  width: 23.28%;
+  top: 41.11%;
+  right: 71.03%;
+  bottom: 53.22%;
+  left: 5.69%;
+  border-radius: var(--br-3xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.house {
+  top: 40.98%;
+  right: 41.03%;
+  bottom: 53.35%;
+  left: 35.69%;
+}
+
+.employee-signup-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-mediumspringgreen);
+  width: 365px;
+  height: 57px;
+}
+.not-a-patient {
+  position: absolute;
+  top: 12px;
+  left: 65px;
+  font-size: var(--font-size-21xl);
+  line-height: 31.43px;
+  font-weight: 300;
+  font-family: var(--font-roboto);
+  color: var(--color-black);
+  text-align: left;
+}
+.employee-signup {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 676px;
+  left: 1030px;
+  width: 365px;
+  height: 57px;
+}
+.patient-signup {
+  position: relative;
+  background-color: var(--color-aliceblue);
+  width: 100%;
+  height: 754px;
+  overflow: hidden;
+  opacity: 0;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}
+.patient-signup.animate {
+  animation: 0.25s ease 0s 1 normal forwards slide-in-left;
+}
