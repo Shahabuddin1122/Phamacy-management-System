@@ -30,8 +30,9 @@
             </ul>
         </div>
         <div class="login">
-            <button type="submit">Log in</button>
-            <button type="submit">Sign in</button>
+            <button type="submit"><a href="#">Cart</a> </button>
+            <button type="submit" onclick="deleteFile()"> <a href="./">Log out </a></button>            <button type="submit"><a href="#">Cart</a> </button>
+
         </div>
 
 
@@ -117,6 +118,20 @@
                     console.error('Error:', error);
                 });
 
+        }
+        function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
         }
         // console.log("testing");
         // console.log(selectedItem);

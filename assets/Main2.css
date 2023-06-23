@@ -318,7 +318,7 @@ header .login button {
 }
 /* footer */
 footer {
-    background-color: #060410;
+    background-color: #77777a;
     padding: 20px;
     text-align: center;
     color: #e8effc;;
@@ -329,7 +329,7 @@ footer {
     margin-top: 10px;
 }
 
-.feedback textarea {
+.feedback input {
     width: 100%;
     height: 100px;
     resize: vertical;

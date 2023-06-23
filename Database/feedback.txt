@@ -1,0 +1,22 @@
+CREATE TABLE feedback (
+  feedback_id VARCHAR2(30),
+  details VARCHAR2(255)
+);
+
+create sequence feedback_id_seq start with 1 increment by 1;
+
+CREATE OR REPLACE TRIGGER feedback_insert_trigger
+BEFORE INSERT ON feedback
+FOR EACH ROW
+DECLARE
+  v_id VARCHAR2(50);
+BEGIN
+
+  v_id := 'FED_' || TO_CHAR(LPAD(feedback_id_seq.NEXTVAL, 5, '0'));
+
+
+  :NEW.feedback_id := v_id;
+END;
+
+
+
