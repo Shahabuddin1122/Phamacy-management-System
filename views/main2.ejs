@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/Main2.css">
     <script src="https://kit.fontawesome.com/2437fb8d10.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+ 
 
     <title>Online Pharmacy</title>
 </head>
@@ -30,8 +29,8 @@
             </ul>
         </div>
         <div class="login">
-            <button type="submit">Cart</button>
-            <button type="submit">Log out</button>
+            <button type="submit"><a href="#">Cart</a> </button>
+            <button type="submit" onclick="deleteFile()"> <a href="./">Log out </a></button>
         </div>
 
 
@@ -116,9 +115,10 @@
         <div class="feedback">
           <h3>User Feedback</h3>
           <p>Leave your valuable feedback:</p>
-          <form>
-            <textarea placeholder="Your feedback"></textarea>
-            <input type="submit" value="Submit">
+          <form action="/feedback" method="POST">
+            <input type="text" name="feedback" placeholder="Your feedback"></input>
+            <button type="submit" value="Submit" style="width: 10%;
+            height: 10%;">Submit</button>
           </form>
         </div>
         <div class="admin-info">
@@ -126,7 +126,7 @@
           <p>Name: John Doe</p>
           <p>Address: 123 Pharmacy Street, City, Country</p>
         </div>
-        <h3>copyright@ </h3>
+        <h3> &copy; 2023 Pharmacy Name. All rights reserved.</h3>
     </footer>
       
         
@@ -134,10 +134,26 @@
     
     
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="./jason.js"></script>
-    <script src="./index.js"></script>
-    <script src="./index2.js"></script>
     
-</body>
+    <script src="./index.js"></script>
+
+    
+    </body>
+    <script>
+        function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }
+    </script>
+
 </html>

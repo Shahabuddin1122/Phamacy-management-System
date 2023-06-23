@@ -30,8 +30,9 @@
             </ul>
         </div>
         <div class="login">
-            <button type="submit">Log in</button>
-            <button type="submit">Sign in</button>
+            <button type="submit"><a href="#">Cart</a> </button>
+            <button type="submit" onclick="deleteFile()"> <a href="./">Log out </a></button>            <button type="submit"><a href="#">Cart</a> </button>
+
         </div>
 
 
@@ -49,11 +50,7 @@
         <div id="results" style="display: flex;justify-content: space-around;">
             <% for (let i = 0; i < data.length; i++) { %>
                 <div class="card">
-<<<<<<< HEAD
                 <img src="../public/images/3576424_65886.jpg" alt="ProductImage">
-=======
-                <img src="public/images/3576424_65886.jpg" alt="ProductImage">
->>>>>>> ad2b2f1 (Updated appointment)
                 <h3><%= data[i].Pro_name %></h3>
                 <h5> <%= data[i].pharmacy %></h5>
                 <p>$<%= data[i].Pro_price %></p>
@@ -132,6 +129,20 @@
             
 
         // }
+        function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }
         // console.log("testing");
         // console.log(selectedItem);
 

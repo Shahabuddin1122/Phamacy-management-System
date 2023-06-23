@@ -30,8 +30,8 @@
             </ul>
         </div>
         <div class="login">
-            <button type="submit">Log in</button>
-            <button type="submit">Sign in</button>
+            <button type="submit"><a href="#">Cart</a> </button>
+            <button type="submit" onclick="deleteFile()"> <a href="./">Log out </a></button>
         </div>
 
 
@@ -60,8 +60,9 @@
 >>>>>>> 30e796a (Added appointment, modified patient)
                 <h3>Name:<%= data[i].Pro_name %></h3>
                 <p style="text-align: center;">city: <%= data[i].pro_city %></p>
-                <p style="text-align: center;">Rating: <%= data[i].pro_rating %></p>
-                <button class="add-to-cart-btn">Details</button>
+                <p style="text-align: center;">Rating: <%= data[i].pro_rasting %></p>
+                <a href="/pharmacy?pha_id=<%= data[i].Pro_id %>">Details</a>
+                
                 </div>
             <% } %>
             
@@ -96,10 +97,38 @@
     
     
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="./jason.js"></script>
+   
     <script src="./index.js"></script>
-    <script src="./index2.js"></script>
+    <script>
+        function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }
+        function pharma(id) {
+        console.log("app: ", id);
+        const url = `/pharmacy?pha_id=${id}`;
+
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+      }
+
+    </script>
     
 </body>
 </html>

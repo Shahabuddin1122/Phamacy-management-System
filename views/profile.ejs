@@ -119,11 +119,26 @@
     <script src="./index2.js"></script>
     <script>
       var create = document.getElementById("create");
+      function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+      }
       if (create) {
         create.addEventListener("click", function (e) {
           window.location.href = "/edit";
         });
       }
+      
     </script>
 
   </body>
