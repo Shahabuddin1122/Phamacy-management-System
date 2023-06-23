@@ -44,9 +44,11 @@
 }
 .items {
   position: relative;
+  padding: 5px 10px;
+  text-decoration: none;
 }
 .items:hover {
-  color: var(--buttons-primary);
+  background: rgb(131, 212, 123);
 }
 .cart-icon {
   text-decoration: none;
