@@ -760,29 +760,76 @@ app.get("/cart-items", async (req, res) => {
   res.render("cart", { arrayItem })
 })
 
-let requiredPrice;
+
 let patientInfo;
 let productInfo;
+let pharmacyWiseProduct = [];
 app.use(bodyParser.json());
 app.post("/checkout", async (req, res) => {
   let info = req.body.requiredPrice;
   productInfo = info.productInfo;
-  requiredPrice = {
-    'productTotal': info.productTotal,
-    'vat': info.vat,
-    'shipping': info.shipping,
-    'allTotal': info.allTotal
-  }
+  // console.log(productInfo);
+  // requiredPrice = {
+  //   'productTotal': info.productTotal,
+  //   'vat': info.vat,
+  //   'shipping': info.shipping,
+  //   'allTotal': info.allTotal
+  // }
+  // console.log("product info");
+  // console.log(productInfo);
 
 
+  // Group products by pharmacy ID
+  const groupedProducts = {};
+  productInfo.forEach(product => {
+    const pharmacyId = product.PHARMACY_ID;
+    if (!groupedProducts[pharmacyId]) {
+      groupedProducts[pharmacyId] = {
+        PHARMACY_ID: pharmacyId,
+        PHARMACY_NAME: product.PHARMACY_NAME,
+        PRODUCT: [],
+        subtotal: 0,
+        vat: 0,
+        shipping: 20,
+        discount: 0,
+        allTotal: 0
+      };
+    }
 
-  // console.log(requiredPrice);
+    // Push relevant product info to the grouped object
+    groupedProducts[pharmacyId].PRODUCT.push({
+      PRODUCT_ID: product.PRODUCT_ID,
+      PRODUCT_NAME: product.PRODUCT_NAME,
+      order_quantity: product.order_quantity
+    });
+
+    // Calculate subtotal for each pharmacy
+    groupedProducts[pharmacyId].subtotal += product.PRODUCT_PRICE * product.order_quantity;
+  });
+
+  // Calculate additional values for each grouped object
+  Object.values(groupedProducts).forEach(group => {
+    // Calculate vat, discount, and allTotal
+    group.vat = group.subtotal * 0.15;
+    group.discount = group.subtotal * 0.05;
+    group.allTotal = group.subtotal + group.vat - group.discount + group.shipping;
+
+    // Push the grouped object to the result array
+    pharmacyWiseProduct.push(group);
+  });
+
+
 
 })
 
 app.get("/checkout", async (req, res) => {
   // console.log(requiredPrice);
-  console.log(productInfo);
+  // console.log("DAta SEt");
+  // console.log(pharmacyWiseProduct);
+  // pharmacyWiseProduct.forEach(i=>{
+  //   console.log("product:***");
+  //   console.log(i.PRODUCT);
+  // })
   let connection;
   try {
     connection = await oracledb.getConnection({
@@ -795,9 +842,9 @@ app.get("/checkout", async (req, res) => {
     try {
       // Read the file synchronously
       id = fs.readFileSync('logindata.txt', 'utf8');
-      
+
       // Process the file data
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       // Handle any errors that occur during file reading
       console.error('Error reading the file:', error);
@@ -826,7 +873,7 @@ app.get("/checkout", async (req, res) => {
     patientInfo = r.rows[0];
     console.log(productInfo);
 
-    res.render("order-confirmation", { productInfo, patientInfo, requiredPrice });
+    res.render("order-confirmation", { productInfo, patientInfo, pharmacyWiseProduct });
   } catch (error) {
     console.log(error);
   } finally {
@@ -841,19 +888,224 @@ app.get("/checkout", async (req, res) => {
 })
 
 app.use(bodyParser.json());
-app.post('/order-history',async(req,res)=>{
+app.post('/order-history', async (req, res) => {
+  let connection;
   try {
-    const connection = await oracledb.getConnection({
+    connection = await oracledb.getConnection({
       user: 'pharmacy_admin',
       password: '12345',
       connectString: 'localhost/xepdb1'
     });
+    let id;
+    try {
+      // Read the file synchronously
+      id = fs.readFileSync('logindata.txt', 'utf8');
 
-    
-  }catch(error){
+      // Process the file data
+      // console.log(data);
+    } catch (error) {
+      // Handle any errors that occur during file reading
+      console.error('Error reading the file:', error);
+    }
+    // let bill_id;
+    // const query = `BEGIN
+    //               :bill_id:='BILL_'||LPAD(TO_CHAR(bill_id_seq.NEXTVAL),5,0);
+    //             END:`;
+    // await connection.execute(query,
+    //   {
+    //     bill_id: {
+    //       dir: oracledb.BIND_OUT,
+    //       type: oracledb.STRING
+    //     }
+    //   }
+    //   , { autoCommit: true });
+
+    for (const pwp of pharmacyWiseProduct) {
+
+      const query = `BEGIN
+                    insert into bill(bill_id,bill_price)
+                    values('BILL_'||LPAD(TO_CHAR(bill_id_seq.NEXTVAL),5,0),:price);
+                    :bill_id:='BILL_'||LPAD(TO_CHAR(bill_id_seq.CURRVAL),5,0);
+                  END;`;
+
+      const bind = {
+        price: pwp.allTotal,
+        bill_id: {
+          dir: oracledb.BIND_OUT,
+          type: oracledb.STRING
+        }
+      }
+      const option = { autoCommit: true };
+      const bill = await connection.execute(query, bind, option);
+      let bill_id = bill.outBinds.bill_id;
+
+      // console.log(`bill_id:`);
+      // console.log(bill.outBinds);
+      for (const p of pwp.PRODUCT) {
+        const query = `insert into order_history values
+        ('ORD_'||LPAD(TO_CHAR(order_history_id_seq.NEXTVAL),5,0),
+        to_date(sysdate,'dd/mm/yyyy'),
+        :1,:2,:3,:4,:5)`;
+        const binds = {
+          1: p.order_quantity,
+          2: p.PRODUCT_ID,
+          3: bill_id,
+          4: pwp.PHARMACY_ID,
+          5: id
+        };
+
+        const option = {
+          autoCommit: true
+        };
+
+        await connection.execute(query, binds, option);
+      }
+    }
+
+  } catch (error) {
     console.log(error);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
   }
 });
+
+app.get('/order-history', async (req, res) => {
+  // res.sendFile(__dirname + "/views/order-history.html");
+  let connection;
+  let orderArray;
+  let total_bills;
+  let proTotal;
+  try {
+    connection = await oracledb.getConnection({
+      user: 'pharmacy_admin',
+      password: '12345',
+      connectString: 'localhost/xepdb1'
+    });
+    let id;
+    try {
+      // Read the file synchronously
+      id = fs.readFileSync('logindata.txt', 'utf8');
+
+      // Process the file data
+      // console.log(data);
+    } catch (error) {
+      // Handle any errors that occur during file reading
+      console.error('Error reading the file:', error);
+    }
+    const countQuery=`select count(unique bill_id) as "total_bills" from order_history
+    where patient_id=:1
+    group by patient_id`;
+
+    const countRes=await connection.execute(countQuery,{1:id},{autoCommit:true,outFormat:oracledb.OUT_FORMAT_OBJECT});
+    console.log(countRes.rows);
+    total_bills=countRes.rows[0].total_bills;
+
+    const countProRes=await connection.execute(`select bill_id,count( product_id) as "total_product" from order_history
+    where patient_id=:1
+    group by bill_id,patient_id
+    order by bill_id`,{1:id},{autoCommit:true,outFormat:oracledb.OUT_FORMAT_OBJECT});
+
+    // console.log(countProRes.rows);
+    proTotal=countProRes.rows;
+
+
+
+    const query = `select b.bill_id,to_char(o.order_date,'dd/mm/yyyy') as "ORDER_DATE",
+    b.bill_status,b.bill_price,ph.pharmacy_id,ph.pharmacy_name,
+    pr.product_id,pr.product_name,pr.product_price,o.quantity
+    from bill b,order_history o,product pr,pharmacy ph,patient pa
+    where pa.patient_id=:1 and
+    b.bill_id=o.bill_id and
+    o.product_id=pr.product_id and
+    o.pharmacy_id=ph.pharmacy_id and
+    o.patient_id=pa.patient_id
+    
+    order by b.bill_id`;
+    const bind = {
+      1: id
+    }
+
+    const option = {
+      autoCommit: true,
+      outFormat: oracledb.OUT_FORMAT_OBJECT
+    }
+
+    const bills = await connection.execute(query, bind, option);
+    // console.log(bills.rows);
+    rows = bills.rows;
+
+    orderArray = rows.reduce((result, current) => {
+      const existItem = result.find(item => item.BILL_ID === current.BILL_ID && item.PHARMACY_ID === current.PHARMACY_ID);
+      if (existItem) {
+        existItem.PRODUCT.push({
+          PRODUCT_ID: current.PRODUCT_ID,
+          PRODUCT_NAME: current.PRODUCT_NAME,
+          PRODUCT_PRICE: current.PRODUCT_PRICE,
+          QUANTITY: current.QUANTITY
+        });
+        existItem.subtotal+=current.QUANTITY*current.PRODUCT_PRICE;
+        existItem.vat=existItem.subtotal*0.15;
+        existItem.discount=existItem.subtotal*0.05;
+        
+      }
+      else {
+        let pr = {
+          PRODUCT_ID: current.PRODUCT_ID,
+          PRODUCT_NAME: current.PRODUCT_NAME,
+          PRODUCT_PRICE: current.PRODUCT_PRICE,
+          QUANTITY: current.QUANTITY
+        }
+        result.push({
+          BILL_ID: current.BILL_ID,
+          BILL_STATUS: current.BILL_STATUS,
+          BILL_PRICE: current.BILL_PRICE,
+          ORDER_DATE: current.ORDER_DATE,
+          PHARMACY_ID: current.PHARMACY_ID,
+          PHARMACY_NAME: current.PHARMACY_NAME,
+          PRODUCT:[pr],
+          subtotal:current.QUANTITY*current.PRODUCT_PRICE,
+          discount: current.QUANTITY*current.PRODUCT_PRICE*0.05,
+          vat: current.QUANTITY*current.PRODUCT_PRICE*0.15,
+          shipping: 20
+        });
+        // result.PRODUCT.push(pr);
+      }
+      // result.discount=result.subtotal*0.05;
+      // result.shipping=20;
+      // result.vat=result.subtotal*0.15;
+      
+      // result.discount=result.subtotal*0.05;
+      return result;
+    },[]);
+    // console.log(orderArray);
+    // orderArray.forEach((ord,index)=>{
+    //   console.log(`For ${ord.BILL_ID}:`);
+    //   console.log(ord.PRODUCT);
+    // })
+
+
+    
+
+  } catch (error) {
+    console.log(error);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
+  res.render("order-history", {orderArray,total_bills,proTotal});
+})
 
 
 app.get('/fetch', async (req, res) => {
