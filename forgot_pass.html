@@ -4,32 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot password</title>
+    <title>Forgot Password</title>
     <link rel="stylesheet" href="assets/reg_style.css">
 </head>
 <body>
-    <form id="form" action="/forgot_pass" method="POST">
-        <!-- <input type="text" name="username" placeholder="Enter your User ID:"><br>
-        <input type="password" name="password1" placeholder="Enter your old password:"><br>
-        <input type="password" name="password2" placeholder="Enter your new password:"><br>
-        <button type="submit">Change password</button> -->
-        <div class="input-control">
-            <label for="username">Enter your User ID:</label>
-            <input id="username" name="username" type="text">
-            <div class="error"></div>
-        </div>
-        <div class="input-control">
-            <label for="password1">Enter your old password:</label>
-            <input id="password1" name="password1" type="password">
-            <div class="error"></div>
-        </div>
-        <div class="input-control">
-            <label for="password2">Enter your new password:</label>
-            <input id="password2" name="password2" type="password">
-            <div class="error"></div>
-        </div>
-        <button type="submit">Sign Up</button>
-        <p id="para"></p>
-    </form>
+    <div class="container">
+        <form id="form" action="/forgot_pass" method="POST">
+            <h1>Recover password</h1>
+            
+            <div class="input-control">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text">
+                
+            </div>
+            <div class="input-control">
+                <label for="password1">Old Password</label>
+                <input id="password1"name="password1" type="password">
+                
+            </div>
+            <div class="input-control">
+                <label for="password2">New Password</label>
+                <input id="password2"name="password2" type="password">
+                
+            </div>
+            <button type="submit">Submit</button>
+
+
+        </form>
+    </div>
 </body>
 </html>

@@ -106,7 +106,7 @@
       </button>
       <button class="doc-signup" id="docSignup">
         <div class="doc-signup-child"></div>
-        <i class="not-an-employee">Not an Employee?</i>
+        <i class="not-an-employee">Not a Manager?</i>
       </button>
       <input
         class="password2"
@@ -118,7 +118,7 @@
       />
 
       <div class="sign-up">SIGN UP</div>
-      <div class="sign-up-as">Sign up as an Employee</div>
+      <div class="sign-up-as">Sign up as a Manager</div>
       <input
         class="dob1"
         type="date"
@@ -150,21 +150,21 @@
       var createAccountText = document.getElementById("createAccountText");
       if (createAccountText) {
         createAccountText.addEventListener("click", function (e) {
-          window.location.href = "/Main2";
+          window.location.href = "/login";
         });
       }
       
       var create = document.getElementById("create");
       if (create) {
         create.addEventListener("click", function (e) {
-          window.location.href = "/regi";
+          window.location.href = "/login";
         });
       }
 
       var docSignup = document.getElementById("docSignup");
       if (docSignup) {
         docSignup.addEventListener("click", function (e) {
-          window.location.href = "/";
+          window.location.href = "/regi";
         });
       }
       var scrollAnimElements = document.querySelectorAll("[data-animate-on-scroll]");

@@ -1,6 +1,6 @@
-const oracledb=require('oracledb');
-const express=require('express');
-const path=require('path');
+const oracledb = require('oracledb');
+const express = require('express');
+const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const enc = bodyParser.urlencoded({ extended: true });
@@ -34,8 +34,9 @@ async function fetchDataFromDatabase(query) {
 
   return result.rows;
 }
-
+let loggedID = '';
 app.post("/", enc, (req, res) => {
+
   async function fetchDataCustomer(username, password) {
     try {
       const connection = await oracledb.getConnection({
@@ -56,16 +57,24 @@ app.post("/", enc, (req, res) => {
   fetchDataCustomer(username, password).
     then(dbRes => {
       console.log(dbRes);
+      let k=username.substring(0,3);
       if (dbRes.length > 0) {
+
         fs.writeFile('logindata.txt', username, 'utf8', (err) => {
           if (err) {
+            
             console.error('Error writing file:', err);
           } else {
             console.log('Data has been stored in the file successfully.');
           }
         });
-
-        res.redirect(`/Main2?username=${username}`);
+        if(k=='PAT'){
+          res.redirect(`/Main2?username=${username}`);
+        }
+        else if(k='EMP'){
+          res.redirect(`employee`);
+        }
+        
       }
       else {
         res.redirect("/");
@@ -144,76 +153,888 @@ app.get("/Main2", async (req, res) => {
 });
 
 
+app.get("/manager-home", (req, res) => {
+  res.sendFile(__dirname + "/manager-home.html");
+});
+
+app.get("/login", (req, res) => {
+  res.sendFile(__dirname + "/login.html");
+});
+let GLOBAL_ID4 = '';
+app.post("/manager-homepage-add-doctor", enc, async (req, res) => {
+  async function fetchDataCustomer(name, email, phone, password, house, road, city, district, qual, hosp, specialist, day, shift, pharmacy) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      console.log(email);
+      const result = await connection.execute(
+        `DECLARE
+          scheduleid varchar2(50);
+        BEGIN
+           :new_login_id_3 := '';
+           :new_login_id_4 := '';
+           :new_login_id_5 := '';
+
+           SELECT schedule_id INTO scheduleid FROM schedule WHERE upper(shift) = upper(:shift);
+
+           INSERT INTO doctor (doctor_name, doctor_email,doctor_address,doctor_qualification, doctor_hospital,specialization)
+           VALUES (:name, :email,addr(:road,:city,:house,:district), :qual, :hosp, :specialist)
+           RETURNING doctor_id INTO :new_login_id_3;
+           
+           INSERT INTO login (login_id,password,USER_TYPE)
+           VALUES (:new_login_id_3, :password,'DOCTOR');
+
+           INSERT INTO phone (user_id, phone_no)
+           VALUES (:new_login_id_3, :phone);
+
+           INSERT INTO Has (consult_day, doctor_id, schedule_id)
+           VALUES (:day,:new_login_id_3, scheduleid)
+           RETURNING has_id INTO :new_login_id_4;
+
+           INSERT INTO hasdoc(doctor_id, pharmacy_id)
+           VALUES(:new_login_id_3, :pharmacy)
+           RETURNING hasdoc_id INTO :new_login_id_5;
+
+           :message := 'Records inserted successfully';
+        END;`,
+        {
+          new_login_id_3: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          new_login_id_4: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          new_login_id_5: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          name: name,
+          email: email,
+          phone: phone,
+          password: password,
+          house: house,
+          road: road,
+          city: city,
+          district: district,
+          qual: qual,
+          hosp: hosp,
+          specialist: specialist,
+          day: day,
+          shift: shift,
+          pharmacy: pharmacy,
+          message: { type: oracledb.STRING, dir: oracledb.BIND_OUT }
+        }
+      );
+
+      await connection.commit();
+      await connection.close();
+      GLOBAL_ID4 = result.outBinds.new_login_id_3;
+      console.log('Generated Login ID:', result.outBinds.new_login_id_3);
+
+      console.log(result.outBinds.message);
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  let name = req.body.name;
+  console.log(req.body.name);
+  let email = req.body.email;
+  let phone = req.body.phone;
+  let password = req.body.password;
+  let house = req.body.house;
+  let road = req.body.road;
+  let city = req.body.city;
+  let district = req.body.district;
+  let qual = req.body.qual;
+  let hosp = req.body.hosp;
+  let specialist = req.body.specialist;
+  let day = req.body.day;
+  let shift = req.body.shift;
+  let pharmacy = req.body.pharmacy;
+  console.log(req.body)
+  fetchDataCustomer(name, email, phone, password, house, road, city, district, qual, hosp, specialist, day, shift, pharmacy)
+    .then(dbRes => {
+
+      console.log(dbRes);
+      //res.redirect("/");
+      console.log('AT POST:', GLOBAL_ID4);
+      res.redirect("/manager-home");
+    })
+    .catch(err => {
+      console.log(err);
+      res.redirect("/manager-homepage-add-doctor");
+    });
+});
+
+app.get("/manager-homepage-add-doctor", (req, res) => {
+  console.log('AT add-docgtor GET:', GLOBAL_ID4);
+  res.sendFile(__dirname + "/manager-homepage-add-doctor.html");
+
+  //res.render('regi',{data:GLOBAL_ID3});
+
+})
+let GLOBAL_ID5 = '';
+
+app.post("/manager-homepage-add-employee", enc, async (req, res) => {
+  async function fetchDataCustomer(name, email, phone, password1, house, road, city, district, dob, salary, manID) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectionString: 'localhost/xepdb1'
+      });
+
+      //console.log(pharmacyId, 'Done');
+      console.log(manID, 'Done');
+      const result = await connection.execute(
+        `DECLARE
+          pharmacyid varchar2(50);
+          BEGIN
+             :new_login_id_2 := '';
+             SELECT Pharmacy_id INTO pharmacyid FROM employee WHERE upper(employee_id) = upper(:manID);
+
+             INSERT INTO employee (employee_name, employee_email,employee_address,employee_dob,employee_salary,Pharmacy_id,manager_id)
+             VALUES (:name, :email,addr(:road,:city,:house,:district),to_date(:dob,'dd-mm-yyyy'),:salary, pharmacyid,:manID)
+             RETURNING employee_id INTO :new_login_id_2;
+
+             INSERT INTO login (login_id,password,USER_TYPE)
+             VALUES (:new_login_id_2, :password1,'EMPLOYEE');
+
+             INSERT INTO phone (user_id, phone_no)
+             VALUES (:new_login_id_2, :phone);
+             :pharmacyid := pharmacyid;
+             :message := 'Records inserted successfully';
+          END;`,
+        {
+          new_login_id_2: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          pharmacyid: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          name: name,
+          email: email,
+          phone: phone,
+          password1: password1,
+          house: house,
+          road: road,
+          city: city,
+          district: district,
+          dob: dob,
+          salary: salary,
+          //pharmacyId: pharmacyId,
+          manID: manID,
+          message: { type: oracledb.STRING, dir: oracledb.BIND_OUT }
+
+        }
+      );
+
+      await connection.commit();
+      await connection.close();
+      //console.log(pharmacyId, 'Done2');
+      GLOBAL_ID5 = result.outBinds.new_login_id_2;
+      console.log('Generated Login ID:', result.outBinds.new_login_id_2);
+      console.log('Generated Login ID:', result.outBinds.pharmacyid);
+
+      console.log(result.outBinds.message);
+      return result;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
+  let name = req.body.name;
+  let email = req.body.email;
+  let phone = req.body.phone;
+  let password1 = req.body.password1;
+  let house = req.body.house;
+  let road = req.body.road;
+  let city = req.body.city;
+  let district = req.body.district;
+  //let dob=new Date(req.body.dob);
+  let dob = req.body.dob;
+  const dateObj = new Date(dob);
+  const day = dateObj.getDate();
+  const month = dateObj.getMonth() + 1; // Months are zero-based
+  const year = dateObj.getFullYear();
+
+  // Format day and month with leading zeroes if necessary
+  const formattedDay = day < 10 ? '0' + day : day;
+  const formattedMonth = month < 10 ? '0' + month : month;
+
+  dob = formattedDay + '-' + formattedMonth + '-' + year;
+  //pharmacyId=pID;
+  //console.log(pharmacyId, 'STart');
+  let salary = req.body.salary;
+  let manID = req.body.manID;
+
+  fetchDataCustomer(name, email, phone, password1, house, road, city, district, dob, salary, manID)
+    .then(dbRes => {
+      console.log(dbRes);
+      console.log('AT POST:', GLOBAL_ID5);
+
+      //console.log(pharmacyId); 
+
+      //res.redirect("/newlog");
+      res.redirect("/manager-home");
+    })
+    .catch(err => {
+      // res.redirect("/regi");
+      console.log(err);
+      res.redirect("/manager-homepage-add-employee");
+    });
+
+})
+app.get("/manager-homepage-add-employee", (req, res) => {
+  console.log('AT Employee-signup GET:', GLOBAL_ID5);
+  res.sendFile(__dirname + "/manager-homepage-add-employee.html");
+})
+
+
+app.get('/manager-homepage-doctor', async (req, res) => {
+  //const query = req.query.search_doctor;
+
+  let connection;
+
+  //let username=req.query.username;
+  //console.log("M ",username);
+
+  async function fetchDataCustomer() {
+    try {
+      connection = await oracledb.getConnection({
+        user: 'project_prac',
+        password: '12345678',
+        connectString: 'localhost/xepdb1'
+      });
+
+      const result = await connection.execute(
+        `SELECT d.Doctor_id, d.Doctor_Name, d.Doctor_Email, p.phone_no, (d.doctor_address.house_no ||' , '|| d.doctor_address.road_no ||' , '||d.doctor_address.city ||' , '|| d.doctor_address.district), d.doctor_qualification, s.shift,  h.Consult_day, d.doctor_hospital, d.specialization
+        FROM doctor d
+        JOIN has h ON d.doctor_id = h.doctor_id
+        JOIN schedule s ON h.schedule_id = s.schedule_id
+        JOIN phone p ON d.doctor_id=p.user_id`);
+      console.log(result.rows);
+
+
+      const jsonData = result.rows.map(row => {
+        return {
+          id: row[0],
+          name: row[1],
+          email: row[2],
+          phone: row[3],
+          address: row[4],
+          qual: row[5],
+          shift: row[6],
+          day: row[7],
+          hospital: row[8],
+          specialization: row[9]
+        };
+      });
+
+      console.log(jsonData);
+
+      res.render('manager-homepage-doctor', { data: jsonData });
+      return result.rows;
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+      return error;
+    } finally {
+      if (connection) {
+        try {
+          console.log("NO error");
+          console.log(jsondata);
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  }
+
+  await fetchDataCustomer();
+});
+
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/delete-doctor', async (req, res) => {
+  async function fetchDataCustomer(doctorId) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectionString: 'localhost/xepdb1'
+      });
+
+      const queries =
+        [`DELETE FROM doctor WHERE doctor_id = :1`,
+          `DELETE FROM login WHERE login_id = :1`,
+          `DELETE FROM phone WHERE user_id = :1`];
+      const param = {
+        1: doctorId
+      }
+
+      for (const query of queries) {
+        await connection.execute(query, param);
+      }
+      //const result=await connection.execute(query,param);
+
+      await connection.commit();
+      await connection.close();
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+  //var doctorId = document.getElementById('doctorId').value;
+  var doctorId = req.body.doctorId;
+  console.log(doctorId);
+  fetchDataCustomer(doctorId).
+    then(dbRes => {
+      console.log(dbRes);
+
+      res.redirect("/manager-homepage-doctor");
+
+    })
+    .catch(err => {
+      //res.redirect("/regi");
+      console.error(err);
+      res.json({ message: 'Error occurred while deleting data' });
+    })
+
+});
+
+app.get("/sign-in", (req, res) => {
+  res.sendFile(__dirname + "/sign-in.html");
+});
+
+app.get("/manager-homepage-employee", (req, res) => {
+
+  let connection;
+
+  async function fetchDataCustomer() {
+    try {
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      const result = await connection.execute(
+        `SELECT e.employee_id, e.employee_Name, e.employee_Email, p.phone_no, (e.employee_address.house_no ||' , '|| e.employee_address.road_no ||' , '||e.employee_address.city ||' , '|| e.employee_address.district), TRUNC(MONTHS_BETWEEN(SYSDATE, e.employee_dob) / 12), e.employee_salary, m.employee_name
+       FROM employee e, employee m,phone p
+       where upper(e.employee_id)=upper(p.user_id)
+       and upper(e.manager_id)=upper(m.employee_id)`);
+      console.log(result.rows);
+
+
+      const jsonData = result.rows.map(row => {
+        return {
+          id: row[0],
+          name: row[1],
+          email: row[2],
+          phone: row[3],
+          address: row[4],
+          age: row[5],
+          salary: row[6],
+          mname: row[7],
+        };
+      });
+
+      console.log(jsonData);
+
+      res.render('manager-homepage-employee', { data: jsonData });
+      return result.rows;
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+      return error;
+    } finally {
+      if (connection) {
+        try {
+          console.log("NO error");
+          console.log(jsondata);
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  }
+
+  fetchDataCustomer();
+});
+
+app.post('/delete-employee', async (req, res) => {
+  async function fetchDataCustomer(employeeId) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectionString: 'localhost/xepdb1'
+      });
+
+      const queries =
+        [`DELETE FROM employee WHERE employee_id = :1`,
+          `DELETE FROM login WHERE login_id = :1`,
+          `DELETE FROM phone WHERE user_id = :1`];
+      const param = {
+        1: employeeId
+      }
+
+      for (const query of queries) {
+        await connection.execute(query, param);
+      }
+      //const result=await connection.execute(query,param);
+
+      await connection.commit();
+      await connection.close();
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+  //var doctorId = document.getElementById('doctorId').value;
+  var employeeId = req.body.employeeId;
+  console.log(employeeId);
+  fetchDataCustomer(employeeId).
+    then(dbRes => {
+      console.log(dbRes);
+
+      res.redirect("/manager-homepage-employee");
+
+    })
+    .catch(err => {
+      //res.redirect("/regi");
+      console.error(err);
+      res.json({ message: 'Error occurred while deleting data' });
+    })
+
+});
+
+
+let pharmaID = 'Pha_00002';
+app.get("/manager-homepage-medicine", async (req, res) => {
+  let connection;
+
+  async function fetchDataCustomer() {
+    try {
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      const query =
+        `SELECT p.product_id, p.product_name, p.product_type, p.product_price, to_char(s.manufactured_date, 'dd-MON-yyyy'), to_char(s.Expired_date, 'dd-MON-yyyy'), s.store_quantity, to_char(su.supply_date, 'dd-MON-yyyy'), su.supply_quantity,sup.supplier_email,s.store_id
+          from stores s, product p, supply su, supplier sup
+          where s.product_id=p.product_id
+          and p.product_id=su.product_id
+          and su.supplier_id=sup.supplier_id
+          and pharmacy_id= :1`;
+      const param = {
+        1: pharmaID
+      }
+
+      const result = await connection.execute(query, param)
+      console.log(result.rows);
+
+      const jsonData = result.rows.map(row => {
+        return {
+          id: row[0],
+          name: row[1],
+          type: row[2],
+          price: row[3],
+          mdate: row[4],
+          edate: row[5],
+          quantity: row[6],
+          sdate: row[7],
+          squantity: row[8],
+          email: row[9],
+          store: row[10]
+        };
+      });
+
+      console.log(jsonData);
+
+      res.render('manager-homepage-medicine', { data: jsonData });
+      return result.rows;
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+      return error;
+    } finally {
+      if (connection) {
+        try {
+          console.log("NO error");
+          console.log(jsondata);
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  }
+
+  await fetchDataCustomer();
+});
+
+app.post('/delete-product', async (req, res) => {
+  async function fetchDataCustomer(storeId) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectionString: 'localhost/xepdb1'
+      });
+
+      console.log(storeId + 'done');
+      const query = `UPDATE STORES
+          SET store_quantity=store_quantity-1
+          WHERE store_id= :1`;
+      const param = {
+        1: storeId
+      }
+
+      await connection.execute(query, param);
+
+      //const result=await connection.execute(query,param);
+
+      await connection.commit();
+      await connection.close();
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+  //var doctorId = document.getElementById('doctorId').value;
+  let storeId = req.body.storeId1;
+  console.log(storeId);
+  fetchDataCustomer(storeId).
+    then(dbRes => {
+      console.log(dbRes);
+
+      res.redirect("/manager-homepage-medicine");
+
+    })
+    .catch(err => {
+      //res.redirect("/regi");
+      console.error(err);
+      res.json({ message: 'Error occurred while deleting data' });
+    })
+
+});
+
+app.post('/add-product', async (req, res) => {
+  async function fetchDataCustomer(storeId) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectionString: 'localhost/xepdb1'
+      });
+
+      console.log(storeId + 'done');
+      const query = `UPDATE STORES
+        SET store_quantity=store_quantity+1
+        WHERE store_id= :1`;
+      const param = {
+        1: storeId
+      }
+
+      await connection.execute(query, param);
+
+      //const result=await connection.execute(query,param);
+
+      await connection.commit();
+      await connection.close();
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+  //var doctorId = document.getElementById('doctorId').value;
+  let storeId = req.body.storeId2;
+  console.log(storeId);
+  fetchDataCustomer(storeId).
+    then(dbRes => {
+      console.log(dbRes);
+
+      res.redirect("/manager-homepage-medicine");
+
+    })
+    .catch(err => {
+      //res.redirect("/regi");
+      console.error(err);
+      res.json({ message: 'Error occurred while adding data' });
+    })
+
+});
+
+app.get("/manager-profile-settings", (req, res) => {
+  res.sendFile(__dirname + "/manager-profile-settings.html");
+});
+///let loginID='EMP_00070';
+app.get("/manager-profile", (req, res) => {
+  /// const query=loginID;
+  let connection;
+  console.log(loggedID);
+  //const query = loginID;
+  async function fetchDataCustomer() {
+    try {
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      const result = await connection.execute(
+        `BEGIN
+             FETCH_MANAGER_PROFILE_INFO(:query, :result);
+             END;`,
+        {
+          query: loggedID,
+          result: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+        }
+      );
+      //const result= await connection.execute(query,param)
+      const resultSet = result.outBinds.result;
+      const rows = await resultSet.getRows(100);
+      console.log('at profile:', rows);
+      const jsonData = rows.map(row => {
+        return {
+          id: row[0],
+          name: row[1],
+          email: row[2],
+          phone: row[3],
+          road: row[4],
+          house: row[5],
+          city: row[6],
+          district: row[7],
+          dob: row[8],
+          age: row[9],
+          salary: row[10],
+          pass: row[11]
+
+        };
+      });
+      console.log(jsonData);
+
+      res.render('manager-profile', { data: jsonData }); // Corrected: data should be result.rows
+      return result.rows;
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred' });
+      console.error(error);
+      return error;
+    } finally {
+      if (connection) {
+        try {
+          console.log("NO error");
+          await connection.commit();
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  }
+
+  fetchDataCustomer();
+
+});
+let GLOBAL_ID6 = '';
+
+app.post("/manager-homepage-add-medicine", enc, async (req, res) => {
+  async function fetchDataCustomer(pname, type, price, mdate, edate, quantity, email, sname, sdate, city) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      console.log(email);
+      const result = await connection.execute(
+        `DECLARE
+            scheduleid varchar2(50);
+          BEGIN
+             :new_login_id_1 := '';
+             :new_login_id_2 := '';
+             :new_login_id_3 := '';
+             :new_login_id_4 := '';
+
+             SELECT schedule_id INTO scheduleid FROM schedule WHERE upper(shift) = upper(:shift);
+  
+             INSERT INTO supplier (supplier_name, supplier_email,supplier_area)
+             VALUES (:name, :email,:city)
+             RETURNING supplier_id INTO :new_login_id_1;
+
+             INSERT INTO product (product_name, product_type ,product_price)
+             VALUES (:pname, :type, :price)
+             RETURNING product_id INTO :new_login_id_2;
+
+             INSERT INTO supply (supply_date, supply_quantity, supplier_id, product_id)
+             VALUES (:sdate,:quantity, :new_login_id_1, :new_login_id_2)
+             RETURNING supply_id INTO :new_login_id_3;
+             
+             INSERT INTO stores(product_id,pharmacy_id,manufactured_date, expired_date)
+             VALUES (:new_login_id_2, :pharmaID, :mdate, :edate)
+             RETURNING store_id INTO :new_login_id_4;
+  
+             :message := 'Records inserted successfully';
+          END;`,
+        {
+          new_login_id_1: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          new_login_id_2: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          new_login_id_3: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          new_login_id_4: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          pharmaID: pharmaID,
+          pname: pname,
+          type: type,
+          price: price,
+          mdate: mdate,
+          edate: edate,
+          quantity: quantity,
+          email: email,
+          sname: sname,
+          sdate: sdate,
+          city: city,
+          message: { type: oracledb.STRING, dir: oracledb.BIND_OUT }
+        }
+      );
+
+      await connection.commit();
+      await connection.close();
+      GLOBAL_ID4 = result.outBinds.new_login_id_3;
+      console.log('Generated Login ID:', result.outBinds.new_login_id_3);
+
+      console.log(result.outBinds.message);
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  let pname = req.body.pname;
+  let type = req.body.type;
+  let price = req.body.price;
+  let mdate = req.body.mdate;
+  const dateObj = new Date(mdate);
+  const day = dateObj.getDate();
+  const month = dateObj.getMonth() + 1; // Months are zero-based
+  const year = dateObj.getFullYear();
+
+  // Format day and month with leading zeroes if necessary
+  const formattedDay = day < 10 ? '0' + day : day;
+  const formattedMonth = month < 10 ? '0' + month : month;
+
+  mdate = formattedDay + '-' + formattedMonth + '-' + year;
+  let edate = req.body.edate;
+  const dateObj2 = new Date(edate);
+  const day2 = dateObj2.getDate();
+  const month2 = dateObj2.getMonth() + 1;
+  const year2 = dateObj2.getFullYear();
+  const formattedDay2 = day2 < 10 ? '0' + day2 : day2;
+  const formattedMonth2 = month2 < 10 ? '0' + month2 : month2;
+
+  edate = formattedDay2 + '-' + formattedMonth2 + '-' + year2;
+  let quantity = req.body.quantity;
+  let email = req.body.email;
+  let sname = req.body.sname;
+  let sdate = req.body.sdate;
+
+  const dateObj3 = new Date(sdate);
+  const day3 = dateObj3.getDate();
+  const month3 = dateObj3.getMonth() + 1;
+  const year3 = dateObj3.getFullYear();
+  const formattedDay3 = day3 < 10 ? '0' + day3 : day3;
+  const formattedMonth3 = month3 < 10 ? '0' + month3 : month3;
+
+  sdate = formattedDay3 + '-' + formattedMonth3 + '-' + year3;
+  let city = city;
+  console.log(req.body)
+  fetchDataCustomer(pname, type, price, mdate, edate, quantity, email, sname, sdate, city)
+    .then(dbRes => {
+
+      console.log(dbRes);
+      //res.redirect("/");
+      console.log('AT POST:', GLOBAL_ID6);
+      res.redirect("/manager-home");
+    })
+    .catch(err => {
+      console.log(err);
+      res.redirect("/manager-homepage-add-medicine");
+    });
+});
+
+app.get("/manager-homepage-add-medicine", (req, res) => {
+  res.sendFile(__dirname + "/manager-homepage-add-medicine.html");
+});
 
 
 
 
 
 app.get('/appointment', async (req, res) => {
-    const query = req.query.search_doctor;
-  
-    let connection;
-  
-    async function fetchDataCustomer(query) {
-      try {
-        connection = await oracledb.getConnection({
-          user: 'pharmacy_admin',
-          password: '12345',
-          connectString: 'localhost/xepdb1'
-        });
-  
-        const result = await connection.execute(
-          `BEGIN
+  const query = req.query.search_doctor;
+
+  let connection;
+
+  async function fetchDataCustomer(query) {
+    try {
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      const result = await connection.execute(
+        `BEGIN
              FETCH_APPOINTMENT_DATA(:query, :result);
            END;`,
-          {
-            query: `%${query}%`,
-            result: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-          }
-        );
-  
-        const resultSet = result.outBinds.result;
-        const rows = await resultSet.getRows(100);
-  
-        console.log(rows);
-  
-        const jsonData = rows.map(row => {
-          return {
-            Doc_id: row[0],
-            Doc_name: row[1],
-            Doc_Email: row[2],
-            Doc_Que: row[3],
-            Doc_Hos: row[4],
-            Doc_day: row[5],
-            Doc_start: row[6],
-            Doc_shift: row[8],
-            Doc_speci: row[9]
-          };
-        });
-  
-        console.log(jsonData);
-  
-        res.render('appointment', { query, data: jsonData,username:GLOBAL_ID });
-        return rows;
-      } catch (error) {
-        res.status(500).json({ error: 'An error occurred' });
-        console.error(error);
-        return error;
-      } finally {
-        if (connection) {
-          try {
-            console.log("NO error");
-            await connection.close(); // Close the connection when you're done
-          } catch (error) {
-            console.error(error);
-          }
+        {
+          query: `%${query}%`,
+          result: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+        }
+      );
+
+      const resultSet = result.outBinds.result;
+      const rows = await resultSet.getRows(100);
+
+      console.log(rows);
+
+      const jsonData = rows.map(row => {
+        return {
+          Doc_id: row[0],
+          Doc_name: row[1],
+          Doc_Email: row[2],
+          Doc_Que: row[3],
+          Doc_Hos: row[4],
+          Doc_day: row[5],
+          Doc_start: row[6],
+          Doc_shift: row[8],
+          Doc_speci: row[9]
+        };
+      });
+
+      console.log(jsonData);
+
+      res.render('appointment', { query, data: jsonData, username: GLOBAL_ID });
+      return rows;
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred' });
+      console.error(error);
+      return error;
+    } finally {
+      if (connection) {
+        try {
+          console.log("NO error");
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
         }
       }
     }
-  
-    await fetchDataCustomer(query);
+  }
+
+  await fetchDataCustomer(query);
 });
-  
 
 
 
@@ -229,27 +1050,28 @@ app.get('/appointment', async (req, res) => {
 
 
 
-  app.use(bodyParser.json());
-  app.post('/addConsult', async (req, res) => {
-    //const patientId = req.query.username;
-    let k = req.body.a;
-    let doctorId=k.doctorId;
-    //let patientId;
 
-    const patientId = fs.readFileSync('logindata.txt', 'utf8');
-      console.log(patientId);
-      // Perform operations or logic using the patientId here
-      async function insertData(doctorId, patientId) {
-          let connection;
-          try {
-            connection = await oracledb.getConnection({
-              user: 'pharmacy_admin',
-              password: '12345',
-              connectString: 'localhost/xepdb1'
-            });
-      
-            const result = await connection.execute(
-              `
+app.use(bodyParser.json());
+app.post('/addConsult', async (req, res) => {
+  //const patientId = req.query.username;
+  let k = req.body.a;
+  let doctorId = k.doctorId;
+  //let patientId;
+
+  const patientId = fs.readFileSync('logindata.txt', 'utf8');
+  console.log(patientId);
+  // Perform operations or logic using the patientId here
+  async function insertData(doctorId, patientId) {
+    let connection;
+    try {
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      const result = await connection.execute(
+        `
               DECLARE
                 v_serial NUMBER;
               BEGIN
@@ -264,64 +1086,64 @@ app.get('/appointment', async (req, res) => {
               END;
 
               `,
-              {
-                doctorId: doctorId,
-                patientId: patientId,
-                message: { dir: oracledb.BIND_OUT, type: oracledb.STRING }
-              }
-            );
-      
-            console.log(result.outBinds.message);
-            return {message: result.outBinds.message} ;
-          } catch (error) {
-            console.error(error);
-            return { message: 'Error occurred while inserting data' };
-          } finally {
-            if (connection) {
-              try {
-                await connection.commit();
-                await connection.close();
-
-              } catch (error) {
-                console.error(error);
-              }
-            }
-          }
+        {
+          doctorId: doctorId,
+          patientId: patientId,
+          message: { dir: oracledb.BIND_OUT, type: oracledb.STRING }
         }
-      
-        insertData(doctorId, patientId)
-          .then(data => {
-            res.json(data);
-          })
-          .catch(error => {
-            console.error(error);
-            res.json({ message: 'Error occurred while inserting data' });
-          });
-    
-   
-  });
-        
-  //let GLOBAL_ID='';
+      );
 
-
-
-
-
-
-
-
-
-app.post("/Patient-signup",enc,(req,res)=>{
-    async function fetchDataCustomer(name,email,phone,password1,house,road,city,district,dob){
+      console.log(result.outBinds.message);
+      return { message: result.outBinds.message };
+    } catch (error) {
+      console.error(error);
+      return { message: 'Error occurred while inserting data' };
+    } finally {
+      if (connection) {
         try {
-            const connection=await oracledb.getConnection({
-            user: 'pharmacy_admin',
-         	  password: '12345',
-          	connectString: 'localhost/xepdb1'
-            });
+          await connection.commit();
+          await connection.close();
 
-            const result = await connection.execute(
-                `BEGIN
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  }
+
+  insertData(doctorId, patientId)
+    .then(data => {
+      res.json(data);
+    })
+    .catch(error => {
+      console.error(error);
+      res.json({ message: 'Error occurred while inserting data' });
+    });
+
+
+});
+
+//let GLOBAL_ID='';
+
+
+
+
+
+
+
+
+
+app.post("/Patient-signup", enc, (req, res) => {
+  async function fetchDataCustomer(name, email, phone, password1, house, road, city, district, dob) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      const result = await connection.execute(
+        `BEGIN
                    :new_login_id := '';
         
                    INSERT INTO patient (patient_name, patient_email,patient_address,patient_dob)
@@ -336,86 +1158,86 @@ app.post("/Patient-signup",enc,(req,res)=>{
         
                    :message := 'Records inserted successfully';
                 END;`,
-                {
-                  new_login_id: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
-                  password1: password1,
-                  phone: phone,
-                  name: name,
-                  email: email,
-                  road: road,
-                  city: city,
-                  house: house,
-                  district: district,
-                  dob: dob,
-                  message: { type: oracledb.STRING, dir: oracledb.BIND_OUT }
-                }
-              );
-            
-            await connection.commit();
-            await connection.close();
-            GLOBAL_ID=result.outBinds.new_login_id;
-            console.log('Generated Login ID:', result.outBinds.new_login_id);
-        
-            console.log(result.outBinds.message);
-            return result;
-        }   catch (error) {
-            return error;
+        {
+          new_login_id: { type: oracledb.STRING, dir: oracledb.BIND_OUT },
+          password1: password1,
+          phone: phone,
+          name: name,
+          email: email,
+          road: road,
+          city: city,
+          house: house,
+          district: district,
+          dob: dob,
+          message: { type: oracledb.STRING, dir: oracledb.BIND_OUT }
         }
+      );
+
+      await connection.commit();
+      await connection.close();
+      GLOBAL_ID = result.outBinds.new_login_id;
+      console.log('Generated Login ID:', result.outBinds.new_login_id);
+
+      console.log(result.outBinds.message);
+      return result;
+    } catch (error) {
+      return error;
     }
-           
-    
-    let password1=req.body.password1;
-    let name=req.body.name;
-    let email=req.body.email;
-    let phone=req.body.phone;
-    //let dob=new Date(req.body.dob);
-    let dob = req.body.dob;
-    const dateObj = new Date(dob);
-    const day = dateObj.getDate();
-    const month = dateObj.getMonth() + 1; // Months are zero-based
-    const year = dateObj.getFullYear();
+  }
 
-    // Format day and month with leading zeroes if necessary
-    const formattedDay = day < 10 ? '0' + day : day;
-    const formattedMonth = month < 10 ? '0' + month : month;
 
-    dob = formattedDay + '-' + formattedMonth + '-' + year;
-    let house=req.body.house;
-    let road=req.body.road;
-    let city=req.body.city;
-    let district=req.body.district;
-    
-    fetchDataCustomer(name,email,phone,password1,house,road,city,district,dob)
-        .then(dbRes=>{
-            console.log(dbRes);
-            console.log('AT POST:', GLOBAL_ID);
-            //res.redirect("/newlog");
-            res.redirect("/newlog");
-        })
-        .catch(err=>{
-            // res.redirect("/regi");
-            console.log(err);
-            res.redirect("/regi");
-        });
+  let password1 = req.body.password1;
+  let name = req.body.name;
+  let email = req.body.email;
+  let phone = req.body.phone;
+  //let dob=new Date(req.body.dob);
+  let dob = req.body.dob;
+  const dateObj = new Date(dob);
+  const day = dateObj.getDate();
+  const month = dateObj.getMonth() + 1; // Months are zero-based
+  const year = dateObj.getFullYear();
+
+  // Format day and month with leading zeroes if necessary
+  const formattedDay = day < 10 ? '0' + day : day;
+  const formattedMonth = month < 10 ? '0' + month : month;
+
+  dob = formattedDay + '-' + formattedMonth + '-' + year;
+  let house = req.body.house;
+  let road = req.body.road;
+  let city = req.body.city;
+  let district = req.body.district;
+
+  fetchDataCustomer(name, email, phone, password1, house, road, city, district, dob)
+    .then(dbRes => {
+      console.log(dbRes);
+      console.log('AT POST:', GLOBAL_ID);
+      //res.redirect("/newlog");
+      res.redirect("/newlog");
+    })
+    .catch(err => {
+      // res.redirect("/regi");
+      console.log(err);
+      res.redirect("/regi");
+    });
 
 })
-app.get("/Patient-signup",(req,res)=>{
-    console.log('AT Patient-signup GET:', GLOBAL_ID);
-    res.sendFile(__dirname+"/Patient-signup.html");
-})   
+app.get("/Patient-signup", (req, res) => {
+  console.log('AT Patient-signup GET:', GLOBAL_ID);
+  res.sendFile(__dirname + "/Patient-signup.html");
+})
 
-app.get("/edit",async (req,res)=>{
+app.get("/edit", async (req, res) => {
   const patientId = fs.readFileSync('logindata.txt', 'utf8');
   //console.log(patientId);
   async function fetchDataCustomer() {
     try {
-        connection = await oracledb.getConnection({
-            user: 'pharmacy_admin',
-            password: '12345',
-            connectString: 'localhost/xepdb1'
-        });
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
 
-        const result = await connection.execute(`select p.patient_id,p.patient_name,p.patient_email,
+      const result = await connection.execute(`select p.patient_id,p.patient_name,p.patient_email,
         p.Road_no,
         p.City,
         p.House_no,
@@ -426,59 +1248,59 @@ app.get("/edit",async (req,res)=>{
         and login.login_id=p.patient_id
         and p.patient_id='${patientId}'`);
 
-        console.log('At edit get:',result.rows);
-        const jsonData = result.rows.map(row => {
-            return {
-              Patient_id: row[0],
-              Patient_Name: row[1],
-              Patient_Email: row[2],
-              Road: row[3],
-              City: row[4],
-              House: row[5],
-              District: row[6],
-              Patient_phone: row[7],
-              Pass: row[8]
+      console.log('At edit get:', result.rows);
+      const jsonData = result.rows.map(row => {
+        return {
+          Patient_id: row[0],
+          Patient_Name: row[1],
+          Patient_Email: row[2],
+          Road: row[3],
+          City: row[4],
+          House: row[5],
+          District: row[6],
+          Patient_phone: row[7],
+          Pass: row[8]
 
-            };
-        });
-        //console.log('CHeck: ',jsonData[0].Patient_Name);
-        //res.render('edit',{data:patientId});
-        res.render('edit', { data: jsonData, username: patientId }); // Corrected: data should be result.rows
-        return result.rows;
+        };
+      });
+      //console.log('CHeck: ',jsonData[0].Patient_Name);
+      //res.render('edit',{data:patientId});
+      res.render('edit', { data: jsonData, username: patientId }); // Corrected: data should be result.rows
+      return result.rows;
     } catch (error) {
-        res.status(500).json({ error: 'An error occurred' });
-        console.log(error);
-        return error;
+      res.status(500).json({ error: 'An error occurred' });
+      console.log(error);
+      return error;
     } finally {
-        if (connection) {
-            try {
-                console.log("NO error");
-                await connection.commit();
-                await connection.close(); // Close the connection when you're done
-            } catch (error) {
-                console.error(error);
-            }
+      if (connection) {
+        try {
+          console.log("NO error");
+          await connection.commit();
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
         }
+      }
     }
-}
+  }
 
-await fetchDataCustomer(); 
-  
-  
-}) 
-app.post("/edit",enc,(req,res)=>{
+  await fetchDataCustomer();
+
+
+})
+app.post("/edit", enc, (req, res) => {
   const patientId = fs.readFileSync('logindata.txt', 'utf8');
-  console.log("Edit pid:",patientId);
-  async function fetchDataCustomer(id,name,email,phone,password1,house,road,city,district,dob){
-      try {
-          const connection=await oracledb.getConnection({
-          user: 'pharmacy_admin',
-           password: '12345',
-          connectString: 'localhost/xepdb1'
-          });
+  console.log("Edit pid:", patientId);
+  async function fetchDataCustomer(id, name, email, phone, password1, house, road, city, district, dob) {
+    try {
+      const connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
 
-          const result = await connection.execute(
-              `BEGIN
+      const result = await connection.execute(
+        `BEGIN
       
                  UPDATE patient
                   SET patient_name = :name,
@@ -501,38 +1323,38 @@ app.post("/edit",enc,(req,res)=>{
       
                  :message := 'Records updated successfully';
               END;`,
-              {
-                new_login_id: id,
-                password1: password1,
-                phone: phone,
-                name: name,
-                email: email,
-                road: road,
-                city: city,
-                house: house,
-                district: district,
-                dob: dob,
-                message: { type: oracledb.STRING, dir: oracledb.BIND_OUT }
-              }
-            );
-          
-          await connection.commit();
-          await connection.close();
-          GLOBAL_ID=result.outBinds.new_login_id;
-          console.log('Generated Login ID:', result.outBinds.new_login_id);
-      
-          console.log(result.outBinds.message);
-          return result;
-      }   catch (error) {
-          return error;
-      }
+        {
+          new_login_id: id,
+          password1: password1,
+          phone: phone,
+          name: name,
+          email: email,
+          road: road,
+          city: city,
+          house: house,
+          district: district,
+          dob: dob,
+          message: { type: oracledb.STRING, dir: oracledb.BIND_OUT }
+        }
+      );
+
+      await connection.commit();
+      await connection.close();
+      GLOBAL_ID = result.outBinds.new_login_id;
+      console.log('Generated Login ID:', result.outBinds.new_login_id);
+
+      console.log(result.outBinds.message);
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
-         
-  
-  let password1=req.body.password1;
-  let name=req.body.name;
-  let email=req.body.email;
-  let phone=req.body.phone;
+
+
+  let password1 = req.body.password1;
+  let name = req.body.name;
+  let email = req.body.email;
+  let phone = req.body.phone;
   //let dob=new Date(req.body.dob);
   let dob = req.body.dob;
   const dateObj = new Date(dob);
@@ -545,26 +1367,26 @@ app.post("/edit",enc,(req,res)=>{
   const formattedMonth = month < 10 ? '0' + month : month;
 
   dob = formattedDay + '-' + formattedMonth + '-' + year;
-  let house=req.body.house;
-  let road=req.body.road;
-  let city=req.body.city;
-  let district=req.body.district;
-  
-  fetchDataCustomer(patientId,name,email,phone,password1,house,road,city,district,dob)
-      .then(dbRes=>{
-          console.log(dbRes);
-          //console.log('AT Updated post:', patientId);
-          //res.redirect("/newlog");
-          res.redirect('/profile');
-      })
-      .catch(err=>{
-          // res.redirect("/regi");
-          console.log(err);
-          res.redirect("/edit");
-      });
+  let house = req.body.house;
+  let road = req.body.road;
+  let city = req.body.city;
+  let district = req.body.district;
+
+  fetchDataCustomer(patientId, name, email, phone, password1, house, road, city, district, dob)
+    .then(dbRes => {
+      console.log(dbRes);
+      //console.log('AT Updated post:', patientId);
+      //res.redirect("/newlog");
+      res.redirect('/profile');
+    })
+    .catch(err => {
+      // res.redirect("/regi");
+      console.log(err);
+      res.redirect("/edit");
+    });
 
 })
-  
+
 
 
 app.get('/appointment', async (req, res) => {
@@ -755,16 +1577,16 @@ app.get('/search', async (req, res) => {
           pharmacy: row[3],
           Pro_price: row[4]
 
-                };
-            });
-            const jsonData1 = result1.rows.map(row => {
-                //const pharma_add = row[3].split(',');///for pharmacy
-                return {
-                    Pro_name: row[0],
-                    pro_city: row[1],
-                    pro_District: row[2],
-                    pro_rating: row[3],
-                    Pro_id: row[4]
+        };
+      });
+      const jsonData1 = result1.rows.map(row => {
+        //const pharma_add = row[3].split(',');///for pharmacy
+        return {
+          Pro_name: row[0],
+          pro_city: row[1],
+          pro_District: row[2],
+          pro_rating: row[3],
+          Pro_id: row[4]
 
 
         };
@@ -1082,7 +1904,18 @@ app.get("/forgot_pass", (req, res) => {
 
 app.get("/profile", async (req, res) => {
   let connection;
-  const username = req.query.username;
+
+  let id;
+  try {
+    // Read the file synchronously
+    id = fs.readFileSync('logindata.txt', 'utf8');
+
+    // Process the file data
+    // console.log(data);
+  } catch (error) {
+    // Handle any errors that occur during file reading
+    console.error('Error reading the file:', error);
+  }
   async function fetchDataCustomer() {
     try {
       connection = await oracledb.getConnection({
@@ -1090,7 +1923,7 @@ app.get("/profile", async (req, res) => {
         password: '12345',
         connectString: 'localhost/xepdb1'
       });
-
+      
       const result = await connection.execute(`select p.patient_id,p.patient_name,p.patient_email,
           p.Road_no,
           p.City,
@@ -1100,7 +1933,7 @@ app.get("/profile", async (req, res) => {
           from patient_view p,phone,login
           where p.patient_id=phone.user_id 
           and login.login_id=p.patient_id
-          and p.patient_id='${username}'`);
+          and p.patient_id='${id}'`);
 
       console.log('A:', result);
       const jsonData = result.rows.map(row => {
@@ -1117,9 +1950,9 @@ app.get("/profile", async (req, res) => {
 
         };
       });
-      console.log('CHeck: ', jsonData[0].Patient_Name);
+      //console.log('CHeck: ', jsonData[0].Patient_Name);
 
-      res.render('profile', { data: jsonData, username: username }); // Corrected: data should be result.rows
+      res.render('profile', { data: jsonData, username: id }); // Corrected: data should be result.rows
       return result.rows;
     } catch (error) {
       res.status(500).json({ error: 'An error occurred' });
@@ -1440,21 +2273,21 @@ app.get('/order-history', async (req, res) => {
       // Handle any errors that occur during file reading
       console.error('Error reading the file:', error);
     }
-    const countQuery=`select count(unique bill_id) as "total_bills" from order_history
+    const countQuery = `select count(unique bill_id) as "total_bills" from order_history
     where patient_id=:1
     group by patient_id`;
 
-    const countRes=await connection.execute(countQuery,{1:id},{autoCommit:true,outFormat:oracledb.OUT_FORMAT_OBJECT});
+    const countRes = await connection.execute(countQuery, { 1: id }, { autoCommit: true, outFormat: oracledb.OUT_FORMAT_OBJECT });
     console.log(countRes.rows);
-    total_bills=countRes.rows[0].total_bills;
+    total_bills = countRes.rows[0].total_bills;
 
-    const countProRes=await connection.execute(`select bill_id,count( product_id) as "total_product" from order_history
+    const countProRes = await connection.execute(`select bill_id,count( product_id) as "total_product" from order_history
     where patient_id=:1
     group by bill_id,patient_id
-    order by bill_id`,{1:id},{autoCommit:true,outFormat:oracledb.OUT_FORMAT_OBJECT});
+    order by bill_id`, { 1: id }, { autoCommit: true, outFormat: oracledb.OUT_FORMAT_OBJECT });
 
-    // console.log(countProRes.rows);
-    proTotal=countProRes.rows;
+    console.log(countProRes.rows);
+    proTotal = countProRes.rows;
 
 
 
@@ -1491,10 +2324,10 @@ app.get('/order-history', async (req, res) => {
           PRODUCT_PRICE: current.PRODUCT_PRICE,
           QUANTITY: current.QUANTITY
         });
-        existItem.subtotal+=current.QUANTITY*current.PRODUCT_PRICE;
-        existItem.vat=existItem.subtotal*0.15;
-        existItem.discount=existItem.subtotal*0.05;
-        
+        existItem.subtotal += current.QUANTITY * current.PRODUCT_PRICE;
+        existItem.vat = existItem.subtotal * 0.15;
+        existItem.discount = existItem.subtotal * 0.05;
+
       }
       else {
         let pr = {
@@ -1510,10 +2343,10 @@ app.get('/order-history', async (req, res) => {
           ORDER_DATE: current.ORDER_DATE,
           PHARMACY_ID: current.PHARMACY_ID,
           PHARMACY_NAME: current.PHARMACY_NAME,
-          PRODUCT:[pr],
-          subtotal:current.QUANTITY*current.PRODUCT_PRICE,
-          discount: current.QUANTITY*current.PRODUCT_PRICE*0.05,
-          vat: current.QUANTITY*current.PRODUCT_PRICE*0.15,
+          PRODUCT: [pr],
+          subtotal: current.QUANTITY * current.PRODUCT_PRICE,
+          discount: current.QUANTITY * current.PRODUCT_PRICE * 0.05,
+          vat: current.QUANTITY * current.PRODUCT_PRICE * 0.15,
           shipping: 20
         });
         // result.PRODUCT.push(pr);
@@ -1521,10 +2354,10 @@ app.get('/order-history', async (req, res) => {
       // result.discount=result.subtotal*0.05;
       // result.shipping=20;
       // result.vat=result.subtotal*0.15;
-      
+
       // result.discount=result.subtotal*0.05;
       return result;
-    },[]);
+    }, []);
     // console.log(orderArray);
     // orderArray.forEach((ord,index)=>{
     //   console.log(`For ${ord.BILL_ID}:`);
@@ -1532,7 +2365,7 @@ app.get('/order-history', async (req, res) => {
     // })
 
 
-    
+
 
   } catch (error) {
     console.log(error);
@@ -1546,22 +2379,22 @@ app.get('/order-history', async (req, res) => {
     }
   }
 
-  res.render("order-history", {orderArray,total_bills,proTotal});
+  res.render("order-history", { orderArray, total_bills, proTotal });
 })
 
 
-app.post('/feedback', enc ,async (req,res)=>{
+app.post('/feedback', enc, async (req, res) => {
   try {
     // Extract form data
     const feedback = req.body.feedback;
     const username = fs.readFileSync('logindata.txt', 'utf8');
-    console.log("At feedback: ",feedback);
+    console.log("At feedback: ", feedback);
 
     // Establish a connection to the Oracle database
     const connection = await oracledb.getConnection({
-        user: "pharmacy_admin",
-        password: "12345",
-        connectionString: "localhost/xepdb1"
+      user: "pharmacy_admin",
+      password: "12345",
+      connectionString: "localhost/xepdb1"
     });
 
     // Prepare and execute the SQL statement
@@ -1585,132 +2418,132 @@ app.post('/feedback', enc ,async (req,res)=>{
   }
 });
 
-app.get('/pharmacy', async(req, res) => {
+app.get('/pharmacy', async (req, res) => {
   let k = req.query.pha_id;
   let connection;
-    //const username = req.query.username;
+  //const username = req.query.username;
   const username = fs.readFileSync('logindata.txt', 'utf8');
   async function fetchDataCustomer() {
     try {
-        connection = await oracledb.getConnection({
-          user: 'pharmacy_admin',
-          password: '12345',
-          connectString: 'localhost/xepdb1'
-        });
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
 
-        const result = await connection.execute(`select p.pharmacy_id,p.pharmacy_name,p.pharmacy_email,p.pharmacy_address.City,
+      const result = await connection.execute(`select p.pharmacy_id,p.pharmacy_name,p.pharmacy_email,p.pharmacy_address.City,
         p.pharmacy_address.house_no,p.pharmacy_address.road_no,p.overall_rating
         from pharmacy p 
          where pharmacy_id='${k}'`);
 
-        console.log('at pharmAcy:',result.rows);
-        const jsonData = result.rows.map(row => {
-            return {
-              pharma_id: row[0],
-              pharma_Name: row[1],
-              pharma_Email: row[2],
-              Road: row[5],
-              City: row[3],
-              House: row[4],
-              District: row[6],
-              rating: row[7],
-              
+      console.log('at pharmAcy:', result.rows);
+      const jsonData = result.rows.map(row => {
+        return {
+          pharma_id: row[0],
+          pharma_Name: row[1],
+          pharma_Email: row[2],
+          Road: row[5],
+          City: row[3],
+          House: row[4],
+          District: row[6],
+          rating: row[7],
 
-            };
-        });
-        const result2=await connection.execute(`select p.pharmacy_id,p.pharmacy_name,pro.product_name,pro.product_type,pro.product_price
+
+        };
+      });
+      const result2 = await connection.execute(`select p.pharmacy_id,p.pharmacy_name,pro.product_name,pro.product_type,pro.product_price
         from pharmacy p , stores s,product pro
         where p.pharmacy_id= s.pharmacy_id
         and s.product_id =pro.product_id
         and p.pharmacy_id='${k}'`)
-        const jsonData2 = result2.rows.map(row => {
-          return {
-    
-            pro_Name: row[2],
-            pro_type: row[3],
-            pro_price: row[4]
-            
+      const jsonData2 = result2.rows.map(row => {
+        return {
 
-          };
-        });
-        const result3=await connection.execute(`SELECT d.Doctor_id, d.Doctor_Name, d.Doctor_Email, d.doctor_qualification, d.doctor_hospital,
+          pro_Name: row[2],
+          pro_type: row[3],
+          pro_price: row[4]
+
+
+        };
+      });
+      const result3 = await connection.execute(`SELECT d.Doctor_id, d.Doctor_Name, d.Doctor_Email, d.doctor_qualification, d.doctor_hospital,
         h.Consult_day, to_char(s.start_time, 'HH24:MI:SS'), to_char(s.end_time, 'HH24:MI:SS'), s.shift,d.specialization
         FROM doctor d
         JOIN has h ON d.doctor_id = h.doctor_id
         JOIN schedule s ON h.schedule_id = s.schedule_id
         JOIN pharmacy p ON h.doctor_id=p.doctor_id 
         Where p.pharmacy_id='${k}'`)
-        const jsonData3 = result3.rows.map(row => {
-          return {
-            Doc_id: row[0],
-            Doc_Name: row[1],
-            Doc_email: row[2],
-            Doc_qua: row[3],
-            Doc_con: row[5],
-            Doc_start: row[6],
-            Doc_shift: row[8],
-            Doc_speci: row[9]
-            
+      const jsonData3 = result3.rows.map(row => {
+        return {
+          Doc_id: row[0],
+          Doc_Name: row[1],
+          Doc_email: row[2],
+          Doc_qua: row[3],
+          Doc_con: row[5],
+          Doc_start: row[6],
+          Doc_shift: row[8],
+          Doc_speci: row[9]
 
-          };
-        });
-        const result4=await connection.execute(`select p.patient_name,f.details
+
+        };
+      });
+      const result4 = await connection.execute(`select p.patient_name,f.details
         from feedback_pharma f,patient p
         where f.patient_id=p.patient_id
         and f.pharmacy_id='${k}'`)
-        const jsonData4 = result4.rows.map(row => {
-          return {
-    
-            pat_Name: row[0],
-            pat_details: row[1]
+      const jsonData4 = result4.rows.map(row => {
+        return {
 
-          
-          };
-        });
+          pat_Name: row[0],
+          pat_details: row[1]
 
-        console.log('CHeck: ',jsonData3);
-        res.render("pharmacy", { data: jsonData, data2:jsonData2,data3:jsonData3,data4:jsonData4, username: username }); // Corrected: data should be result.rows
-        return result.rows;
+
+        };
+      });
+
+      console.log('CHeck: ', jsonData3);
+      res.render("pharmacy", { data: jsonData, data2: jsonData2, data3: jsonData3, data4: jsonData4, username: username }); // Corrected: data should be result.rows
+      return result.rows;
     } catch (error) {
-        res.status(500).json({ error: 'An error occurred' });
-        console.log(error);
-        return error;
+      res.status(500).json({ error: 'An error occurred' });
+      console.log(error);
+      return error;
     } finally {
-        if (connection) {
-            try {
-                console.log("NO error");
-                await connection.commit();
-                await connection.close(); // Close the connection when you're done
-            } catch (error) {
-                console.error(error);
-            }
+      if (connection) {
+        try {
+          console.log("NO error");
+          await connection.commit();
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
         }
+      }
     }
   }
 
-  await fetchDataCustomer(); 
+  await fetchDataCustomer();
 
 });
-app.post('/feedback_pharma', enc ,async (req,res)=>{
+app.post('/feedback_pharma', enc, async (req, res) => {
   try {
     // Extract form data
-    const pharma=req.body.pharmacy_id;
+    const pharma = req.body.pharmacy_id;
     const feedback = req.body.feedback;
     const username = fs.readFileSync('logindata.txt', 'utf8');
-    console.log("At feedback_pharmacy: ",feedback);
-    console.log("At feedback_pharmacy",pharma);
+    console.log("At feedback_pharmacy: ", feedback);
+    console.log("At feedback_pharmacy", pharma);
 
     // Establish a connection to the Oracle database
     const connection = await oracledb.getConnection({
-        user: "pharmacy_admin",
-        password: "12345",
-        connectionString: "localhost/xepdb1"
+      user: "pharmacy_admin",
+      password: "12345",
+      connectionString: "localhost/xepdb1"
     });
 
     // Prepare and execute the SQL statement
     const sql = `INSERT INTO feedback_pharma (pharmacy_id, patient_id, details) values(:pharma,:username,:feedback)`;
     const binds = {
-      pharma:pharma,
+      pharma: pharma,
       username: username,
       feedback: feedback,
     };
@@ -1728,6 +2561,194 @@ app.post('/feedback_pharma', enc ,async (req,res)=>{
     res.status(500).send('An error occurred.');
   }
 });
+
+app.get("/employee", (req, res) => {
+  res.sendFile(__dirname + "/employee.html");
+})
+
+
+
+app.get('/search_product_emp', enc, async (req, res) => {
+  const query = req.query.query;
+  let id;
+  try {
+    // Read the file synchronously
+    id = fs.readFileSync('logindata.txt', 'utf8');
+
+    // Process the file data
+    // console.log(data);
+  } catch (error) {
+    // Handle any errors that occur during file reading
+    console.error('Error reading the file:', error);
+  }
+  let connection;
+  async function fetchDataCustomer(query) {
+    try {
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+      const result = await connection.execute(`select product_id, product_name,pharmacy_id,pharmacy_name,product_price,store_quantity from  employee natural join pharmacy  natural join stores natural join product 
+      WHERE lower(product_name) LIKE lower('%${query}%') and employee_id='${id}'`);
+      //query te employee_id login theke nis
+      //search hocche product name diye
+      const result3 = await connection.execute(`select count(product_name)
+      from  employee natural join pharmacy  natural join stores natural join product 
+      WHERE lower(product_name) LIKE lower('%${query}%') and employee_id='${id}' group by product_name
+      `);
+      //query te employee_id login theke nis
+      //search hocche product name diye
+      const result1 = await connection.execute(`select doctor_name,specialization,doctor_hospital,to_char(start_time,'hh24:mi:ss') "start_time",to_char(end_time,'hh24:mi:ss') "end_time",doctor_qualification
+      from  employee natural join pharmacy
+      natural join doctor natural join has natural join schedule
+      WHERE lower(specialization) LIKE lower('%${query}%') and employee_id='${id}'`);
+      //query te employee_id login theke nis
+      //search hocche specialization diye
+      const result4 = await connection.execute(`select Doctor_name,patient_name,specialization,serial
+      from  employee natural join pharmacy   NATURAL join doctor NATURAL join consults natural join patient
+      where employee_id='Emp_00004'`);
+      const result5 = await connection.execute(`select patient_name,product_name,product_price,quantity,order_date,bill_price,bill_status,bill_id
+      from employee NATURAL join pharmacy NATURAL JOIN order_history 
+      NATURAL join bill NATURAL join product NATURAL join patient_view
+      where employee.employee_id='${id}'`);
+
+      console.log(result.rows);
+      console.log(result1.rows);
+      const jsonData = result.rows.map(row => {
+        return {
+          Pro_ID: row[0],
+          Pro_name: row[1],
+          Ph_ID: row[2],
+          pharmacy: row[3],
+          Pro_price: row[4],
+          qua: row[5]
+
+        };
+      });
+      const jsonData3 = result3.rows.map(row => {
+        return {
+          count: row[0]
+
+        };
+      });
+      const jsonData1 = result1.rows.map(row => {
+        return {
+          Doc_Name: row[0],
+          Specialization: row[1],
+          Doc_hospital: row[2],
+          Start_time: row[3],
+          End_time: row[4],
+          qua: row[5]
+        };
+      });
+      const jsonData4 = result4.rows.map(row => {
+        return {
+          Doc_name: row[0],
+          Pat_name: row[1],
+          spec: row[2],
+          serial: row[3]
+        };
+      });
+      const jsonData5 = result5.rows.map(row => {
+        return {
+          pat_name: row[0],
+          pro_order: row[4],
+          bill: row[5],
+          bill_stat: row[6],
+          bill_id: row[7]
+
+        };
+      });
+      console.log(jsonData5);
+      //console.log(jsonData1);
+      if (jsonData.length > 0) {
+        res.render('employee_search_product', { query, data: jsonData, data3: jsonData3 });
+        return result.rows;
+      }
+      else if (jsonData1.length > 0) {
+        res.render('employee_search_doctor', { query, data: jsonData1 });
+        return result1.rows;
+      }
+      else if (query == 'appointment') {
+        res.render('show_appoint', { query, data: jsonData4 });
+        return result4.rows;
+      }
+      else if (query == 'bill') {
+        res.render('bill_status_employee', { query, data: jsonData5 });
+      }
+
+
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred' });
+      console.log(error);
+      return error;
+    } finally {
+      if (connection) {
+        try {
+          console.log("NO error");
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  }
+
+  await fetchDataCustomer(query);
+});
+app.post('/addbill', (req, res) => {
+  let k = req.body.a;
+  let bill_Id = k.billId;
+  async function insertData() {
+    let connection;
+    try {
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+
+      const updateStatement = `UPDATE bill SET bill_status = :new_value WHERE bill_id='${bill_Id}'`;
+
+      // Bind values for the update statement
+      const bindValues = {
+        new_value: '1',
+        // Add more bind values as needed
+      };
+
+      // Execute the update statement
+      const result = await connection.execute(updateStatement, bindValues);
+
+      return result;
+    } catch (error) {
+      console.error(error);
+      return { message: 'Error occurred while inserting data' };
+    } finally {
+      if (connection) {
+        try {
+          await connection.commit();
+          await connection.close();
+
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  }
+
+  insertData()
+    .then(data => {
+      res.json(data);
+    })
+    .catch(error => {
+      console.error(error);
+      res.json({ message: 'Error occurred while inserting data' });
+    });
+
+
+})
+
 
 
 app.listen(PORT, () => {

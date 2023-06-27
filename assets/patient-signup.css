@@ -32,7 +32,7 @@
   position: absolute;
   height: 5.67%;
   width: 23.28%;
-  top: 55.53%;
+  top: 50.53%;
   right: 71.03%;
   bottom: 43.8%;
   left: 5.69%;
@@ -52,13 +52,13 @@
 .confirm,
 .contact,
 .district {
-  top: 65.54%;
+  top: 61.54%;
   bottom: 32.79%;
 }
 .confirm,
 .contact,
 .district {
-  top: 77.41%;
+  top: 72.41%;
   bottom: 21.92%;
 }
 .confirm,
@@ -67,7 +67,7 @@
   left: 5.69%;
 }
 .confirm {
-  top: 90.02%;
+  top: 83.02%;
   right: 41.03%;
   bottom: 11.31%;
   left: 35.69%;
@@ -97,7 +97,7 @@
   padding: 0 var(--padding-16xl);
   background-color: var(--color-mediumspringgreen);
   top: 583px;
-  left: 1030px;
+  left: 980px;
   width: 357px;
   height: 61px;
   display: flex;
@@ -275,7 +275,7 @@
   background-color: transparent;
   position: absolute;
   top: 676px;
-  left: 1030px;
+  left: 980px;
   width: 365px;
   height: 57px;
 }
