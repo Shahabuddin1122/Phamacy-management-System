@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="assets/reg_style.css">
+</head>
+<body>
+    <div class="container">
+        <form id="form" action="/forgot_pass" method="POST">
+            <h1>Recover password</h1>
+            
+            <div class="input-control">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text">
+                
+            </div>
+            <div class="input-control">
+                <label for="password1">Old Password</label>
+                <input id="password1"name="password1" type="password">
+                
+            </div>
+            <div class="input-control">
+                <label for="password2">New Password</label>
+                <input id="password2"name="password2" type="password">
+                
+            </div>
+            <button type="submit">Submit</button>
+
+
+        </form>
+    </div>
+</body>
+</html>

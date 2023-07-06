@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+:root {
+  /* fonts */
+  --font-roboto: Roboto;
+  --font-abril-fatface: "Abril Fatface";
+  --font-inter: Inter;
+  --font-alike-angular: "Alike Angular";
+  --body-18: Lexend;
+
+  /* font sizes */
+  --font-size-xl: 20px;
+  --h3-24-size: 24px;
+  --font-size-21xl: 40px;
+  --font-size-77xl: 96px;
+  --font-size-17xl: 36px;
+  --body-18-size: 18px;
+
+  /* Colors */
+  --color-aliceblue: #e8effc;
+  --color-black: #000;
+  --basic-white: #fff;
+  --regular: #1f1f1f;
+  --light-mode-typography-header: #141414;
+  --color-mediumspringgreen: #41e197;
+  --color-darkslategray: #26614c;
+  --light-mode-secondary-light-gray-96: #f5f5f5;
+  --color-midnightblue: rgba(0, 23, 84, 0.15);
+  --light-mode-primary-blue: #0047ff;
+
+  /* Gaps */
+  --gap-11xs: 2px;
+
+  /* Paddings */
+  --padding-16xl: 35px;
+  --padding-xs: 12px;
+  --padding-lgi: 19px;
+  --padding-mid-4: 17.4px;
+  --padding-7xl-5: 26.5px;
+  --padding-smi: 13px;
+  --padding-xl: 20px;
+  --padding-3xs: 10px;
+
+  /* border radiuses */
+  --br-3xs: 10px;
+  --br-mini: 15px;
+  --br-9xs: 4px;
+  --br-7xs: 6px;
+  --br-61xl: 80px;
+
+  /* Effects */
+  --basic: 0px 1px 1px rgba(0, 14, 51, 0.05);
+}

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="assets/global21.css" />
+    <link rel="stylesheet" href="assets/manager-profile.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto Slab:wght@400;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Font Awesome 5 Free:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Public Sans:wght@400;500;600;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+    />
+  </head>
+  <body>
+    <div class="manager-profile">
+      <div class="divinner">
+        <div class="header">
+          <img class="header-child" alt="" src="images/rectangle-1@2x.png" />
+        </div>
+        <div class="section"></div>
+        <div class="divcontent-wrapper-wrapper">
+          <div class="divcontent-wrapper">
+            <div class="divcontainer-xxl">
+              <div class="divcol-md-12">
+                <div class="divcard1">
+                  <div class="heading-51">Profile Details</div>
+                  <div class="divd-flex1">
+                    <div class="png"></div>
+                    <img
+                      class="divd-flex-child"
+                      alt=""
+                      src="images/rectangle-205@2x.png"
+                    />
+                  </div>
+                  <div class="separator1"></div>
+                  <div class="divcard-child"></div>
+                  <div class="name">
+                    <span class="id"> <%= data[0].id %> and <br> pharmacyid <%= data[0].pid %></span>
+                    <div class="contact-no">ID</div>
+                  </div>
+                  <div class="email">
+                    <span class="phone"> <%= data[0].email %></span>
+                    <div class="contact-no">EMAIL</div>
+                    <span class="salary"> <%= data[0].salary %></span>
+                    <div class="salary1">SALARY</div>
+                  </div>
+                  <div class="contactno">
+                    <span class="phone"> <%= data[0].phone %> </span>
+                    <div class="contact-no">CONTACT NO.</div>
+                    <span class="salary"> <%= data[0].age %></span>
+                    <div class="age1">AGE</div>
+                  </div>
+                  <div class="dob">
+                    <div class="contact-no">DATE OF BIRTH</div>
+                    <span class="phone"> <%= data[0].dob %></span>
+                    <span class="password"> <%= data[0].pass %></span>
+                    <div class="password1">PASSWORD</div>
+                  </div>
+                  <div class="address">
+                    <span class="address1"> <%= 'Road no.-' + data[0].road +', House no.-' + data[0].house + ', city-' + data[0].city + ',  District- ' + data[0].district %></span>
+                    <div class="contact-no">ADDRESS</div>
+                  </div>
+                  <span class="name1"> <%= data[0].name %> </span>
+                  <div class="name2">NAME</div>
+                </div>
+              </div>
+              <div class="item-link">
+                <img class="icon" alt="" src="images/icon.svg" />
+
+                <div class="account">Account</div>
+              </div>
+              <div class="account-information">ACCOUNT INFORMATION</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="divsidebar">
+        <div class="drawer" data-animate-on-scroll>
+          <div class="divinner1">
+            <div class="nav">
+              <div class="menu">
+                <b class="menu1">Menu</b>
+              </div>
+              <div class="list">
+                <div class="home">
+                  <button class="homepage" id="homepage">Home</button>
+                </div>
+                <button class="profile" id="profile">
+                  <div class="link-generic">PROFILE</div>
+                  <img class="vector-icon" alt="" src="images/vector.svg" />
+                </button>
+                <button class="emplist" id="empList">
+                  <div class="employee-list" id="employeeListText">
+                    EMployee List
+                  </div>
+                  <img class="vector-icon1" alt="" src="images/vector1.svg" />
+                </button>
+                <button class="med" id="med">
+                  <div class="link-etiam">medicine</div>
+                  <img class="vector-icon2" alt="" src="images/vector1.svg" />
+                </button>
+                <div class="docinfo">
+                  <button class="link-adipiscing" id="linkAdipiscing">
+                    DOCTOR INFO
+                  </button>
+                  <img class="vector-icon2" alt="" src="images/vector1.svg" />
+                </div>
+                <div class="section1">
+                  <div class="header-heading-2">
+                    <b class="get-in-touch">Get in touch</b>
+                  </div>
+                  <div class="p"></div>
+                  <div class="if-you-have">
+                    If you have any problem regarding your pharmacy, then feel
+                    free to reach us anytime. Here is our contact info.
+                  </div>
+                  <div class="list1">
+                    <div class="item">
+                      <div class="link">
+                        <div class="centralpharmagmailcom">
+                          centralpharma@gmail.com
+                        </div>
+                        <div class="link-child"></div>
+                      </div>
+                      <div class="div1"></div>
+                    </div>
+                    <div class="item1">
+                      <div class="div2"></div>
+                      <div class="div3">02-9345678</div>
+                    </div>
+                    <div class="item2">
+                      <div class="div4"></div>
+                      <div class="satmashjeed-road-dhaka-1517-container">
+                        <span class="satmashjeed-road-dhaka-1517-container1">
+                          <p class="satmashjeed-road">123, Satmashjeed Road,</p>
+                          <p class="satmashjeed-road">Dhaka-1517</p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="adddoc" id="addDoc">
+                  <div class="link-etiam1">ADD doctors</div>
+                  <img class="vector-icon4" alt="" src="images/vector1.svg" />
+                </button>
+                <button class="addemp" id="addEmp">
+                  <div class="link-etiam2">add employee</div>
+                  <img class="vector-icon5" alt="" src="images/vector1.svg" />
+                </button>
+                <img class="vector-icon6" alt="" src="images/vector2.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+    <script>
+      var homepage = document.getElementById("homepage");
+      if (homepage) {
+        homepage.addEventListener("click", function (e) {
+          window.location.href = "./manager-home";
+        });
+      }
+      
+      var profile = document.getElementById("profile");
+      if (profile) {
+        profile.addEventListener("click", function (e) {
+          window.location.href = "manager-profile";
+        });
+      }
+      
+      var employeeListText = document.getElementById("employeeListText");
+      if (employeeListText) {
+        employeeListText.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-employee";
+        });
+      }
+      
+      var empList = document.getElementById("empList");
+      if (empList) {
+        empList.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-employee";
+        });
+      }
+      
+      var med = document.getElementById("med");
+      if (med) {
+        med.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-medicine";
+        });
+      }
+      
+      var linkAdipiscing = document.getElementById("linkAdipiscing");
+      if (linkAdipiscing) {
+        linkAdipiscing.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-doctor";
+        });
+      }
+      
+      var addDoc = document.getElementById("addDoc");
+      if (addDoc) {
+        addDoc.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-add-doctor";
+        });
+      }
+      
+      var addEmp = document.getElementById("addEmp");
+      if (addEmp) {
+        addEmp.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-add-employee";
+        });
+      }
+      var scrollAnimElements = document.querySelectorAll("[data-animate-on-scroll]");
+      var observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+              const targetElement = entry.target;
+              targetElement.classList.add("animate");
+              observer.unobserve(targetElement);
+            }
+          }
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+      
+      for (let i = 0; i < scrollAnimElements.length; i++) {
+        observer.observe(scrollAnimElements[i]);
+      }
+      </script>
+  </body>
+</html>
