@@ -2,7 +2,7 @@
 body {
     width: 100%;
     height: 500px;
-    background-color: #005454;
+    background-color: aqua;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
@@ -27,16 +27,10 @@ body {
     background-color: black;
     width: 50%;
     height: 100%;
-    overflow: hidden;
 
 }
-.main .left img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 .main .right {
-    background-color: #44ab31b5;
+    background-color: blue;
     width: 50%;
     height: 100%;
 }
@@ -70,18 +64,6 @@ h3 {
     font-family: 'Poppins', sans-serif;
     font-size: 14.5px;
 
-}
-.bt{
-    background-color: white;
-    text-decoration: none;
-    padding: 5px 14px;
-    margin: 38px 7px 5px;
-    width: 26%;
-    height: 36px;
-    color: brown;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14.5px;
 }
 .main .right form .lower a {
     font-size: 15px;

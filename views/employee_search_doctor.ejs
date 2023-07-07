@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/search.css">
+    <script src="https://kit.fontawesome.com/2437fb8d10.js" crossorigin="anonymous"></script>
+
+    
+
+    <title>Online Pharmacy</title>
+</head>
+<body>
+    <!-- navbar -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./employee" >Home</a></li>
+                <li><a href="./profile" >Profile</a></li>
+                <li><a href="./search" class="active">Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+                <!--ekhane cart-items e change ante hbe, bill status hbe-->
+                
+                
+            </ul>
+        </div>
+        <div class="login">
+            <button type="submit">Log in</button>
+            <button type="submit">Sign in</button>
+        </div>
+
+
+    </header> 
+    <form action="./search_product_emp" method="GET">
+        <div class="search-bar">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <div class="middle">
+        <h2 style="text-align: center;">Search Results for: <%= query %> </h2>
+
+        <!-- Iterate over the search results and display them in cards -->
+        <div id="results" style="display: flex;justify-content: space-around;">
+            <% for (let i = 0; i < data.length; i++) { %>
+                <div class="card">
+                <img src="/public/images/clock-3222267_1280.jpg" alt="ProductImage">
+                <h2><%= data[i].Doc_name %></h5>
+                <h5> <%= data[i].qua %> at <%= data[i].Specialization %></h5>
+                <h5> <%= data[i].Doc_hospital %></h5>
+                <h5>Start: <%= data[i].Start_time %></h5>
+                <h5>End: <%= data[i].End_time %></h5>
+                </div>
+            <% } %>
+
+        </div>
+        
+    </div>
+      
+    <footer>
+        <div class="admin-info">
+          <h3>Admin Information</h3>
+          <p>Name: John Doe</p>
+          <p>Address: 123 Pharmacy Street, City, Country</p>
+        </div>
+        <h3>copyright@ </h3>
+    </footer>  
+
+    
+</body>
+</html>

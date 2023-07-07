@@ -27,6 +27,7 @@ BEGIN
 
     -- Check if the count exceeds the limit
     IF schedule_count >= 10 THEN
+
         raise_application_error(-20001, 'Maximum schedule limit (10) exceeded for the doctor.');
     
     ELSE

@@ -36,5 +36,7 @@ MODIFY (Employee_email varchar2(100) NOT NULL);
 ALTER TABLE Phone
 MODIFY (user_id varchar2(20) NOT NULL);
 
-ALTER TABLE Doctor ADD Specification varchar2(50);
+ALTER TABLE Doctor ADD specialization varchar2(50);
+
+ALTER TABLE Consults ADD serial varchar2(50);
 

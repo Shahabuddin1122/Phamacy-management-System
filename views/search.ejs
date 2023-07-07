@@ -91,7 +91,6 @@
 
     
     <script src="./index.js"></script>
-
     <script>
         let selectedItem = [];
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
@@ -106,7 +105,7 @@
                     'pro_id':product,
                     'ph_id':pharmacy
                 }
-            fetch('/cart-items', {
+                fetch('/cart-items', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -122,9 +121,14 @@
                 });
             });
         });
+        // function addToCart(event) {
+        //     // const productName = event.target.parentElement.querySelector('h3').innerText;
+        //     // selectedItem.push(productName);
+        //     // Send the array to the Node.js server
+            
+            
 
-
-        
+        // }
         function deleteFile(){
             const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
 

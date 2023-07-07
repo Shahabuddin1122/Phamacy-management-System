@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/show_appoint.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./employee" >Home</a></li>
+                <li><a href="./profile" >Profile</a></li>
+                <li><a href="./search" class="active">Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+                <!--ekhane cart-items e change ante hbe, bill status hbe-->
+                
+                
+            </ul>
+        </div>
+        <div class="login">
+            <button type="submit">Log in</button>
+            <button type="submit">Sign in</button>
+        </div>
+
+
+    </header> 
+    <form action="./search" method="GET">
+        <div class="search-bar">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <h2 style="text-align: center;">Appointment list</h2>
+    <table style="height: 50vh;">
+
+        <tr>
+          <th>Doctor Name</th>
+          <th>Patient Name</th>
+          <th>Doctor Specialization</th>
+          <th>Serial</th>
+        </tr>
+        <% for (let i = 0; i < data.length; i++) { %>
+            <tr>
+            <td><%= data[i].Doc_name %></td>
+            <td><%= data[i].Pat_name %></td>
+            <td><%= data[i].spec %></td>
+            <td><%= data[i].serial %></td>
+            </tr>
+
+        <% } %>
+        
+        
+      </table>
+    
+</body>
+</html>
