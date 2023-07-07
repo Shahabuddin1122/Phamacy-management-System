@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="../assets/global-order-confirmation.css" />
+    <link rel="stylesheet" href="../assets/order-confirmation.css">
+    <link rel="stylesheet" href="../assets/order-history.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;1,400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas Neue:wght@400&display=swap"
+    />
+  </head>
+  <body>
+    <div class="order-history">
+      <div class="navbar1">
+        <div class="subtotal-wrapper">
+          <img class="logo-icon1" alt="" src="../public/public@2x.png" />
+        </div>
+        <div class="links1">
+          <a class="home" href="./Main2">
+            <div class="items">Home</div>
+          </a>
+          <a class="home" href="./profile">
+            <div class="items">Profile</div>
+          </a>
+          <a class="home" href="./appointment">
+            <div class="items">Appointment</div>
+          </a>
+          <a class="home" href="./search">
+            <div class="items">Search</div>
+          </a>
+          <a class="home" href="#">
+            <div class="items">Bill</div>
+          </a>
+        </div>
+        <div class="cart-icon-group">
+          <a class="cart-icon" href="./cart-items">
+            <div class="logo">
+              <img class="shopping-bag-line-2-icon" alt="" src="../public/shoppingbagline-2.svg">
+              <span class="items">
+               0 items
+              </span>
+            </div>
+  
+          </a>
+          <button class="logout1">
+            <div class="button12">
+              <div class="button13">Logout</div>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="total-22">
+        Total: 
+        <% if (!total_bills) { %>
+         0
+        <% } else{ %>
+          <%= total_bills %>
+        <% } %>
+      </div>
+      <div class="instance-parent">
+        <% if (!orderArray) { %>
+         
+        <% } else{ %>
+          <% orderArray.forEach(element => { %>
+            <% let productInfo=[]; %>
+            <div class="frame-parent16">
+              <div class="frame-parent17">
+                <div class="order-id-ord-00001-parent">
+                  <b class="order-id-ord-00001">Bill ID: <%= element.BILL_ID %></b>
+                  <div class="delivered-on-18062023">Delivered on: 18/06/2023</div>
+                  <div class="status-unpaid">Status: 
+                  <% if (element.BILL_STATUS===0) { %>
+                    Unpaid
+                  <% } else{ %>
+                    Paid
+                  <%}%>
+                  </div>
+                </div>
+                <div class="billing-summery2">
+                  <div class="frame-parent18">
+                    <div class="subtotal-wrapper">
+                      <div class="subtotal2">Subtotal</div>
+                    </div>
+                    <div class="frame-parent19">
+                      <div class="subtotal-wrapper">
+                        <div class="subtotal2"><%= element.subtotal %></div>
+                      </div>
+                      <div class="subtotal-wrapper">
+                        <div class="subtotal2">Taka</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-parent20">
+                    <div class="subtotal-wrapper">
+                      <div class="subtotal2">Discount</div>
+                    </div>
+                    <div class="frame-parent19">
+                      <div class="subtotal-wrapper">
+                        <div class="subtotal2"><%= element.discount %></div>
+                      </div>
+                      <div class="subtotal-wrapper">
+                        <div class="subtotal2">Taka</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-parent20">
+                    <div class="subtotal-wrapper">
+                      <div class="subtotal2">Shipping</div>
+                    </div>
+                    <div class="frame-parent19">
+                      <div class="subtotal-wrapper">
+                        <div class="subtotal2"><%= element.shipping %></div>
+                      </div>
+                      <div class="subtotal-wrapper">
+                        <div class="subtotal2">Taka</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-parent20">
+                    <div class="subtotal-wrapper">
+                      <div class="subtotal2">VAT</div>
+                    </div>
+                    <div class="frame-parent19">
+                      <div class="subtotal-wrapper">
+                        <div class="subtotal2"><%= element.vat %></div>
+                      </div>
+                      <div class="subtotal-wrapper">
+                        <div class="subtotal2">Taka</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="billing-summery-child"></div>
+                  <div class="frame-parent20">
+                    <div class="subtotal-wrapper">
+                      <b class="subtotal2">Grand Total</b>
+                    </div>
+                    <div class="frame-parent19">
+                      <div class="subtotal-wrapper">
+                        <b class="subtotal2"><%= element.BILL_PRICE %></b>
+                      </div>
+                      <div class="subtotal-wrapper">
+                        <b class="subtotal2">Taka</b>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pharmacy-name-container">
+                <b class="pharmacy-name8"><%= element.PHARMACY_NAME %></b>
+                <div class="total-2">Total: 
+                  <% if (!proTotal) { %>
+                    0
+                  <% } else{ %>
+                    <% const total=proTotal.find(item=>item.BILL_ID===element.BILL_ID) %>
+                    <%= total.total_product %> 
+                  <% } %>
+                </div>
+                
+                <% element.PRODUCT.forEach(pr => { %>
+                  <% productInfo.push({
+                    PRODUCT_ID: pr.PRODUCT_ID,
+                    PRODUCT_NAME: pr.PRODUCT_NAME,
+                    PRODUCT_TYPE: 'Medicine',
+                    PRODUCT_PRICE: pr.PRODUCT_PRICE,
+                    PHARMACY_ID: element.PHARMACY_ID,
+                    PHARMACY_NAME: element.PHARMACY_NAME,
+                    order_quantity: pr.QUANTITY
+                  }) %>
+                  <div class="product-name-parent">
+                    <div class="product-name">
+                      <div class="product-name-child"></div>
+                      <div class="product-14"><%= pr.PRODUCT_NAME %></div>
+                    </div>
+                    <div class="price-10-taka">Quantity: <%= pr.QUANTITY %></div>
+                    <div class="price-10-taka">Price: <%= pr.PRODUCT_PRICE %> Taka</div>
+                  </div>
+                <% }) %>
+                
+              </div>
+              <div class="cancel-parent">
+                <a class="cancel">Cancel</a>
+                <% let requiredPrice={
+                  
+                    'productInfo': productInfo,
+                    'productTotal': element.subtotal,
+                    'vat': element.vat,
+                    'shipping': element.shipping,
+                    'allTotal': element.BILL_PRICE
+                  
+                } %>
+                <div class="status" status="<%= element.BILL_STATUS %>"></div>
+                <button class="button6" data="<%= JSON.stringify(requiredPrice) %>">
+                  <div class="button5">Reorder</div>
+                </button>
+              </div>
+            </div>
+            <!-- <div class="frame-inner"></div> -->
+          <% }) %>
+        <%}%>
+        
+      </div>
+      
+    <footer class="footer1"></footer>
+
+    <script>
+      let reorderButton=document.querySelectorAll('.button6');
+
+      let statusDiv=document.querySelectorAll('.status');
+      statusDiv.forEach((s,i)=>{
+        status=s.getAttribute('status');
+        if(status){
+          reorderButton[i].style.visibility="hidden";
+        }
+        else{
+          document.querySelectorAll('.cancel')[i].style.visibility="hidden";
+        }
+      })
+      
+      reorderButton.forEach(button=>{
+        button.addEventListener('click',event=>{
+          const requiredPrice=JSON.parse(button.getAttribute('data'));
+          console.log(requiredPrice);
+          fetch('/checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ requiredPrice })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data); // Log the response from the server
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+        window.location.href = "/checkout";
+        })
+      })
+    </script>
+  </body>
+</html>

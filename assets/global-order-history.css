@@ -1,0 +1,87 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+:root {
+  /* fonts */
+  --font-inter: Inter;
+  --regular-12: "Open Sans";
+  --font-urbanist: Urbanist;
+  --font-bebas-neue: "Bebas Neue";
+  --font-cabin: Cabin;
+
+  /* font sizes */
+  --font-size-base: 1rem;
+  --font-size-lg: 1.13rem;
+  --font-size-sm: 0.88rem;
+  --font-size-xl: 1.25rem;
+  --regular-12-size: 0.75rem;
+  --font-size-3xs: 0.63rem;
+  --font-size-5xl: 1.5rem;
+
+  /* Colors */
+  --color-aliceblue-100: #ebf1fb;
+  --color-aliceblue: #e8effc;
+  --color-black: #000;
+  --color-white: #fff;
+  --buttons-primary: #41e197;
+  --color-lightsteelblue-100: #c6d6f2;
+  --dark-dark-1: #b2bcca;
+  --color-lightsteelblue-200: rgba(198, 214, 242, 0.35);
+  --color-aquamarine: #5ceba8;
+  --color-gray-100: rgba(255, 255, 255, 0);
+  --dark-dark-3: #4f4f4f;
+  --color-lightgray: #d2d2d2;
+
+  /* Gaps */
+  --gap-3xs: 0.63rem;
+  --gap-12xl: 1.94rem;
+  --gap-8xl: 1.69rem;
+  --gap-base: 1rem;
+  --gap-183xl: 12.63rem;
+  --gap-lgi: 1.19rem;
+  --gap-131xl: 9.38rem;
+  --gap-16xl: 2.19rem;
+  --gap-5xs: 0.5rem;
+  --gap-46xl: 4.06rem;
+  --gap-8xs: 0.31rem;
+  --gap-41xl: 3.75rem;
+  --gap-173xl: 12rem;
+  --gap-144xl: 10.19rem;
+  --gap-143xl: 10.13rem;
+  --gap-146xl: 10.31rem;
+  --gap-2xl: 1.31rem;
+  --gap-xl: 1.25rem;
+
+  /* Paddings */
+  --padding-lgi: 1.19rem;
+  --padding-lg: 1.13rem;
+  --padding-sm: 0.88rem;
+  --padding-23xl: 2.63rem;
+  --padding-8xl: 1.69rem;
+  --padding-15xl: 2.13rem;
+  --padding-2xl: 1.31rem;
+  --padding-9xl: 1.75rem;
+  --padding-102xl: 7.56rem;
+  --padding-smi: 0.81rem;
+  --padding-12xl: 1.94rem;
+  --padding-14xl: 2.06rem;
+  --padding-13xl: 2rem;
+  --padding-8xs: 0.31rem;
+  --padding-9xs: 0.25rem;
+  --padding-7xs: 0.38rem;
+  --padding-3xs: 0.63rem;
+  --padding-6xs: 0.44rem;
+  --padding-5xs: 0.5rem;
+  --padding-mid: 1.06rem;
+
+  /* border radiuses */
+  --br-8xs: 5px;
+  --br-10xs: 3px;
+  --br-9xs: 4px;
+  --br-7xs: 6px;
+
+  /* Effects */
+  --effect: 0px 2px 40px rgba(133, 133, 133, 0.08);
+}
