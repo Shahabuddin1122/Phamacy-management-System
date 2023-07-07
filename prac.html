@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="assets/global22.css" />
+    <link rel="stylesheet" href="assets/manager-homepage-doctor.css" />
+    <link rel="stylesheet" href="assets/table.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Public Sans:wght@400;500;600;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto Slab:wght@400;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Font Awesome 5 Free:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+    />
+  </head>
+  <body>
+    <div class="manager-homepage-doctor">
+      <div class="divinner">
+        <div class="header">
+          <img class="header-child" alt="" src="images/rectangle-1@2x.png" />
+        </div>
+        <div class="divcard-body">
+          <div class="doctor-info">Doctor Info</div>
+          <table class="divtable-responsive">
+            <div class="grid">
+                            <tr>
+                              <th>Doctor ID</th>
+                              <th>Doctor Name</th>
+                              <th>Doctor Email</th>
+                              <th>Doctor Contact No</th>
+                              <th>Doctor Address</th>
+                              <th>Qualification</th>
+                              <th>Shift</th>
+                              <th>Day</th>
+                              <th>Hospital</th>
+                              <th>Delete Doctor</th>
+                            </tr>
+                            <% for (let i = 0; i < data.length; i++) { %>
+                              <tr>
+                                <td><%= data[i].id %></td>
+                                <td><%= data[i].name %></td>
+                                <td><%= data[i].email %></td>
+                                <td><%= data[i].phone %></td>
+                                <td><%= data[i].address %></td>
+                                <td><%= data[i].qual %></td>
+                                <td><%= data[i].shift %></td>
+                                <td><%= data[i].day %></td>
+                                <td><%= data[i].hospital%></td>
+                                <td><a href="/manager-homepage-doctor" class="bt">del</a></td>
+                              </tr>
+                            <% } %>
+                    </div>
+                    </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="divsidebar">
+        <div class="divinner1">
+          <div class="drawer" data-animate-on-scroll>
+            <div class="divinner2">
+              <div class="nav">
+                <div class="header-heading-2">
+                  <b class="menu">Menu</b>
+                </div>
+                <div class="list">
+                  <button class="item-link" id="itemLink">Home</button>
+                  <button class="item" id="item">
+                    <div class="link-generic">PROFILE</div>
+                    <img
+                      class="vector-icon"
+                      alt=""
+                      src="images/vector3.svg"
+                    />
+                  </button>
+                  <button class="item1" id="item1">
+                    <div class="employee-list" id="employeeListText">
+                      EMployee List
+                    </div>
+                    <img
+                      class="vector-icon1"
+                      alt=""
+                      src="images/vector1.svg"
+                    />
+                  </button>
+                  <button class="item2" id="item2">
+                    <div class="link-etiam">medicine</div>
+                    <img
+                      class="vector-icon2"
+                      alt=""
+                      src="images/vector1.svg"
+                    />
+                  </button>
+                  <div class="item3">
+                    <button class="link-adipiscing" id="linkAdipiscing">
+                      DOCTOR INFO
+                    </button>
+                    <img
+                      class="vector-icon2"
+                      alt=""
+                      src="images/vector1.svg"
+                    />
+                  </div>
+                  <div class="section">
+                    <div class="header-heading-21">
+                      <b class="get-in-touch">Get in touch</b>
+                    </div>
+                    <div class="p"></div>
+                    <div class="if-you-have">
+                      If you have any problem regarding your pharmacy, then feel
+                      free to reach us anytime. Here is our contact info.
+                    </div>
+                    <div class="list1">
+                      <div class="item4">
+                        <div class="link">
+                          <div class="centralpharmagmailcom">
+                            centralpharma@gmail.com
+                          </div>
+                          <div class="link-child"></div>
+                        </div>
+                        <div class="div"></div>
+                      </div>
+                      <div class="item5">
+                        <div class="div1"></div>
+                        <div class="div2">02-9345678</div>
+                      </div>
+                      <div class="item6">
+                        <div class="div3"></div>
+                        <div class="satmashjeed-road-dhaka-1517-container">
+                          <span class="satmashjeed-road-dhaka-1517-container1">
+                            <p class="satmashjeed-road">
+                              123, Satmashjeed Road,
+                            </p>
+                            <p class="satmashjeed-road">Dhaka-1517</p>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="item7" id="item3">
+                    <div class="link-etiam1">ADD doctors</div>
+                    <img
+                      class="vector-icon4"
+                      alt=""
+                      src="images/vector1.svg"
+                    />
+                  </button>
+                  <button class="item8" id="item4">
+                    <div class="link-etiam2">add employee</div>
+                    <img
+                      class="vector-icon5"
+                      alt=""
+                      src="images/vector1.svg"
+                    />
+                  </button>
+                  <img class="vector-icon6" alt="" src="images/vector2.svg" />
+
+                  <button class="item9" id="item5">
+                    <div class="link-etiam1">ADD medicine</div>
+                    <img
+                      class="vector-icon4"
+                      alt=""
+                      src="images/vector1.svg"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var itemLink = document.getElementById("itemLink");
+      if (itemLink) {
+        itemLink.addEventListener("click", function (e) {
+          window.location.href = "./manager-home";
+        });
+      }
+      
+      var item = document.getElementById("item");
+      if (item) {
+        item.addEventListener("click", function (e) {
+          window.location.href = "./manager-profile";
+        });
+      }
+      
+      var employeeListText = document.getElementById("employeeListText");
+      if (employeeListText) {
+        employeeListText.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-employee";
+        });
+      }
+      
+      var item1 = document.getElementById("item1");
+      if (item1) {
+        item1.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-employee";
+        });
+      }
+      
+      var item2 = document.getElementById("item2");
+      if (item2) {
+        item2.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-medicine";
+        });
+      }
+      
+      var linkAdipiscing = document.getElementById("linkAdipiscing");
+      if (linkAdipiscing) {
+        linkAdipiscing.addEventListener("click", function (e) {
+          window.location.href = "manager-homepage-doctor";
+        });
+      }
+      
+      var item3 = document.getElementById("item3");
+      if (item3) {
+        item3.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-add-doctor";
+        });
+      }
+      
+      var item4 = document.getElementById("item4");
+      if (item4) {
+        item4.addEventListener("click", function (e) {
+          window.location.href = "./manager-homepage-add-employee";
+        });
+      }
+      
+      var item5 = document.getElementById("item5");
+      if (item5) {
+        item5.addEventListener("click", function (e) {
+          window.location.href = "./sign-in";
+        });
+      }
+      var scrollAnimElements = document.querySelectorAll("[data-animate-on-scroll]");
+      var observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+              const targetElement = entry.target;
+              targetElement.classList.add("animate");
+              observer.unobserve(targetElement);
+            }
+          }
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+      
+      for (let i = 0; i < scrollAnimElements.length; i++) {
+        observer.observe(scrollAnimElements[i]);
+      }
+      </script>
+  </body>
+</html>
