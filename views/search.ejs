@@ -30,8 +30,9 @@
             </ul>
         </div>
         <div class="login">
-            <button type="submit">Log in</button>
-            <button type="submit">Sign in</button>
+            <button type="submit"><a href="#">Cart</a> </button>
+            <button type="submit" onclick="deleteFile()"> <a href="./">Log out </a></button>            <button type="submit"><a href="#">Cart</a> </button>
+
         </div>
 
 
@@ -105,7 +106,7 @@
                     'pro_id':product,
                     'ph_id':pharmacy
                 }
-                fetch('/cart-items', {
+            fetch('/cart-items', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -121,14 +122,23 @@
                 });
             });
         });
-        // function addToCart(event) {
-        //     // const productName = event.target.parentElement.querySelector('h3').innerText;
-        //     // selectedItem.push(productName);
-        //     // Send the array to the Node.js server
-            
-            
 
-        // }
+
+        
+        function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }
         // console.log("testing");
         // console.log(selectedItem);
 

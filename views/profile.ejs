@@ -59,7 +59,7 @@
                   </div>
                   <div class="profile-row">
                     <span class="label">Age:</span>
-                    <span class="value"><%=  data[0].City %></span>
+                    <span class="value"><%=  data[0].age %></span>
                   </div>
                 </div>
                 <div class="profile-info" style="border-color: #3498db;">
@@ -81,7 +81,7 @@
                   </div>
                 </div>
               </div>
-              <div class="btn1">
+              <div class="btn1" id="create">
                 <button type="submit" style="width: 140px;
                 height: 40px;">Edit</button>
               </div>
@@ -117,6 +117,29 @@
     <script src="./jason.js"></script>
     <script src="./index.js"></script>
     <script src="./index2.js"></script>
+    <script>
+      var create = document.getElementById("create");
+      function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+      }
+      if (create) {
+        create.addEventListener("click", function (e) {
+          window.location.href = "/edit";
+        });
+      }
+      
+    </script>
 
   </body>
 </html>
