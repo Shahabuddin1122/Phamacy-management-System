@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/appointment.css">
+    <script src="https://kit.fontawesome.com/2437fb8d10.js" crossorigin="anonymous"></script>
+
+    <title>Online Pharmacy</title>
+</head>
+<body>
+    <!-- navbar -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./Main2" >Home</a></li>
+                <li><a href="./profile" >Profile</a></li>
+                <li><a href="./appointment" class="active">Appointment</a></li>
+                <li><a href="./search" >Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+                
+                
+            </ul>
+        </div>
+        <div class="login">
+            <button type="submit"><a href="#">Cart</a> </button>
+            <button type="submit" onclick="deleteFile()"> <a href="./">Log out </a></button>
+        </div>
+
+
+    </header> 
+    <form action="/appointment" method="GET">
+        <div class="search-bar">
+            <input type="text" name="search_doctor" placeholder="Search a doctor in your area......">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <div class="middle">
+        <h2 style="text-align: center;">Search Results : <%= query %></h2>
+
+        <!-- Iterate over the search results and display them in cards -->
+        <div id="results" style="display: flex;justify-content: space-around;">
+            <% for (let i = 0; i < data.length; i++) { %>
+                <div class="card" id="<%= data[i].Doc_id %> ">
+                <img src="/public/images/pexels-antoni-shkraba-6749778.jpg" alt="ProductImage">
+                <h3><%= data[i].Doc_name %></h3>
+                <h5>Email: <%= data[i].Doc_Email %></h5>
+                <p><%= data[i].Doc_Que %> at <%= data[i].Doc_speci %></p>
+                <p><%= data[i].Doc_Hos %></p>
+                <p>visiting time:  <%= data[i].Doc_day %> <%= data[i].Doc_shift %> <%= data[i].Doc_Start %></p>
+                <button class="add-to-cart-btn" id="btnId" onclick="makeAppointment('<%= data[i].Doc_id %>')">Take Appointment</button>
+
+                </div>
+            <% } %>
+            
+        </div>
+        
+    </div>
+           
+
+    <footer>
+        <div class="feedback">
+          <h3>User Feedback</h3>
+          <p>Leave your valuable feedback:</p>
+          <form>
+            <textarea placeholder="Your feedback"></textarea>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+        <div class="admin-info">
+          <h3>Admin Information</h3>
+          <p>Name: John Doe</p>
+          <p>Address: 123 Pharmacy Street, City, Country</p>
+        </div>
+        <h3>copyright@ </h3>
+    </footer>
+        
+    
+    
+    
+
+    <script src="./index.js"></script>
+
+    <script>
+        function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }
+        
+        
+        function makeAppointment(doc) {
+            //console.log("Make: ", k);
+            const requestData = {
+                doctorId: doc,
+                //patientId: k
+            };
+            //console.log("MAKE :", requestData.doctorId);
+            //document.getElementById(btnId).disabled = 'true';
+            fetch('/addConsult', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({a: requestData})
+            })
+                .then(response => response.json())
+                .then(data => {
+                console.log('A ',data.message);
+                    alert( data.message );
+                // Handle the response data or perform any other actions
+                })
+                .catch(error => {
+                console.error('Error:', error);
+                // Handle the error or display an error message
+                });
+        }
+
+
+    </script>
+    
+</body>
+</html>

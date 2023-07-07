@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/search.css">
+    <script src="https://kit.fontawesome.com/2437fb8d10.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    <title>Online Pharmacy</title>
+</head>
+<body>
+    <!-- navbar -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./Main2" >Home</a></li>
+                <li><a href="./profile" >Profile</a></li>
+                <li><a href="./appointment" >Appointment</a></li>
+                <li><a href="./search" class="active">Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+                
+                
+            </ul>
+        </div>
+        <div class="login">
+            <button type="submit"><a href="#">Cart</a> </button>
+            <button type="submit" onclick="deleteFile()"> <a href="./">Log out </a></button>
+        </div>
+
+
+    </header> 
+    <form action="/search" method="GET">
+        <div class="search-bar">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <div class="middle">
+        <h2 style="text-align: center;">Search Results for: <%= query %></h2>
+
+        <!-- Iterate over the search results and display them in cards -->
+        <div id="results" style="display: flex;justify-content: space-around;">
+            <% for (let i = 0; i < data.length; i++) { %>
+                <div class="card">
+                    <img src="public/images/3576424_65886.jpg" alt="ProductImage">
+                    <h3>Name:<%= data[i].Pro_name %></h3>
+                    <p style="text-align: center;">city: <%= data[i].pro_city %></p>
+                    <p style="text-align: center;">Rating: <%= data[i].pro_rasting %></p>
+                    <a href="/pharmacy?pha_id=<%= data[i].Pro_id %>">Details</a>
+                
+                </div>
+            <% } %>
+            
+
+
+
+        </div>
+
+        
+    </div>
+      
+      
+
+    <footer>
+        <div class="feedback">
+          <h3>User Feedback</h3>
+          <p>Leave your valuable feedback:</p>
+          <form>
+            <textarea placeholder="Your feedback"></textarea>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+        <div class="admin-info">
+          <h3>Admin Information</h3>
+          <p>Name: John Doe</p>
+          <p>Address: 123 Pharmacy Street, City, Country</p>
+        </div>
+        <h3>copyright@ </h3>
+    </footer>
+        
+    
+    
+    
+
+   
+    <script src="./index.js"></script>
+    <script>
+        function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }
+        function pharma(id) {
+        console.log("app: ", id);
+        const url = `/pharmacy?pha_id=${id}`;
+
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+      }
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+  <link rel="stylesheet" href="../assets/global.css" />
+  <link rel="stylesheet" href="../assets/global-order-confirmation.css">
+  <link rel="stylesheet" href="../assets/order-confirmation.css" />
+  <link rel="stylesheet" href="../assets/order-confirmation(1).css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas Neue:wght@400&display=swap" />
+</head>
+
+<body>
+  <div class="order-confirmation">
+    <div class="navbar1">
+      <div class="subtotal-wrapper">
+        <img class="logo-icon1" alt="" src="../public/public@2x.png" />
+      </div>
+      <div class="links1">
+        <a class="home" href="./Main2">
+          <div class="items">Home</div>
+        </a>
+        <a class="home" href="./profile">
+          <div class="items">Profile</div>
+        </a>
+        <a class="home" href="./appointment">
+          <div class="items">Appointment</div>
+        </a>
+        <a class="home" href="./search">
+          <div class="items">Search</div>
+        </a>
+        <a class="home" href="#">
+          <div class="items">Bill</div>
+        </a>
+      </div>
+      <div class="cart-icon-group">
+        <a class="cart-icon" href="./cart-items">
+          <div class="logo">
+            <img class="shopping-bag-line-2-icon" alt="" src="../public/shoppingbagline-2.svg">
+            <span class="items">
+              <% if (!productInfo || productInfo.length===0) { %>
+                0 items
+                <% } else { %>
+                  <%= productInfo.length %> items
+                    <% } %>
+            </span>
+          </div>
+
+        </a>
+        <button class="logout1">
+          <div class="button12">
+            <div class="button13">Logout</div>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="billing-summery">
+      <h5 class="billing-summery1">Billing Summery</h5>
+
+      <div class="frame-parent">
+        <% if (!pharmacyWiseProduct) { %>
+
+        <% } else{ %>
+          <% pharmacyWiseProduct.forEach(element=> { %>
+            <div class="pharmacy-name-parent">
+              <b class="pharmacy-name"><%= element.PHARMACY_NAME %></b>
+              <div class="subtotal-parent">
+                <div class="subtotal">Subtotal</div>
+                <div class="frame-group">
+                  <div class="logo">
+                    <div class="subtotal"><%= element.subtotal %></div>
+                  </div>
+                  <div class="logo">
+                    <div class="subtotal">Taka</div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame-container">
+                <div class="logo">
+                  <div class="subtotal">Discount</div>
+                </div>
+                <div class="frame-group">
+                  <div class="logo">
+                    <div class="subtotal"><%= element.discount %></div>
+                  </div>
+                  <div class="logo">
+                    <div class="subtotal">Taka</div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame-parent1">
+                <div class="logo">
+                  <div class="subtotal">Shipping</div>
+                </div>
+                <div class="frame-group">
+                  <div class="logo">
+                    <div class="subtotal"><%= element.shipping %></div>
+                  </div>
+                  <div class="logo">
+                    <div class="subtotal">Taka</div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame-parent3">
+                <div class="logo">
+                  <div class="subtotal">VAT</div>
+                </div>
+                <div class="frame-group">
+                  <div class="logo">
+                    <div class="subtotal"><%= element.vat %></div>
+                  </div>
+                  <div class="logo">
+                    <div class="subtotal">Taka</div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame-child"></div>
+              <div class="frame-parent5">
+                <div class="logo">
+                  <b class="subtotal">
+                    <span>Grand</span>
+                    <span class="span"> </span>
+                    <span>Total</span>
+                  </b>
+                </div>
+                <div class="frame-group">
+                  <div class="logo">
+                    <b class="subtotal"><%= element.allTotal %></b>
+                  </div>
+                  <div class="logo">
+                    <b class="subtotal">Taka</b>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+
+        <%}%>
+      </div>
+      <div class="checkbox-parent">
+        <input class="checkbox" type="checkbox" />
+
+        <div class="please-check-to-container">
+          <span>Please check to acknowledge our </span>
+          <span class="privacy-terms">Privacy & Terms Policy</span>
+        </div>
+      </div>
+      <button class="button2" id="confirmOrder">
+        <div class="button3">Confirm Order</div>
+      </button>
+    </div>
+    <div class="footer1"></div>
+    <div class="main-section1">
+      <div class="subtotal-wrapper">
+        <div class="personal-information">
+          <b class="syed-nafees-kaiser">Personal Information</b>
+          <div class="name-parent">
+            <div class="syed-nafees-kaiser">Name:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.PATIENT_NAME %>
+                    <% } %>
+            </div>
+          </div>
+          <div class="age-parent">
+            <div class="syed-nafees-kaiser">Age:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.Age %> Years
+                    <% } %>
+            </div>
+          </div>
+        </div>
+        <div class="contact-information">
+          <b class="syed-nafees-kaiser">Contact Information</b>
+          <div class="age-parent">
+            <div class="syed-nafees-kaiser">Phone no:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.PHONE_NO %>
+                    <% } %>
+            </div>
+          </div>
+          <div class="name-parent">
+            <div class="syed-nafees-kaiser">Email:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.PATIENT_EMAIL %>
+                    <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shipping-details">
+        <b class="syed-nafees-kaiser">Shipping Details</b>
+        <div class="house-parent">
+          <div class="house">
+            <div class="syed-nafees-kaiser">House no:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.house %>
+                    <% } %>
+            </div>
+          </div>
+          <div class="age-parent">
+            <div class="syed-nafees-kaiser">Road no:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.road %>
+                    <% } %>
+            </div>
+          </div>
+        </div>
+        <div class="city-parent">
+          <div class="house">
+            <div class="syed-nafees-kaiser">City:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.city %>
+                    <% } %>
+            </div>
+          </div>
+          <div class="name-parent">
+            <div class="syed-nafees-kaiser">District:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.district %>
+                    <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="billing-details">
+        <b class="syed-nafees-kaiser">Billing Details</b>
+        <div class="house-parent">
+          <div class="house">
+            <div class="syed-nafees-kaiser">House no:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.house %>
+                    <% } %>
+            </div>
+          </div>
+          <div class="age-parent">
+            <div class="syed-nafees-kaiser">Road no:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.road %>
+                    <% } %>
+            </div>
+          </div>
+        </div>
+        <div class="city-parent">
+          <div class="house">
+            <div class="syed-nafees-kaiser">City:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.city %>
+                    <% } %>
+            </div>
+          </div>
+          <div class="name-parent">
+            <div class="syed-nafees-kaiser">District:</div>
+            <div class="syed-nafees-kaiser">
+              <% if (!patientInfo) { %>
+
+                <% } else { %>
+                  <%= patientInfo.district %>
+                    <% } %>
+            </div>
+          </div>
+        </div>
+        <div class="house">
+          <div class="syed-nafees-kaiser">Payment method:</div>
+          <div class="syed-nafees-kaiser">Cash On Delivery</div>
+        </div>
+      </div>
+    </div>
+    <div class="order-review">
+      <div class="order-review-heading">
+        <h5 class="order-review1">Order Review</h5>
+        <div class="items-in-cart">
+          <% if (!productInfo) { %>
+            0 items in cart
+            <% } else { %>
+              <%= productInfo.length %> items in cart
+                <% } %>
+
+        </div>
+      </div>
+      <% if (!productInfo) { %>
+
+        <% } else { %>
+          <% productInfo.forEach(element=> { %>
+            <div class="product-summery">
+              <img class="product-picture-icon" alt="" src="../public/product-picture.svg" />
+
+              <div class="product-info">
+                <b class="billing-summary">
+                  <%= element.PRODUCT_NAME %>
+                </b>
+                <div class="pharmacy-name4">
+                  <%= element.PHARMACY_NAME %>
+                </div>
+                <div class="pharmacy-name4">
+                  Quantity: <%= element.order_quantity %>
+                </div>
+
+              </div>
+              <div class="product-price4">
+                <div class="billing-summary">
+                  <%= element.PRODUCT_PRICE %>
+                </div>
+                <div class="billing-summary">Taka</div>
+              </div>
+            </div>
+            <% }) %>
+              <% } %>
+    </div>
+  </div>
+
+  <script>
+    let confirmOrder = document.getElementById('confirmOrder');
+    if (confirmOrder) {
+      confirmOrder.addEventListener('click', event => {
+        fetch('/order-history', {
+          method: 'POST'
+        })
+          .then(response => {
+            if (response.ok) {
+              console.log('POST request successful');
+            } else {
+              console.error('POST request failed');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+        window.location.href = "/order-history";
+      })
+    }
+
+  </script>
+</body>
+
+</html>

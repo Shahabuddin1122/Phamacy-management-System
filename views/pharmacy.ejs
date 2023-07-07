@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="./assets/global2.css" />
+    <link rel="stylesheet" href="./assets/pharmacy.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas Neue:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+    />
+  </head>
+  <body>
+    <div class="pharmacy4">
+      <div class="navbar1">
+        <img class="logo-icon" alt="" src="/public/images/logo@2x.png" />
+
+        <div class="links1">
+          <div class="home2">
+            <a href="./main2">Home</a>
+          </div>
+          <div class="home2">
+            <div class="profile3">
+              <a href="./profile">Profile</a>
+            </div>
+          </div>
+          <div class="home2">
+            <div class="profile3">
+              <a href="./appointment">Appointment </a></div>
+          </div>
+          <div class="home2">
+            <div class="profile3">
+              <a href="./search">Search </a></div>
+          </div>
+          <div class="home2">
+            <div class="profile3">
+              <a href="./cart-items">Bill</a></div>
+          </div>
+        </div>
+        <div class="cart-icon-group">
+          <a class="cart-icon2">
+            <div class="home2">
+              <img
+                class="shopping-bag-line-2-icon1"
+                alt=""
+                src="./public/shoppingbagline-2.svg"
+              />
+            </div>
+            <div class="home2">
+              <div class="profile3">3 items</div>
+            </div>
+          </a>
+          <div class="logout1">
+            <button class="button13">
+              <div class="button14">Logout</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <div class="cart-section" >
+        <div class="video-container">
+          <video src="public/images/pexels-tima-miroshnichenko-7033914-3840x2160-25fps.mp4" autoplay loop muted></video>
+          <div class="overlay">
+              <h1 style="width: 101%;">WELCOME TO <%= data[0].pharma_Name %></h1>
+              <form >
+                <input type="text" id="searchbox" name="search" style="    width: 67%;
+                  height: 32px;
+                  border-radius: 19px;" placeholder="Enter your search term" />
+                <input type="submit" value="Search" onclick="search()" style="    width: 14%;
+                  height: 30px;
+                  border-radius: 6px;" />
+              </form>
+              <p>Our pharmacy provides  healthcare facility that dispenses prescription medications and over-the-counter drugs. It serves as a crucial link between patients and healthcare professionals, providing medications, health advice, and pharmaceutical services to promote wellness and manage medical conditions.</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h2 style="text-align: center;">Our Top sailing Product</h2>
+          <div class="card-container" id="card-container">
+            <% for (let i = 0; i < data2.length; i++) { %>
+              <div class="card">
+                  <img src="public/images/3576424_65886.jpg" alt="Product 1" />
+                  <h3 style="text-align: center;">Name:    <%= data2[i].pro_Name %></h3>
+                  <h5 style="text-align: center;">Name:    <%= data2[i].pro_type %></h5>
+                  <p class="price" style="text-align: center;">$<%= data2[i].pro_price %></p>
+                  <button class="my-button">Add to Cart</button>
+              </div>
+            <% };
+            %>
+        
+          </div>
+        </div>
+        <div class="middle-two">
+          <h2 style="text-align: center;">Our Specialized Doctor</h2>
+          <div class="container">
+            <div class="left-side">
+                <img src="public/images/pexels-antoni-shkraba-6749778.jpg" alt="Picture" />
+            </div>
+            <div class="right-side">
+                <h1>Doctor Name: <%= data3[0].Doc_Name %></h1>
+                <h4>Email: <%= data3[0].Doc_email %></h4>
+                <h5><%= data3[0].Doc_qua%> at <%= data3[0].Doc_speci %></h5>
+                <h5><%= data3[0].Doc_shift%> </h5>
+                
+                <button  onclick="makeAppointment('<%= data3[0].Doc_id %>')">Take Appointment</button>
+            </div>
+          </div>
+        </div>
+        <div class="review">
+          <h2 style="text-align: center;">Customer Reviews</h2>
+          <div class="review-container">
+            <% for (let i = 0; i < data4.length; i++) { %>
+              <div class="review">
+                  <div class="customer-name">Name: <%= data4[i].pat_Name %></div>
+                  <div class="customer-comment"> <%= data4[i].pat_details %></div>
+              </div>
+            
+              <% } %>
+          </div>
+        </div>
+        
+        
+
+      </div>
+      
+      
+    </div>
+    <footer class="footer">
+      <div class="feedback">
+        <h3>User Feedback</h3>
+        <p>Leave your valuable feedback:</p>
+        <form action="/feedback_pharma" method="POST">
+          <input type="hidden" name="pharmacy_id" value="<%=data[0].pharma_id%>">
+          <input type="text" name="feedback" placeholder="Your feedback"></input>
+          <button type="submit" value="Submit" style="width: 10%;
+          height: 10%;">Submit</button>
+        </form>
+      </div>
+      <div class="footer-info">
+          <p><%= data[0].pharma_Name %></p>
+          <p>Email:<%= data[0].pharma_Email %></p>
+          <p>House:<%= data[0].House %></p>
+          <p>Road:<%= data[0].Road %></p>
+          <p>City:<%= data[0].City %></p>
+          <p>District: <%= data[0].District %></p>
+          <p>rating: <%= data[0].rating %></p>
+      </div>
+      <div class="copy-right">
+          &copy; 2023 Pharmacy Name. All rights reserved.
+      </div>
+    </footer>
+  </body>
+  <script>
+    function search()
+    {
+        let text=document.getElementById('searchbox').value.toLowerCase();
+        let medicine=document.getElementById('card-container');
+        let appoint=document.getElementById('container')
+        if(text=='medicine')
+        {
+          window.location.href = '#medicine';
+        }
+        else if(text=='doctor')
+        {
+          window.location.href = '#appoint'
+        }
+    }  
+        
+        
+    function makeAppointment(doc) {
+        //console.log("Make: ", k);
+        const requestData = {
+            doctorId: doc,
+            
+        };
+        //console.log("MAKE :", requestData.doctorId);
+        //document.getElementById(btnId).disabled = 'true';
+        fetch('/addConsult', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({a: requestData})
+        })
+            .then(response => response.json())
+            .then(data => {
+            console.log('A ',data.message);
+                alert( data.message );
+            // Handle the response data or perform any other actions
+            })
+            .catch(error => {
+            console.error('Error:', error);
+            // Handle the error or display an error message
+            });
+    }
+
+
+</script>
+</html>

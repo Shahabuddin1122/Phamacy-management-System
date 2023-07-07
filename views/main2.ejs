@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/Main2.css">
+    <script src="https://kit.fontawesome.com/2437fb8d10.js" crossorigin="anonymous"></script>
+ 
+
+    <title>Online Pharmacy</title>
+</head>
+<body>
+    <!-- navbar -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./main2" class="active">Home</a></li>
+                <li><a href="./profile?username=<%= username %>" >Profile</a></li>
+                <li><a href="./appointment?username=<%= username %>" >Appointment</a></li>
+                <li><a href="./search?username=<%= username %>" >Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+                
+                
+            </ul>
+        </div>
+        <div class="login">
+            <button type="submit"><a href="#">Cart</a> </button>
+            <button type="submit" onclick="deleteFile()"> <a href="./">Log out </a></button>
+        </div>
+
+
+    </header> 
+    <div class="slide">
+        <div class="banner1">
+            <img src="../public/images/syringe-g19048f2ca_1280.jpg" alt="Not supporing" class="img">
+            <div class="text-box">
+                <h1>MediGuardian</h1>
+                <span></span>
+                <p>Life-sustaining elixirs. Dispensed with precision, empowering health and wellness. Pharmacists, gatekeepers of well-being, harness knowledge and compassion to ensure safe, effective medication use. Pharmacy medicine: the cornerstone of healing and vitality.</p>
+                <button type="submit" class="btn1">Learn more</button>
+            </div>
+        </div>
+        <div class="banner2">
+            <img src="../public/images/vitamins-g2c34244ac_1280.jpg" class="img">
+            <div class="text-box">
+                <h1>BioHealer</h1>
+                <span></span>
+                <p>Nature's remedy. Harnessing the power of botanicals, pure ingredients, and sustainable practices. BioHealers, guardians of holistic health, provide organic solutions for wellness. Trusted allies in promoting natural healing, restoring balance, and nurturing the body, mind, and spirit.</p>
+                <button type="submit" class="btn1">Learn more</button>
+            </div>
+        </div>
+        <div class="banner3">
+            <img src="../public/images/pexels-nataliya-vaitkevich-7615571.jpg" class="img">
+            <div class="text-box">
+                <h1>MediSeeker</h1>
+                <span></span>
+                <p>Ensuring financial stability, accurate reimbursement, and quality care through precise documentation, compliance, and efficient processing. Vital for pharmacies to thrive in the healthcare landscape.</p>
+                <button type="submit" class="btn1">Learn more</button>
+            </div>
+        </div>
+        <div class="banner4">
+            <img src="../public/images/dollar-g302c8f48f_1280.jpg" class="img">
+            <div class="text-box">
+                <h1>BillSaver</h1>
+                <span></span>
+                <p>The quest for knowledge and solutions. MediSeeker, a relentless explorer of medical information, delves into vast databases, research papers, and clinical resources. Armed with expertise and curiosity, they navigate the sea of knowledge guiding healthcare decisions with precision and accuracy.</p>
+                <button type="submit" class="btn1">Learn more</button>
+            </div>
+        </div>
+
+
+    </div>
+    
+    <div id="box">
+        <h2>Our Top salling Product</h2>
+        
+        <div class="inside-card" >
+            <% for (let i = 0; i < data.length; i++) { %>
+                <div class="card" style="width: 17%; height: 50vh;">
+                <img src="../public/images/3576424_65886.jpg" alt="Product Image">
+                <h3>Name:    <%= data[i].Pro_name %></h3>
+                <h5>  <%= data[i].pharma %> </h5>
+                <p>Price:    $<%= data[i].Pro_price %></p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            <% };
+             %>
+            
+        </div>
+    </div>
+    <div class="intro">
+        <h2>Our Moto</h2>
+       <div class="box1">
+            <div class="intro-text">
+                <h2>First Mission</h2>
+                <p>"Efficiency and Accuracy for Optimal Care": This motto emphasizes the importance of a pharmacy management system in streamlining operations, reducing errors, and ensuring accurate medication dispensing. By efficiently managing inventory, automating processes, and maintaining accurate records, the system enables pharmacists to provide optimal care to patients.</p>
+
+            </div>
+            <div class="right">
+                <h2>Second Mission</h2>
+                <p>"Empowering Pharmacists, Enhancing Patient Safety": This motto highlights the role of a pharmacy management system in empowering pharmacists to deliver safe and effective healthcare. The system supports medication verification, allergy checks, drug interactions, and dosage accuracy, promoting patient safety. By providing essential tools and information, it enables pharmacists to make informed decisions and enhance overall patient care.</p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <footer>
+        <div class="feedback">
+          <h3>User Feedback</h3>
+          <p>Leave your valuable feedback:</p>
+          <form action="/feedback" method="POST">
+            <input type="text" name="feedback" placeholder="Your feedback"></input>
+            <button type="submit" value="Submit" style="width: 10%;
+            height: 10%;">Submit</button>
+          </form>
+        </div>
+        <div class="admin-info">
+          <h3>Admin Information</h3>
+          <p>Name: John Doe</p>
+          <p>Address: 123 Pharmacy Street, City, Country</p>
+        </div>
+        <h3> &copy; 2023 Pharmacy Name. All rights reserved.</h3>
+    </footer>
+      
+        
+    
+    
+    
+
+    
+    <script src="./index.js"></script>
+
+    
+    </body>
+    <script>
+        function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }
+    </script>
+
+</html>

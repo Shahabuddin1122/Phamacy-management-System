@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+<<<<<<< HEAD
+    <link rel="stylesheet" href="assets/global(1).css" />
+=======
+    <link rel="stylesheet" href="assets/global.css" />
+>>>>>>> 30e796a (Added appointment, modified patient)
+    <link rel="stylesheet" href="assets/patient-signup.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,300&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Abril Fatface:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alike Angular:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="patient-signup" data-animate-on-scroll>
+      <img
+        class="black-health-logo-2-1"
+        alt=""
+        src="public/images/black-health-logo-2-11@2x.png"
+      />
+      <form action="/Patient-signup" method="POST">
+        <input
+        class="email"
+        type="email"
+        placeholder="Enter Your Email"
+        required
+        id="email"
+        name="email"
+      />
+
+      <input
+        class="road"
+        type="text"
+        placeholder="Enter Your Road no."
+        required
+        id="road"
+        name="road"
+      />
+
+      <input
+        class="city"
+        type="text"
+        placeholder="Enter Your City"
+        required
+        id="city"
+        name="city"
+      />
+
+      <input
+        class="district"
+        type="text"
+        placeholder="Enter Your District"
+        required
+        id="District"
+        name="district"
+      />
+
+      <input
+        class="contact"
+        type="tel"
+        placeholder="Enter Your Contact no."
+        required
+        id="phone"
+        name="phone"
+      />
+
+      <input
+        class="confirm"
+        type="password"
+        placeholder="Confirm Your Password"
+        required
+        id="password2"
+      />
+
+      <button class="create" id="create" type="submit">
+        <i class="create-account">Create Account</i>
+      </button>
+      <button class="employee-signup" id="employeeSignup">
+        <div class="employee-signup-child"></div>
+        <i class="not-a-patient">Not a Patient?</i>
+      </button>
+    </div>
+      <input
+        class="password"
+        type="password"
+        placeholder="Enter Your Password"
+        required
+        id="password1"
+        name="password1"
+      />
+
+      <div class="text-blocksectionlargetitle">
+        <div class="body">
+          Create an account with us to stay up-to-date with new health providers
+          that are near you, current news and resources!
+        </div>
+        <div class="title">SIGN UP</div>
+      </div>
+      <div class="name">Name</div>
+      <input
+        class="dob"
+        type="date"
+        placeholder="Enter Your Date of Birth"
+        required
+        id="dob"
+        name="dob"
+      />
+
+      <div class="email1">Email</div>
+      <div class="date-of-birth">Date of Birth</div>
+      <div class="contact-no">Contact no.</div>
+      <div class="password1">Password</div>
+      <div class="house-no">House no.</div>
+      <div class="road-no">Road no.</div>
+      <div class="city1">City</div>
+      <div class="district1">District</div>
+      <div class="confirm-password">Confirm Password</div>
+      <input
+        class="name1"
+        type="text"
+        placeholder="Enter Your Name"
+        required
+        id="name"
+        name="name"
+      />
+
+      <input
+        class="house"
+        type="text"
+        placeholder="Enter Your House no."
+        required
+        id="house"
+        name="house"
+      />
+      </form>
+      
+    </div>
+    
+    <script>
+      var create = document.getElementById("create");
+      if (create) {
+        create.addEventListener("click", function (e) {
+          window.location.href = "/newlog";
+        });
+      }
+
+      var employeeSignup = document.getElementById("employeeSignup");
+      if (employeeSignup) {
+        employeeSignup.addEventListener("click", function (e) {
+          window.location.href = "/employee-signup";
+        });
+      }
+
+      var scrollAnimElements = document.querySelectorAll("[data-animate-on-scroll]");
+      var observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+              const targetElement = entry.target;
+              targetElement.classList.add("animate");
+              observer.unobserve(targetElement);
+            }
+          }
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+      
+      for (let i = 0; i < scrollAnimElements.length; i++) {
+        observer.observe(scrollAnimElements[i]);
+      }
+      </script>
+  </body>
+</html>

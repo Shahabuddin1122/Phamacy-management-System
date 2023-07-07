@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/profile.css">
+    <title>Profile</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./Main2" >Home</a></li>
+                <li><a href="./profile" class="active" >Profile</a></li>
+                <li><a href="./appointment" >Appointment</a></li>
+                <li><a href="./search" >Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+            </ul>
+        </div>
+        <div class="login">
+            <div class="new1">
+                <button type="submit">Log in</button>
+                <button type="submit">Sign in</button>
+            </div>
+        </div>
+        
+    </header> 
+    <div class="middle">
+        <div class="left">
+          <img src="../public/images/blank-profile-picture-g194d58982_1280.png" alt="">
+          <h3>ID: <%= data[0].Patient_id %></h3>
+        </div>
+        <div class="right">
+          <div class="personal">
+            <div class="new">
+              <h2>personal Information</h2>
+              <div class="profile-card">
+                <div class="profile-info " style="border-color: #3498db; font-size: 1.2em;">
+                  <div class="profile-row">
+                    <span class="label">Name:</span>
+                    <span class="value" ><%=  data[0].Patient_Name %></span>
+                  </div>
+                  <div class="profile-row">
+                    <span class="label">Email:</span>
+                    <span class="value"><%=  data[0].Patient_Email %></span>
+                  </div>
+                  <div class="profile-row">
+                    <span class="label">Road:</span>
+                    <span class="value"><%=  data[0].Road %></span>
+                  </div>
+                  <div class="profile-row">
+                    <span class="label">City:</span>
+                    <span class="value"><%=  data[0].City %></span>
+                  </div>
+                  <div class="profile-row">
+                    <span class="label">Age:</span>
+                    <span class="value"><%=  data[0].age %></span>
+                  </div>
+                </div>
+                <div class="profile-info" style="border-color: #3498db;">
+                  <div class="profile-row">
+                    <span class="label">Password:</span>
+                    <span class="value"><%=  data[0].Pass %></span>
+                  </div>
+                  <div class="profile-row">
+                    <span class="label">House:</span>
+                    <span class="value"><%=  data[0].House %></span>
+                  </div>
+                  <div class="profile-row">
+                    <span class="label">District:</span>
+                    <span class="value"><%=  data[0].District %></span>
+                  </div>
+                  <div class="profile-row">
+                    <span class="label">Phone:</span>
+                    <span class="value"><%=  data[0].Patient_phone %></span>
+                  </div>
+                </div>
+              </div>
+              <div class="btn1" id="create">
+                <button type="submit" style="width: 140px;
+                height: 40px;">Edit</button>
+              </div>
+              <div class="btn1">
+                <button id="ordHis" style="width: 140px;
+                height: 40px;">Order History</button>
+              </div>
+
+            </div>
+            
+
+
+          </div>
+          <div class="medical"></div>
+        </div>
+    </div>
+
+    
+    <footer>
+        <div class="feedback">
+          <h3>User Feedback</h3>
+          <p>Leave your valuable feedback:</p>
+          <form>
+            <textarea placeholder="Your feedback"></textarea>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+        <div class="admin-info">
+          <h3>Admin Information</h3>
+          <p>Name: John Doe</p>
+          <p>Address: 123 Pharmacy Street, City, Country</p>
+        </div>
+        <h3>copyright@ </h3>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="./jason.js"></script>
+    <script src="./index.js"></script>
+    <script src="./index2.js"></script>
+    <script>
+      var create = document.getElementById("create");
+      function deleteFile(){
+            const filename = 'logindata.txt'; // Replace with the actual filename you want to delete
+
+            fetch(`/delete-file/${filename}`, {
+                method: 'DELETE',
+            })
+            .then((response) => response.text())
+            .then((message) => {
+            console.log(message);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+      }
+      if (create) {
+        create.addEventListener("click", function (e) {
+          window.location.href = "/edit";
+        });
+      }
+
+      var ordHis=document.getElementById('ordHis');
+      ordHis.addEventListener('click',event=>{
+        window.location.href="/order-history";
+      })
+      
+    </script>
+
+  </body>
+</html>

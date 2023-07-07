@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="assets/global.css" />
+    <link rel="stylesheet" href="assets/employee-signup.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,300&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Abril Fatface:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alike Angular:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="employee-signup" data-animate-on-scroll>
+      <img
+        class="black-health-logo-2-11"
+        alt=""
+        src="images/black-health-logo-2-11@2x.png"
+      />
+
+      <form action="/employee-signup" method="POST">
+      <input
+        class="email2"
+        type="email"
+        placeholder="Enter Your Email"
+        required
+        id="email"
+        name="email"
+      />
+
+      <input
+        class="name2"
+        type="text"
+        placeholder="Enter Your Name"
+        required
+        id="name"
+        name="name"
+      />
+
+      <div class="email3">Email</div>
+      <div class="name3">Name</div>
+      <input
+        class="road1"
+        type="text"
+        placeholder="Enter Your Road no."
+        required
+        id="road"
+        name="road"
+      />
+
+      <input
+        class="city2"
+        type="text"
+        placeholder="Enter Your City"
+        required
+        id="city"
+        name="city"
+      />
+
+      <input
+        class="district2"
+        type="text"
+        placeholder="Enter Your District"
+        required
+        id="district"
+        name="district"
+      />
+
+      <input
+        class="contact1"
+        type="tel"
+        placeholder="Enter Your Contact no."
+        required
+        id="phone"
+        name="phone"
+      />
+
+      <div class="contact-no1">Contact no.</div>
+      <input
+        class="confirm1"
+        type="password"
+        placeholder="Confirm Your Password"
+        required
+        id="password2"
+      />
+
+      <div class="confirm-password1">Confirm Password</div>
+      <button class="create1" id="create">
+        <i class="create-account1" id="createAccountText">Create Account</i>
+      </button>
+      <button class="doc-signup" id="docSignup">
+        <div class="doc-signup-child"></div>
+        <i class="not-an-employee">Not an Employee?</i>
+      </button>
+      <input
+        class="password2"
+        type="password"
+        placeholder="Enter Your Password"
+        required
+        id="password1"
+        name="password1"
+      />
+
+      <div class="sign-up">SIGN UP</div>
+      <div class="sign-up-as">Sign up as an Employee</div>
+      <input
+        class="dob1"
+        type="date"
+        placeholder="Enter Your Date of Birth"
+        required
+        id="dob"
+        name="dob"
+      />
+
+      <div class="date-of-birth1">Date of Birth</div>
+      <div class="password3">Password</div>
+      <div class="road-no1">Road no.</div>
+      <div class="city3">City</div>
+      <div class="district3">District</div>
+      <input
+        class="house1"
+        type="text"
+        placeholder="Enter Your House no."
+        required
+        id="house"
+        name="house"
+      />
+
+      <div class="house-no1">House no.</div>
+    </div>
+  </form>
+
+    <script>
+      var createAccountText = document.getElementById("createAccountText");
+      if (createAccountText) {
+        createAccountText.addEventListener("click", function (e) {
+          window.location.href = "/Main2";
+        });
+      }
+      
+      var create = document.getElementById("create");
+      if (create) {
+        create.addEventListener("click", function (e) {
+          window.location.href = "/regi";
+        });
+      }
+
+      var docSignup = document.getElementById("docSignup");
+      if (docSignup) {
+        docSignup.addEventListener("click", function (e) {
+          window.location.href = "/";
+        });
+      }
+      var scrollAnimElements = document.querySelectorAll("[data-animate-on-scroll]");
+      var observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+              const targetElement = entry.target;
+              targetElement.classList.add("animate");
+              observer.unobserve(targetElement);
+            }
+          }
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+      
+      for (let i = 0; i < scrollAnimElements.length; i++) {
+        observer.observe(scrollAnimElements[i]);
+      }
+      </script>
+  </body>
+</html>

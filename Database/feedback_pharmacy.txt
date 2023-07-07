@@ -1,0 +1,22 @@
+CREATE SEQUENCE feedback_pharma_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE feedback_pharma (
+    feedback_id varchar2(100) PRIMARY KEY,
+    pharmacy_id varchar2(100),
+    patient_id varchar2(100),
+    details VARCHAR2(255)
+);
+
+
+CREATE OR REPLACE TRIGGER feedback_pharma_insert_trigger
+BEFORE INSERT ON feedback_pharma
+FOR EACH ROW
+DECLARE
+  v_id VARCHAR2(50);
+BEGIN
+
+  v_id := 'FED_' || TO_CHAR(LPAD(feedback_pharma_id_seq.NEXTVAL, 5, '0'));
+
+
+  :NEW.feedback_id := v_id;
+END;

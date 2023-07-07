@@ -1,0 +1,58 @@
+CREATE SEQUENCE consult_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE FUNCTION generate_consult_id(p_type IN VARCHAR2) RETURN VARCHAR2
+IS
+  v_id VARCHAR2(50);
+BEGIN
+  -- Generate the id with a substring of the type column and the sequence value
+  v_id := SUBSTR(p_type,1,3) || '_' || TO_CHAR(LPAD(consult_id_seq.NEXTVAL, 5, '0'));
+  
+  RETURN v_id;
+END;
+
+
+CREATE OR REPLACE TRIGGER check_schedule_limit
+BEFORE INSERT ON consults
+FOR EACH ROW
+DECLARE
+    schedule_count NUMBER;
+    new_consult_id NUMBER;
+    new_serial NUMBER;
+    v_id VARCHAR2(50);
+BEGIN
+    -- Count the number of schedules for the specific doctor
+    SELECT COUNT(*) INTO schedule_count
+    FROM consults
+    WHERE Doctor_id = :new.Doctor_id;
+
+    -- Check if the count exceeds the limit
+    IF schedule_count >= 10 THEN
+
+        raise_application_error(-20001, 'Maximum schedule limit (10) exceeded for the doctor.');
+    
+    ELSE
+        -- Increment consult_id and reset to 1 if it reaches 10
+        v_id := generate_consult_id('Consult');
+        :new.Consult_id := v_id;
+
+        -- Increment serial and reset to 1 if it reaches 10 or if it's initially null
+        SELECT CASE
+            WHEN MAX(serial) IS NULL THEN 1
+            WHEN MAX(serial) >= 10 THEN 1
+            ELSE MAX(serial) + 1
+        END
+        INTO new_serial
+        FROM consults
+        WHERE Doctor_id = :new.Doctor_id;
+        
+        :new.serial := new_serial;
+        
+    END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        -- Handles the case when there are no existing schedules for the doctor
+        :new.Consult_id := 1;
+        :new.serial := 1;
+    
+END;
+/

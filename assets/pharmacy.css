@@ -1,0 +1,347 @@
+.pharmacy-name4 {
+  position: absolute;
+  top: 168px;
+  left: 444px;
+  font-size: 32px;
+}
+
+.logo-icon {
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.home3 {
+  text-decoration: none;
+  position: relative;
+  color: inherit;
+}
+.home2 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-decoration: none;
+
+}
+.profile3 {
+  position: relative;
+  text-decoration: none;
+}
+.profile3 a{
+  text-decoration: none;
+  color: black;
+}
+
+.links1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-46xl);
+}
+.shopping-bag-line-2-icon1 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cart-icon2 {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  color: inherit;
+}
+.button14 {
+  position: relative;
+  font-size: var(--font-size-lg);
+  font-family: var(--font-inter);
+  color: var(--color-black);
+  text-align: left;
+}
+.button13 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-sm) var(--padding-23xl);
+  background-color: var(--buttons-primary);
+  border-radius: var(--br-8xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.logout1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.cart-icon-group,
+.navbar1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-16xl);
+  font-size: var(--bold-16-size);
+}
+.navbar1 {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  width: 1440px;
+  overflow: hidden;
+  padding: var(--padding-9xl) var(--padding-102xl);
+  box-sizing: border-box;
+  gap: var(--gap-131xl);
+  font-size: var(--font-size-xl);
+}
+
+
+.cart-section,
+.pharmacy-email {
+  position: absolute;
+  top: 948px;
+  left: 1063px;
+}
+.cart-section {
+  top: 317px;
+  left: 142px;
+  background-color: rgba(203, 217, 243, 0.98);
+  width: 1162px;
+  height: 430px;
+  margin: -198px 0px;
+}
+.pharmacy4 {
+  position: relative;
+  margin:  0px auto;
+  background-color: var(--color-aliceblue);
+  width: 90%;
+  height: 372vh;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}
+
+/* vedio start */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Aspect ratio: 16:9 */
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+}
+
+.overlay h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.overlay p {
+  font-size: 18px;
+}
+
+/* search start */
+.search-container {
+text-align: center;
+margin-top: 50px;
+}
+
+.search-container input[type="text"] {
+padding: 10px;
+width: 300px;
+font-size: 16px;
+}
+
+.search-container input[type="submit"] {
+padding: 10px 20px;
+font-size: 16px;
+background-color: #4CAF50;
+color: #fff;
+border: none;
+cursor: pointer;
+}
+/* card starts  */
+
+.card-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+gap: 20px;
+}
+
+.card {
+width: 300px;
+border: 1px solid #ccc;
+border-radius: 5px;
+padding: 20px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+width: 100%;
+height: auto;
+border-radius: 5px;
+margin-bottom: 10px;
+}
+
+.card h2 {
+font-size: 18px;
+margin-bottom: 5px;
+}
+
+.card p {
+font-size: 14px;
+color: #666;
+margin-bottom: 10px;
+}
+
+.card .price {
+font-size: 16px;
+font-weight: bold;
+color: #333;
+}
+.my-button {
+padding: 8px 20px;
+font-size: 16px;
+background-color: #4CAF50;
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+margin: 0px 95px
+}
+/* appointment start */
+
+.container {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 20px;
+}
+
+.left-side {
+flex: 1;
+}
+
+.left-side img {
+width: 100%;
+max-width: 420px;
+height: auto;
+border-radius: 5px;
+}
+
+.right-side {
+flex: 1;
+}
+
+.right-side h1 {
+font-size: 24px;
+margin-bottom: 10px;
+}
+
+.right-side p {
+font-size: 30px;
+word-wrap: normal;
+font-weight: 500;
+color: #666;
+margin-bottom: 20px;
+}
+
+.right-side button {
+padding: 10px 20px;
+font-size: 16px;
+background-color: #4CAF50;
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+/* review section */
+.review-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 20px;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+
+.review {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.review .customer-name {
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 10px;
+}
+
+.review .customer-comment {
+font-size: 16px;
+}
+/* footer */
+.footer {
+background-color: #f5f5f5;
+padding: 28px 17px;
+text-align: center;
+width: 88%;
+margin: 0px auto;
+}
+
+.feedback form {
+  margin-top: 10px;
+}
+
+.feedback input {
+  width: 100%;
+  height: 100px;
+  resize: vertical;
+}
+
+.feedback input[type="submit"] {
+  background-color: #41e197;
+  color: #060410;
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.footer-info {
+font-size: 14px;
+color: #666;
+}
+
+.footer-info p {
+margin-bottom: 5px;
+}
+
+.copy-right {
+font-size: 12px;
+color: #999;
+}

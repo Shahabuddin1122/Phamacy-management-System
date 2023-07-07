@@ -1,0 +1,27 @@
+.frame-child {
+  position: absolute;
+  top: 194px;
+  left: 327px;
+  border-radius: 20px;
+  width: 738px;
+  height: 347px;
+}
+.your-account-has {
+  position: absolute;
+  top: 291px;
+  left: 433px;
+  display: inline-block;
+  width: 527px;
+  height: 173px;
+}
+.vector-parent {
+  position: relative;
+  background-color: var(--color-aliceblue);
+  width: 100%;
+  height: 754px;
+  overflow: hidden;
+  text-align: center;
+  font-size: 48px;
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}

@@ -1,0 +1,305 @@
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.black-health-logo-2-11 {
+  position: absolute;
+  height: 55.46%;
+  width: 26.94%;
+  top: 22.29%;
+  right: 6.08%;
+  bottom: 22.25%;
+  left: 66.98%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.email2 {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  height: 5.67%;
+  width: 23.28%;
+  top: 39.66%;
+  right: 71.17%;
+  bottom: 54.68%;
+  border-radius: var(--br-3xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.email2,
+.email3,
+.name2,
+.name3 {
+  position: absolute;
+  left: 5.56%;
+}
+.name2 {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  height: 5.67%;
+  width: 23.28%;
+  top: 26.53%;
+  right: 71.17%;
+  bottom: 67.81%;
+  border-radius: var(--br-3xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.email3,
+.name3 {
+  top: 35.41%;
+  line-height: 31.43px;
+  text-align: left;
+}
+.name3 {
+  top: 22.28%;
+  left: 5.69%;
+  color: #101010;
+}
+.city2,
+.district2,
+.road1 {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  position: absolute;
+  height: 5.67%;
+  width: 23.28%;
+  top: 39.66%;
+  right: 41.03%;
+  bottom: 54.68%;
+  left: 35.69%;
+  border-radius: var(--br-3xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.city2,
+.district2 {
+  top: 53.18%;
+  bottom: 41.15%;
+}
+.district2 {
+  top: 65.12%;
+  bottom: 29.21%;
+}
+.contact-no1,
+.contact1 {
+  position: absolute;
+  left: 5.63%;
+}
+.contact1 {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  height: 5.67%;
+  width: 23.28%;
+  top: 65.12%;
+  right: 71.1%;
+  bottom: 29.21%;
+  border-radius: var(--br-3xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.contact-no1 {
+  top: 61.14%;
+  line-height: 31.43px;
+  text-align: left;
+}
+.confirm1 {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  position: absolute;
+  height: 5.67%;
+  width: 23.28%;
+  top: 77.19%;
+  right: 41.03%;
+  bottom: 17.14%;
+  left: 35.69%;
+  border-radius: var(--br-3xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.confirm-password1 {
+  position: absolute;
+  width: 19.65%;
+  top: 71.49%;
+  left: 31.88%;
+  line-height: 52.86px;
+  display: inline-block;
+}
+.create-account1 {
+  position: relative;
+  font-size: var(--font-size-21xl);
+  line-height: 31.43px;
+  display: inline-block;
+  font-weight: 300;
+  font-family: var(--font-roboto);
+  color: var(--color-darkslategray);
+  text-align: left;
+  width: 283px;
+  height: 33px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.create1,
+.password2 {
+  position: absolute;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.create1 {
+  cursor: pointer;
+  border: 0;
+  padding: 0 0 0 var(--padding-xs);
+  background-color: var(--color-mediumspringgreen);
+  top: 660px;
+  left: 311px;
+  width: 337px;
+  height: 59px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.password2 {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  height: 5.67%;
+  width: 23.28%;
+  top: 77.19%;
+  right: 71.17%;
+  bottom: 17.14%;
+  left: 5.56%;
+  border-radius: var(--br-3xs);
+}
+.sign-up,
+.sign-up-as {
+  position: absolute;
+  line-height: 52.86px;
+}
+.sign-up {
+  top: 41px;
+  left: 308px;
+  font-size: var(--font-size-77xl);
+  font-family: var(--font-abril-fatface);
+}
+.sign-up-as {
+  top: 104px;
+  left: 324px;
+  font-size: 30px;
+}
+.dob1 {
+  justify-content: center;
+  border-radius: var(--br-mini);
+  border: 1.2px solid var(--color-black);
+  background-color: white;
+  position: absolute;
+  height: 5.68%;
+  width: 23.3%;
+  top: 53.32%;
+  right: 71.15%;
+  bottom: 41.01%;
+  left: 5.56%;
+}
+.date-of-birth1,
+.password3 {
+  position: absolute;
+  top: 48.67%;
+  left: 5.56%;
+  line-height: 31.43px;
+  text-align: left;
+}
+.password3 {
+  top: 72.94%;
+  left: 5.69%;
+}
+.city3,
+.district3,
+.road-no1 {
+  position: absolute;
+  top: 33.95%;
+  left: 35.69%;
+  line-height: 52.86px;
+}
+.city3,
+.district3 {
+  top: 47.21%;
+}
+.district3 {
+  height: 5.44%;
+  width: 5.07%;
+  top: 59.68%;
+  left: 36.04%;
+  display: inline-block;
+}
+.house-no1,
+.house1 {
+  position: absolute;
+  left: 35.69%;
+}
+.house1 {
+  border: 1.2px solid var(--color-black);
+  background-color: var(--basic-white);
+  height: 5.67%;
+  width: 23.28%;
+  top: 26.53%;
+  right: 41.03%;
+  bottom: 67.81%;
+  border-radius: var(--br-3xs);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+.house-no1 {
+  top: 20.82%;
+  line-height: 52.86px;
+}
+.doc-signup-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-mediumspringgreen);
+  width: 376px;
+  height: 59px;
+}
+.not-an-employee {
+  position: absolute;
+  top: 10px;
+  left: 35px;
+  font-size: var(--font-size-21xl);
+  line-height: 40px;
+  font-weight: 300;
+  font-family: var(--font-roboto);
+  color: var(--color-black);
+  text-align: left;
+}
+.doc-signup {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 660px;
+  left: 991px;
+  width: 376px;
+  height: 59px;
+}
+.employee-signup {
+  position: relative;
+  background-color: var(--color-aliceblue);
+  width: 100%;
+  height: 754px;
+  overflow: hidden;
+  opacity: 0;
+  text-align: center;
+  font-size: var(--font-size-xl);
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}
+.employee-signup.animate {
+  animation: 0.25s ease 0s 1 normal forwards slide-in-left;
+}

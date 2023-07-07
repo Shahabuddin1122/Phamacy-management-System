@@ -1,0 +1,50 @@
+drop sequence login_id_seq;
+
+drop function generate_id;
+
+DROP TRIGGER login_insert_trigger;
+
+CREATE SEQUENCE patient_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER patient_insert_trigger
+BEFORE INSERT ON patient
+FOR EACH ROW
+DECLARE
+  v_id VARCHAR2(50);
+BEGIN
+
+  v_id := 'PAT_' || TO_CHAR(LPAD(patient_id_seq.NEXTVAL, 5, '0'));
+  
+
+  :NEW.patient_id := v_id;
+END;
+
+CREATE SEQUENCE employee_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER employee_insert_trigger
+BEFORE INSERT ON employee
+FOR EACH ROW
+DECLARE
+  v_id VARCHAR2(50);
+BEGIN
+
+  v_id :='EMP_' || TO_CHAR(LPAD(employee_id_seq.NEXTVAL, 5, '0'));
+  
+
+  :NEW.employee_id := v_id;
+END;
+
+CREATE SEQUENCE doctor_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER doctor_insert_trigger
+BEFORE INSERT ON doctor
+FOR EACH ROW
+DECLARE
+  v_id VARCHAR2(50);
+BEGIN
+
+  v_id :='DOC_' || TO_CHAR(LPAD(doctor_id_seq.NEXTVAL, 5, '0'));
+  
+
+  :NEW.doctor_id := v_id;
+END;
