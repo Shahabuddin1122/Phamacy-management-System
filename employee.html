@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/employee.css">
+    <link rel="stylesheet" href="assets/global.css">
+    <script src="https://kit.fontawesome.com/2437fb8d10.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./main2" class="active" >Home</a></li>
+                <li><a href="./profile" >Profile</a></li>
+                <li><a href="./search" >Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+                <!--ekhane cart-items e change ante hbe, bill status hbe-->
+                
+                
+            </ul>
+        </div>
+        <div class="login">
+            <button type="submit">Log in</button>
+            <button type="submit">Sign in</button>
+        </div>
+
+
+    </header> 
+    <div class="image-container">
+        <img src="public/images/clock-3222267_1280.jpg" alt="Image">
+        <div class="description-overlay">
+          <h3>Tamanna pharmacy</h3>
+          <p> Our pharmacy is a specialized store where licensed pharmacists dispense prescription medications and provide over-the-counter drugs, health advice, and related services. It serves as a crucial healthcare resource, offering convenient access to medications, health products, and personalized guidance. Pharmacies play a vital role in promoting public </p>
+          <div class="search-bar">
+             <form action="./search_product_emp" method="GET">
+                <input type="text" class="search-box" name="query" placeholder="Search.....">
+                <button class="search-button">Go</button>
+             </form>
+          </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

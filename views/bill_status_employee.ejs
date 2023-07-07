@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/bill_stat.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bucket"></i>
+            Pharma
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="./employee" >Home</a></li>
+                <li><a href="./profile" >Profile</a></li>
+                <li><a href="./search" class="active">Search</a></li>
+                <li><a href="./cart-items" >Bill</a></li>
+                <!--ekhane cart-items e change ante hbe, bill status hbe-->
+                
+                
+            </ul>
+        </div>
+        <div class="login">
+            <button type="submit">Log in</button>
+            <button type="submit">Sign in</button>
+        </div>
+
+
+    </header> 
+    <form action="./search" method="GET">
+        <div class="search-bar">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <h2 style="text-align: center;">Bill Status list</h2>
+    <table style="height: 50vh;">
+
+        <tr>
+          <th>Patient Name</th>
+          <th>Product Name</th>
+          <th>total bill</th>
+          <th>status</th>
+          <th>Update bill status</th>
+        </tr>
+        <% for (let i = 0; i < data.length; i++) { %>
+            <tr>
+            <td><%= data[i].pat_name %></td>
+            <td><%= data[i].pro_order %></td>
+            <td><%= data[i].bill %></td>
+            <td><%= data[i].bill_stat %></td>
+            <td><button type="submit" onclick="add('<%= data[i].bill_id %>')">Paid</button></td>
+            </tr>
+
+        <% } %>
+        
+        
+      </table>
+    
+    </body>
+    <script>
+        function add(k) {
+            //console.log("Make: ", k);
+            const requestData = {
+                billId: k,
+                //patientId: k
+            };
+            //console.log("MAKE :", requestData.doctorId);
+            //document.getElementById(btnId).disabled = 'true';
+            fetch('/addbill', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({a: requestData})
+            })
+            .then(response => response.json())
+            .then(data => {
+            
+                alert( "added" );
+            // Handle the response data or perform any other actions
+            })
+            .catch(error => {
+            console.error('Error:', error);
+            // Handle the error or display an error message
+            });
+        }
+    </script>
+</html>

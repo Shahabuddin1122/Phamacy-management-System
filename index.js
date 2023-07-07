@@ -34,7 +34,7 @@ async function fetchDataFromDatabase(query) {
 
   return result.rows;
 }
-
+/*
 app.post("/", enc, (req, res) => {
   async function fetchDataCustomer(username, password) {
     try {
@@ -76,6 +76,59 @@ app.post("/", enc, (req, res) => {
       res.redirect("/");
     })
 })
+*/
+///after updating
+app.post("/",enc,(req,res)=>{
+  async function fetchDataCustomer(username,password){
+      try {
+          const connection=await oracledb.getConnection({
+              user:'pharmacy_admin',
+              password:'12345',
+              connectionString: 'localhost/xepdb1'
+          });
+          
+          const result=await connection.execute(`SELECT * FROM pharmacy_admin.Login where login_ID='${username}' and password='${password}'`);
+          console.log("---->/",result.rows);
+          console.log(username);
+          return result.rows;
+      } catch (error) {
+          return error;
+      }
+  }
+  var username=req.body.username;
+  var password=req.body.password;
+  fetchDataCustomer(username,password).
+  then(dbRes=>{
+      console.log(dbRes);
+      if(dbRes.length>0){
+          let k=username.substring(0,3);
+          fs.writeFile('logindata.txt', username, 'utf8', (err) => {
+            if (err) {
+              console.error('Error writing file:', err);
+            } else {
+              console.log('Data has been stored in the file successfully.');
+            }
+          });
+          if(k=='PAT'){
+            res.redirect(`/Main2?username=${username}`);
+          }
+          else if(k=='Emp'){
+            res.redirect(`employee`);
+          }
+      }
+      else{
+          res.redirect("/");
+      }
+  })
+  .catch(err=>{
+      // console.log(err);
+      res.redirect("/");
+  })
+});
+
+
+
+
 
 app.delete('/delete-file/:filename', (req, res) => {
   const filename = req.params.filename;
@@ -1148,6 +1201,7 @@ app.use(bodyParser.json());
 let arrayItem = [];
 app.post('/cart-items', async (req, res) => {
   let items = req.body.items;
+  console.log(items);
   let connection;
   try {
     connection = await oracledb.getConnection({
@@ -1728,6 +1782,138 @@ app.post('/feedback_pharma', enc ,async (req,res)=>{
     res.status(500).send('An error occurred.');
   }
 });
+
+/*   employee start  */
+
+app.get("/employee",(req,res)=>{
+  res.sendFile(__dirname+"/employee.html");
+})
+
+
+
+app.get('/search_product_emp', enc,async (req, res) => {
+  const query = req.query.query;
+  const patientId = fs.readFileSync('logindata.txt', 'utf8');
+  let connection;
+  async function fetchDataCustomer(query) {
+    try {
+      connection = await oracledb.getConnection({
+        user: 'pharmacy_admin',
+        password: '12345',
+        connectString: 'localhost/xepdb1'
+      });
+      const result = await connection.execute(`select product_id, product_name,pharmacy_id,pharmacy_name,product_price,store_quantity from  employee natural join pharmacy  natural join stores natural join product 
+      WHERE lower(product_name) LIKE lower('%${query}%') and employee_id='${patientId}'`);
+      
+      //search hocche product name diye
+      const result3 = await connection.execute(`select count(product_name)
+      from  employee natural join pharmacy  natural join stores natural join product 
+      WHERE lower(product_name) LIKE lower('%${query}%') and employee_id='${patientId}' group by product_name
+      `);
+      
+      //search hocche product name diye
+      const result1 = await connection.execute(`select doctor_name,specialization,doctor_hospital,to_char(start_time,'hh24:mi:ss') "start_time",to_char(end_time,'hh24:mi:ss') "end_time",doctor_qualification
+      from  employee natural join pharmacy
+      natural join doctor natural join has natural join schedule
+      WHERE lower(specialization) LIKE lower('%${query}%') and employee_id='${patientId}'`);
+       //query te employee_id login theke nis
+       //search hocche specialization diye
+      const result4 = await connection.execute(`select Doctor_name,patient_name,specialization,serial
+      from  employee natural join pharmacy   NATURAL join doctor NATURAL join consults natural join patient
+      where employee_id='${patientId}'`);
+      const result5 = await connection.execute(`select patient_name,product_name,product_price,quantity,order_date,bill_price,bill_status,bill_id
+      from employee NATURAL join pharmacy NATURAL JOIN order_history 
+      NATURAL join bill NATURAL join product NATURAL join patient_view
+      where employee.employee_id='${patientId}'`);
+      
+       console.log(result.rows);
+      console.log(result1.rows);
+      const jsonData = result.rows.map(row => {
+        return {
+          Pro_ID: row[0],
+          Pro_name: row[1],
+          Ph_ID: row[2],
+          pharmacy: row[3],
+          Pro_price: row[4],
+          qua: row[5]
+
+        };
+      });
+      const jsonData3 = result3.rows.map(row => {
+        return {
+          count:row[0]
+
+        };
+      });
+      const jsonData1 = result1.rows.map(row => {
+        return {
+          Doc_Name: row[0],
+          Specialization: row[1],
+          Doc_hospital: row[2],
+          Start_time: row[3],
+          End_time: row[4],
+          qua: row[5]
+        };
+      });
+      const jsonData4 = result4.rows.map(row => {
+        return {
+          Doc_name: row[0],
+          Pat_name: row[1],
+          spec: row[2],
+          serial: row[3]
+        };
+      });
+      const jsonData5 = result5.rows.map(row => {
+        return {
+          pat_name: row[0],
+          pro_order: row[4],
+          bill: row[5],
+          bill_stat: row[6],
+          bill_id:row[7]
+
+        };
+      });
+      console.log(jsonData5);
+      //console.log(jsonData1);
+      if (jsonData.length > 0) {
+        res.render('employee_search_product', { query, data: jsonData ,data3:jsonData3});
+        return result.rows;
+      }
+      else if(jsonData1.length > 0){
+        res.render('employee_search_doctor', { query, data: jsonData1 });
+        return result1.rows;
+      }
+      else if(query=='appointment'){
+        res.render('show_appoint', { query, data: jsonData4 });
+        return result4.rows;
+      }
+      else if(query=='bill'){
+        res.render('bill_status_employee', { query, data: jsonData5 });
+      }
+
+
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred' });
+      console.log(error);
+      return error;
+    } finally {
+      if (connection) {
+        try {
+          console.log("NO error");
+          await connection.close(); // Close the connection when you're done
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  }
+
+  await fetchDataCustomer(query);
+});
+
+
+
+
 
 
 app.listen(PORT, () => {
