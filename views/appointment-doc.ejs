@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="../assets/global-doc.css" />
+    <link rel="stylesheet" href="../assets/appointment-doc.css" />
+    <link rel="stylesheet" href="../assets/table-doc.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,300;1,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alike Angular:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Font Awesome 5 Free:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material Icons:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=ABeeZee:wght@400&display=swap"
+    />
+  </head>
+  <body>
+    <div class="appointment-new">
+      <div class="appointment-new-inner">
+        <div class="frame-child"></div>
+      </div>
+      <div class="divpage-header">
+        <div class="divpage-header-inner">
+          <div class="divpage-logo">
+            <div class="link">
+              <div class="redstar">PHARMA</div>
+            </div>
+          </div>
+          <div class="list-item-link-svg"></div>
+          <input
+            class="form"
+            type="text"
+            placeholder="    Search"
+            maxlength
+            minlength
+            id="search"
+          />
+
+          <button class="link1" id="search">
+            <img class="vector-icon" alt="" src="./public/vector1.svg" />
+          </button>
+        </div>
+      </div>
+      <div class="divcard">
+        <div class="divcard-head">
+          <div class="header-booked">BOOKED APPOINTMENTS</div>
+          <form action="/pharmacy-name" method="POST">
+            <select class="pharmacy-name" id="pharma" onchange="submitForm()">
+              <option value="">&lt;Select PharmacyName&gt;</option>
+              <% for (let i = 0; i < phaname.length; i++) { %>
+                <option value="<%= phaname[i].pname %>"><%= phaname[i].pname %></option>
+              <% } %>
+            </select>
+            <input type="hidden" id="pharma_name" name="pharma_name">
+        </form>
+        </div>
+        <div class="tableFixHead">
+          <table>
+            <div>
+              <tbody>
+                  <tr>
+                    <th>No</th>
+                    <th>Patient Name</th>
+                    <th>Email</th>
+                    <th>Pharmacy Name</th>
+                    <th>Edit</th>
+                  </tr>
+                  <% for (let i = 0; i < data.length; i++) { %>
+                    <tr>
+                      <td><%= i+1 %></td>
+                      <td><%= data[i].name %></td>
+                      <td><%= data[i].email %></td>
+                      <td><%= data[i].pname %></td>
+                      <td>
+                        <form action="/checked-patient" method="POST" onsubmit="return true">
+                          <input type="hidden" id="patientId" name="patientId" value="<%= data[i].id %>">
+                        <button class="block" type="submit" id="checked">
+                          <img class="img-icon" alt="" width="15" height="15" src="../public/accept.png" />
+                        </button>
+                        </form>
+
+                        <form action="/delete-patient" method="POST" onsubmit="return confirmDeletePatient(event, '<%= data[i].id %>')">
+                          <input type="hidden" id="patientId" name="patientId" value="<%= data[i].id %>">
+                        <button class="block" type="submit" id="delete">
+                          <img class="img-icon" alt="" width="15" height="15" src="../public/delete_icon.png" />
+                        </button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% } %>
+              </tbody>
+            </div>
+          </table>
+          </div>
+      </div>
+      <div class="drawer" data-animate-on-scroll>
+        <div class="divsidemenu-container">
+          <div class="divslimscrolldiv">
+            <div class="divslimscrolldiv">
+              <button class="item" id="profile">
+                <img class="dpjpg-icon" alt="" src="../public/dpjpg@2x.png" />
+
+                <div class="divsidebar-user-details">
+                  <div class="divuser-name">
+                    <div class="dr-kiran-patel"><%= username %></div>
+                  </div>
+                  <div class="administrator">Doctor</div>
+                </div>
+              </button>
+              <a href="./doc-dashboard">
+                <button class="item-link" id="dashboard">
+                  <img class="svg-icon" alt="" src="../public/svg.svg" />
+
+                  <div class="dashboard">Dashboard</div>
+                </button>
+              </a>
+              <a href="https://mail.google.com/mail/u/0/#inbox" target=”_blank”>
+                <button class="item-link1" id="email">
+                  <img class="svg-icon" alt="" src="../public/svg1.svg" />
+
+                  <div class="email1">Email</div>
+                </button>
+              </a>
+              <a href="./schedule">
+                <button class="item-link2" id="Calender">
+                  <img class="svg-icon" alt="" src="../public/svg2.svg" />
+
+                  <div class="schedule">Schedule</div>
+                </button>
+              </a>
+              <a href="./appointment-doc">
+                <button class="item-link3" id="appointment">
+                  <img class="svg-icon1" alt="" src="../public/svg3.svg" />
+
+                  <div class="appointment">Appointment</div>
+                </button>
+              </a>
+              <a href="./doctor-list">
+                <button class="item-link4" id="doctor">
+                  <img class="svg-icon" alt="" src="../public/svg4.svg" />
+
+                  <div class="doctors-list">Doctors List</div>
+                </button>
+              </a>
+              <a href="./patient_list">
+                <button class="item-link5" id="patients">
+                  <img class="svg-icon" alt="" src="../public/svg5.svg" />
+
+                  <div class="patients">Patients</div>
+                </button>
+              </a>
+              <a href="./payment">
+              <button class="item-link6" id="payment">
+                <img class="svg-icon" alt="" src="../public/svg6.svg" />
+
+                <div class="payments">Payments</div>
+              </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer" data-animate-on-scroll>
+        <div class="divpage-footer">
+          <div class="divpage-footer-inner">
+            <div class="pharmacy-management-system-container">
+              <span class="pharmacy-management-system-container1">
+                <span>2023 © Pharmacy Management System By </span>
+                <span class="mist">MIST</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function submitForm() {
+        var selectedOption = document.getElementById("pharma").value;
+        document.getElementById("pharma_name").value = selectedOption;
+        document.forms[0].submit();
+      }
+
+      function confirmDeletePatient(event, id) {
+        if (!confirm('Are you sure you want to delete this Patient ' + id + '?')) {
+          event.preventDefault(); // Prevent form submission if user cancels deletion
+          return false;
+        }
+        else
+        return true;
+      }
+      var scrollAnimElements = document.querySelectorAll("[data-animate-on-scroll]");
+      var observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+              const targetElement = entry.target;
+              targetElement.classList.add("animate");
+              observer.unobserve(targetElement);
+            }
+          }
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+      
+      for (let i = 0; i < scrollAnimElements.length; i++) {
+        observer.observe(scrollAnimElements[i]);
+      }
+      </script>
+  </body>
+</html>
