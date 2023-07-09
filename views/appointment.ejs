@@ -40,7 +40,7 @@
         <div class="divpage-header-inner">
           <div class="divpage-logo">
             <div class="link">
-              <div class="PHARMA">PHARMA</div>
+              <div class="redstar">PHARMA</div>
             </div>
           </div>
           <div class="list-item-link-svg"></div>
@@ -74,21 +74,20 @@
         <div class="tableFixHead">
           <table>
             <div>
-              <thead>
+              <tbody>
                   <tr>
                     <th>No</th>
                     <th>Patient Name</th>
                     <th>Email</th>
+                    <th>Pharmacy Name</th>
                     <th>Edit</th>
                   </tr>
-              </thead>
-  
-              <tbody>
                   <% for (let i = 0; i < data.length; i++) { %>
                     <tr>
                       <td><%= i+1 %></td>
                       <td><%= data[i].name %></td>
                       <td><%= data[i].email %></td>
+                      <td><%= data[i].pname %></td>
                       <td>
                         <form action="/checked-patient" method="POST" onsubmit="return true">
                           <input type="hidden" id="patientId" name="patientId" value="<%= data[i].id %>">
@@ -120,9 +119,9 @@
 
                 <div class="divsidebar-user-details">
                   <div class="divuser-name">
-                    <div class="dr-kiran-patel">Dr. Kiran Patel</div>
+                    <div class="dr-kiran-patel"><%= username %></div>
                   </div>
-                  <div class="administrator">Administrator</div>
+                  <div class="administrator">Doctor</div>
                 </div>
               </button>
               <a href="./doc-dashboard">
@@ -134,14 +133,14 @@
               </a>
               <a href="https://mail.google.com/mail/u/0/#inbox" target=”_blank”>
                 <button class="item-link1" id="email">
-                  <img class="svg-icon1" alt="" src="../public/svg1.svg" />
+                  <img class="svg-icon" alt="" src="../public/svg1.svg" />
 
                   <div class="email1">Email</div>
                 </button>
               </a>
               <a href="./schedule">
                 <button class="item-link2" id="Calender">
-                  <img class="svg-icon1" alt="" src="../public/svg2.svg" />
+                  <img class="svg-icon" alt="" src="../public/svg2.svg" />
 
                   <div class="schedule">Schedule</div>
                 </button>
@@ -155,21 +154,21 @@
               </a>
               <a href="./doctor-list">
                 <button class="item-link4" id="doctor">
-                  <img class="svg-icon1" alt="" src="../public/svg4.svg" />
+                  <img class="svg-icon" alt="" src="../public/svg4.svg" />
 
                   <div class="doctors-list">Doctors List</div>
                 </button>
               </a>
               <a href="./patient_list">
                 <button class="item-link5" id="patients">
-                  <img class="svg-icon1" alt="" src="../public/svg5.svg" />
+                  <img class="svg-icon" alt="" src="../public/svg5.svg" />
 
                   <div class="patients">Patients</div>
                 </button>
               </a>
               <a href="./payment">
               <button class="item-link6" id="payment">
-                <img class="svg-icon1" alt="" src="../public/svg6.svg" />
+                <img class="svg-icon" alt="" src="../public/svg6.svg" />
 
                 <div class="payments">Payments</div>
               </button>

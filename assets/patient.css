@@ -282,6 +282,7 @@
   width: 1.06rem;
   height: 1.06rem;
   overflow: hidden;
+  filter: invert(78%) sepia(14%) saturate(1761%) hue-rotate(96deg) brightness(95%) contrast(93%);
 }
 .email1 {
   position: absolute;

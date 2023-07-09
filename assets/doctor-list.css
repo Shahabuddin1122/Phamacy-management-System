@@ -282,6 +282,7 @@
   width: 1.06rem;
   height: 1.06rem;
   overflow: hidden;
+  filter: invert(78%) sepia(14%) saturate(1761%) hue-rotate(96deg) brightness(95%) contrast(93%);
 }
 .email1 {
   position: absolute;
@@ -358,7 +359,8 @@
   width: 14.69rem;
   height: 3.63rem;
 }
-.doctors-list {
+
+.patients {
   position: absolute;
   top: 1.19rem;
   left: 2.64rem;
@@ -376,14 +378,15 @@
   cursor: pointer;
   border: 0;
   padding: 0;
-  background-color: transparent;
+  background-color: var(--color-aliceblue);
   position: absolute;
   top: 27.31rem;
   left: -0.07rem;
   width: 14.69rem;
   height: 3.63rem;
 }
-.patients {
+
+.doctors-list {
   position: absolute;
   top: 1.19rem;
   left: 2.63rem;
@@ -401,7 +404,7 @@
   cursor: pointer;
   border: 0;
   padding: 0;
-  background-color: var(--color-aliceblue);
+  background-color: transparent;
   position: absolute;
   top: 30.94rem;
   left: 0;
@@ -521,4 +524,60 @@
   font-size: var(--font-size-16xl);
   color: var(--color-white);
   font-family: var(--font-poppins);
+}
+
+.block {
+  width: 40%;
+  height: 2%;
+  border: none;
+  background-color: #41e197;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+}
+.block:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+
+.item-link:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+
+.item-link1:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+.item-link2:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+.item-link3:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+
+.item-link4:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+.item-link5:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+.item-link6:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
 }

@@ -214,8 +214,48 @@ app.get("/profile",(req,res)=>{
 
 //Patient list/patient_list
 
-app.get("/doc-dashboard",(req,res)=>{
-    res.render("dashboard-new");
+app.get("/doc-dashboard", async (req, res) =>
+{
+    let DocID= global.LoggedDoctor;
+    async function fetchDataCustomer()  
+    { 
+        try 
+        {
+            const connection = await oracledb.getConnection({
+                user: 'pharmacy_admin',
+                password: '12345',
+                connectString: 'localhost/xepdb1'
+            });
+
+            
+            const DocName= await connection.execute(`SELECT DOCTOR_NAME FROM DOCTOR WHERE DOCTOR_ID= '${DocID}'`);
+            let username= DocName.rows[0];
+            res.render("dashboard-new", { username:username }); 
+        } 
+        catch (error) 
+        {
+            res.status(500).json({ error: 'An error occurred' });
+            console.log(error);
+            return error;
+        } 
+        finally 
+        {
+            if (connection) 
+            {
+                try 
+                {
+                    console.log("NO error");
+                    await connection.close(); // 
+                } 
+                catch (error) 
+                {
+                    console.error(error);
+                }
+            }
+        }
+    }
+
+    await fetchDataCustomer();
 })
 
 
@@ -223,7 +263,7 @@ app.get("/doctor-list", async (req, res) =>
 {
     //let connection;
     let username=req.query.username;
-    let loggedDoc= 'Doc_00001';
+    let DocID= global.LoggedDoctor;
     console.log("M ",username);
     async function fetchDataCustomer() 
     {
@@ -252,7 +292,9 @@ app.get("/doctor-list", async (req, res) =>
                 };
             });
             console.log(jsonData);
-
+            
+            const DocName= await connection.execute(`SELECT DOCTOR_NAME FROM DOCTOR WHERE DOCTOR_ID= '${DocID}'`);
+            username= DocName.rows[0];
             res.render('doctor-list', { data: jsonData,username:username }); // Corrected: data should be result.rows
             return result.rows;
         } 
@@ -287,6 +329,8 @@ app.get("/patient_list", async (req, res) =>
 {
     //let connection;
     let username=req.query.username;
+    let DocID= global.LoggedDoctor;
+    
     let loggedDoc= 'Doc_00001';
     console.log("M ",username);
     async function fetchDataCustomer() 
@@ -309,7 +353,8 @@ app.get("/patient_list", async (req, res) =>
                 };
             });
             console.log(jsonData);
-
+            const DocName= await connection.execute(`SELECT DOCTOR_NAME FROM DOCTOR WHERE DOCTOR_ID= '${DocID}'`);
+            username= DocName.rows[0];
             res.render('patient', { data: jsonData,username:username }); // Corrected: data should be result.rows
             return result.rows;
         } 
@@ -344,6 +389,7 @@ app.get("/payment", async (req, res) =>
     //let connection;
     let username=req.query.username;
     let DocID= global.LoggedDoctor;
+    
     console.log("M ",username);
     async function fetchDataCustomer() 
     {
@@ -365,7 +411,8 @@ app.get("/payment", async (req, res) =>
                 };
             });
             console.log(jsonData);
-
+            const DocName= await connection.execute(`SELECT DOCTOR_NAME FROM DOCTOR WHERE DOCTOR_ID= '${DocID}'`);
+            username= DocName.rows[0];
             res.render('payment', { data: jsonData,username:username }); // Corrected: data should be result.rows
             return result.rows;
         } 
@@ -400,10 +447,8 @@ app.get("/payment", async (req, res) =>
 app.get("/appointment", async (req, res) => 
 {
     //let connection;
-    let username=req.query.username;
     let DocID= LoggedDoctor;
     let PhaID= LoggedPharmacy;
-    console.log("M ",username);
     async function fetchDataCustomer() 
     {
         try 
@@ -413,8 +458,9 @@ app.get("/appointment", async (req, res) =>
                 password: '12345',
                 connectString: 'localhost/xepdb1'
             });
-
-            const result = await connection.execute(`SELECT PATIENT_ID, PATIENT_NAME, PATIENT_EMAIL FROM PATIENT NATURAL JOIN CONSULTS NATURAL JOIN DOCTOR WHERE DOCTOR_ID= '${DocID}' AND PHARMACY_ID= '${PhaID}'`);
+            
+            const DocName= await connection.execute(`SELECT DOCTOR_NAME FROM DOCTOR WHERE DOCTOR_ID= '${DocID}'`);
+            const result = await connection.execute(`SELECT PATIENT_ID, PATIENT_NAME, PATIENT_EMAIL, PHARMACY_NAME FROM PATIENT NATURAL JOIN CONSULTS NATURAL JOIN DOCTOR NATURAL JOIN PHARMACY WHERE DOCTOR_ID= '${DocID}' AND PHARMACY_ID= '${PhaID}'`);
             const result0 = await connection.execute(`SELECT PHARMACY_ID, PHARMACY_NAME FROM DOCTOR NATURAL JOIN HASDOC NATURAL JOIN PHARMACY WHERE DOCTOR_ID= '${DocID}'`);
             console.log(result.rows);
             console.log(result0.rows);
@@ -423,7 +469,8 @@ app.get("/appointment", async (req, res) =>
                 return {
                     id: row[0],
                     name: row[1],
-                    email: row[2]
+                    email: row[2],
+                    pname: row[3] 
                 }; 
             }); 
             const jsonData0 = result0.rows.map(row => 
@@ -433,10 +480,12 @@ app.get("/appointment", async (req, res) =>
                     pname: row[1]
                 }
             });
+            
+            let username= DocName.rows[0];
             console.log(jsonData);
             console.log(jsonData0);
 
-            res.render('appointment', { data: jsonData, phaname: jsonData0, username:username }); // Corrected: data should be result.rows
+            res.render('appointment', { username:username, data: jsonData, phaname: jsonData0}); // Corrected: data should be result.rows
             return result.rows;    
         }          
         catch (error) 
@@ -591,7 +640,7 @@ app.get("/schedule", async (req, res) =>
     let username=req.query.username;
     let DocID= LoggedDoctor;
     let PhaID= LoggedPharmacy;
-    console.log("M ",username);
+
     async function fetchDataCustomer() 
     {
         try 
@@ -606,10 +655,13 @@ app.get("/schedule", async (req, res) =>
             SELECT 
             PHARMACY_NAME, PHARMACY_EMAIL,
             PHARMACY.PHARMACY_ADDRESS.HOUSE_NO || ' ' ||PHARMACY.PHARMACY_ADDRESS.CITY || ' Road ' || PHARMACY.PHARMACY_ADDRESS.ROAD_NO || ' ' || PHARMACY.PHARMACY_ADDRESS.DISTRICT , 
-            START_TIME, END_TIME, CONSULT_DAY 
-            FROM 
-            SCHEDULE NATURAL JOIN HAS NATURAL JOIN DOCTOR NATURAL JOIN HASDOC NATURAL JOIN PHARMACY WHERE DOCTOR_ID= '${DocID}'`);
+            TO_CHAR(START_TIME, 'HH24:MI AM'), TO_CHAR(END_TIME, 'HH24:MI AM'), CONSULT_DAY 
+            FROM  
+            SCHEDULE NATURAL JOIN HAS NATURAL JOIN DOCTOR NATURAL JOIN HASDOC NATURAL JOIN PHARMACY WHERE DOCTOR_ID= '${DocID}'
+            `);
             console.log(result.rows);
+            const DocName= await connection.execute(`SELECT DOCTOR_NAME FROM DOCTOR WHERE DOCTOR_ID= '${DocID}'`);
+            username= DocName.rows[0];
             const jsonData = result.rows.map(row => 
             {
                 return {

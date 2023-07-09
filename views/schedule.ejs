@@ -66,18 +66,16 @@
         <div class="tableFixHead">
           <table>
             <div>
-              <thead>
-                  <tr>
+              <tbody>
+                <tr>
                     <th>No</th>
                     <th>Pharmacy Name</th>
                     <th>Pharmacy Email</th>
-                    <th>Pharmacy Address</th>
+                    <th>Address</th>
                     <th>Start Time</th>
-                    <th>Pharmacy Email</th>
-                  </tr>
-              </thead>
-  
-              <tbody>
+                    <th>End Time</th>
+                    <th>Day of the week</th>
+                </tr>
                   <% for (let i = 0; i < data.length; i++) { %>
                     <tr>
                       <td><%= i+1 %></td>
@@ -103,9 +101,9 @@
 
                 <div class="divsidebar-user-details">
                   <div class="divuser-name">
-                    <div class="dr-kiran-patel">Dr. Kiran Patel</div>
+                    <div class="dr-kiran-patel"><%= username %></div>
                   </div>
-                  <div class="administrator">Administrator</div>
+                  <div class="administrator">Doctor</div>
                 </div>
               </button>
               <a href="./doc-dashboard">
@@ -117,7 +115,7 @@
               </a>
               <a href="https://mail.google.com/mail/u/0/#inbox" target=”_blank”>
                 <button class="item-link1" id="email">
-                  <img class="svg-icon1" alt="" src="../public/svg1.svg" />
+                  <img class="svg-icon" alt="" src="../public/svg1.svg" />
 
                   <div class="email1">Email</div>
                 </button>
@@ -131,28 +129,28 @@
               </a>
               <a href="./appointment">
                 <button class="item-link3" id="appointment">
-                  <img class="svg-icon1" alt="" src="../public/svg3.svg" />
+                  <img class="svg-icon" alt="" src="../public/svg3.svg" />
 
                   <div class="appointment">Appointment</div>
                 </button>
               </a>
               <a href="./doctor-list">
                 <button class="item-link4" id="doctor">
-                  <img class="svg-icon1" alt="" src="../public/svg4.svg" />
+                  <img class="svg-icon" alt="" src="../public/svg4.svg" />
 
                   <div class="doctors-list">Doctors List</div>
                 </button>
               </a>
               <a href="./patient_list">
                 <button class="item-link5" id="patients">
-                  <img class="svg-icon1" alt="" src="../public/svg5.svg" />
+                  <img class="svg-icon" alt="" src="../public/svg5.svg" />
 
                   <div class="patients">Patients</div>
                 </button>
               </a>
               <a href="./payment">
               <button class="item-link6" id="payment">
-                <img class="svg-icon1" alt="" src="../public/svg6.svg" />
+                <img class="svg-icon" alt="" src="../public/svg6.svg" />
 
                 <div class="payments">Payments</div>
               </button>

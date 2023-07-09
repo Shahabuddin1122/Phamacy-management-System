@@ -282,6 +282,7 @@
   width: 1.06rem;
   height: 1.06rem;
   overflow: hidden;
+  filter: invert(78%) sepia(14%) saturate(1761%) hue-rotate(96deg) brightness(95%) contrast(93%);
 }
 .email1 {
   position: absolute;
@@ -521,4 +522,42 @@
   font-size: var(--font-size-16xl);
   color: var(--color-white);
   font-family: var(--font-poppins);
+}
+
+.item-link:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+
+.item-link1:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+.item-link2:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+.item-link3:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+
+.item-link4:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+.item-link5:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
+}
+.item-link6:hover {
+  background-color: #A2E2B8;
+  color: black;
+  border-radius: 8px;
 }
